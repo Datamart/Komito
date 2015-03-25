@@ -38,13 +38,11 @@ function linter::run() {
             fixjsstyle \
                 --strict \
                 --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -x 'externs.js' \
                 -r "${SRC_PATH}"
         else
             python "${PYTHONPATH}/closure_linter/fixjsstyle.py" \
                 --strict \
                 --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -x 'externs.js' \
                 -r "${SRC_PATH}"
         fi
 
@@ -53,13 +51,11 @@ function linter::run() {
             gjslint \
                 --strict \
                 --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -x 'externs.js' \
                 -r "${SRC_PATH}"
         else
             python "${PYTHONPATH}/closure_linter/gjslint.py" \
                 --strict \
                 --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -x 'externs.js' \
                 -r "${SRC_PATH}"
         fi
     fi

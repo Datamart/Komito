@@ -131,13 +131,16 @@
    * @private
    */
   function init_() {
-    for (/** @type {string} */ var key in DEFAULTS) {
+    /** @type {number} */ var i = 0;
+    /** @type {NodeList|HTMLCollection} */ var elements = doc[elements_]('A');
+    /** @type {string} */ var key;
+
+    for (key in DEFAULTS) {
       if (!(key in config_))
         config_[key] = DEFAULTS[key];
     }
 
-    /** @type {NodeList|HTMLCollection} */ var elements = doc[elements_]('A');
-    for (/** @type {number} */ var i = 0; i < elements[length_];)
+    for (; i < elements[length_];)
       link_(/** @type {!HTMLAnchorElement} */ (elements[i++]), i);
 
     if (config_['trackForms']) {
@@ -164,26 +167,27 @@
     /** @type {string} */ var proto = link.protocol[slice_](0, -1);
     /** @type {string} */ var href = link[href_];
     /** @type {string} */ var host = link.hostname;
-    /** @type {!RegExp} */ var re = /^https?$/;
+    /** @type {boolean} */ var isHttp = /^https?$/.test(proto);
+    /** @type {string} */ var social = NETWORKS[host.replace('www.', '')];
+    /** @type {string} */
+    var ext = (href.match(EXT_PATTERN) || ['']).pop()[lower_]();
+    /** @type {number} */
+    var trackExt = ext ? ~DOWNLOADS[index_](',' + ext + ',') : 0;
 
-    if (config_['trackOutbound'] && re.test(proto) &&
-        !~host[index_](loc.hostname)) {
+    if (config_['trackOutbound'] && isHttp && !~host[index_](loc.hostname)) {
       addEvent_(link, mousedown_, function() {
         exec_(EVENT_ACTION_TYPE, 'outbound', host, href, index);
-        /** @type {string} */ var social = NETWORKS[host.replace('www.', '')];
         social && exec_(SOCIAL_ACTION_TYPE, social, 'outbound', href);
       });
     }
 
-    if (config_['trackDownloads']) {
-      var ext = (href.match(EXT_PATTERN) || ['']).pop()[lower_]();
-      if (ext && ~DOWNLOADS[index_](',' + ext + ','))
-        addEvent_(link, mousedown_, function() {
-          exec_(EVENT_ACTION_TYPE, 'download', ext, href);
-        });
+    if (config_['trackDownloads'] && trackExt) {
+      addEvent_(link, mousedown_, function() {
+        exec_(EVENT_ACTION_TYPE, 'download', ext, href);
+      });
     }
 
-    if (config_['trackActions'] && !re.test(proto)) {
+    if (config_['trackActions'] && !isHttp) {
       addEvent_(link, mousedown_, function() {
         exec_(
             EVENT_ACTION_TYPE, proto,
@@ -205,8 +209,11 @@
   function form_(form, index) {
     addEvent_(form, 'submit', function() {
       /** @type {HTMLCollection} */ var elements = form.elements;
-      for (/** @type {number} */ var i = 0; i < elements[length_];) {
-        /** @type {Element} */ var element = elements[i++];
+      /** @type {number} */ var i = 0;
+      /** @type {Element} */ var element;
+
+      for (; i < elements[length_];) {
+        element = elements[i++];
         element.name && exec_(
             EVENT_ACTION_TYPE, 'form',
             form[attr_]('name') || form[attr_]('id') || 'form ' + index,
@@ -224,6 +231,8 @@
     twitter_.counter = twitter_.counter || 0;
     /** @type {!Object.<string, number>} */
     var events = {'click': 0, 'message': 0};
+    /** @type {string} */ var type;
+    /** @type {Object.<string, *>} */ var data;
 
     if (twitter_.counter++ < 9) {
       if (win['twttr'] && win['twttr']['ready']) {
@@ -231,10 +240,9 @@
           addEvent_(win, message_, function(e) {
             try {
               if (e['origin'][substr_](-11) == 'twitter.com' && e['data']) {
-                /** @type {Object.<string, *>} */
-                var data = win['JSON'] && win['JSON']['parse'](e['data']);
+                data = win['JSON'] && win['JSON']['parse'](e['data']);
                 if (data && data['method'] == 'trigger' && data['params']) {
-                  /** @type {string} */ var type = data['params'][0];
+                  type = data['params'][0];
                   if (!(type in events))
                     exec_(SOCIAL_ACTION_TYPE, 'Twitter', type, loc[href_]);
                 }
@@ -243,7 +251,7 @@
           });
 
           win['twttr']['ready'](function(twttr) {
-            for (/** @type {string} */ var type in events)
+            for (type in events)
               twttr['events']['bind'](type, function() {});
           });
           win['__twitterIntentHandler'] = true;
@@ -299,9 +307,13 @@
 
     /** @type {NodeList} */ var elements = doc[elements_]('SCRIPT');
     /** @type {number} */ var length = elements[length_];
-    for (/** @type {number} */ var i = 0; i < length;) {
-      /** @type {Element} */ var element = elements[i++];
-      /** @type {string} */ var type = (element[attr_]('type') || '')[lower_]();
+    /** @type {number} */ var i = 0;
+    /** @type {Element} */ var element;
+    /** @type {string} */ var type;
+
+    for (; i < length;) {
+      element = elements[i++];
+      type = (element[attr_]('type') || '')[lower_]();
       (!type[index_]('in/')) && subscribe(element, type[substr_](3));
     }
   }
@@ -322,12 +334,14 @@
       image.src = USERS[network];
     }
 
-    for (/** @type {string} */ var network in USERS) {
+    /** @type {number} */ var sent = 0;
+    /** @type {string} */ var network;
+
+    for (network in USERS) {
       subscribe(new Image(1, 1), network);
     }
 
     if (win['FB'] && win['FB']['getLoginStatus']) {
-      /** @type {number} */ var sent = 0;
       addEvent_(win, message_, function(e) {
         try {
           if (e['origin'][substr_](-12) == 'facebook.com' && e['data'] &&
@@ -393,17 +407,19 @@
    */
   function exec_(var_args) {
     /** @type {!Array} */ var args = Array.prototype[slice_].call(arguments, 0);
+    /** @type {Array.<Object>} */ var trackers;
+    /** @type {Array} */ var argv;
+
     args[0] = args[0] ? social_ : 'event';
     // args[0] = ['event', social_, 'ecom', 'campaign'][args[0]];
 
     if (win[GA_KEY] && typeof win[GA_KEY] == 'function') {
-      /** @type {Array.<Object>} */
-      var trackers = win[GA_KEY]['getAll'] && win[GA_KEY]['getAll']();
+      trackers = win[GA_KEY]['getAll'] && win[GA_KEY]['getAll']();
       trackers && send_(trackers, 'send', args);
     }
 
     execTagLoader_(args);
-    /** @type {!Array} */ var argv = convert_(args);
+    argv = convert_(args);
     send_([win], 'ClickTaleEvent', [argv.join(':')]);
     send_([win], '__utmTrackEvent', argv);
     win['_hmt'] && send_([win['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
@@ -418,10 +434,13 @@
   function execTagLoader_(args) {
     /** @type {Function} */ var loader = win['TagLoader'];
     /** @type {Object} */ var tracker = win['s'];
+    /** @type {!Array.<string>} */ var vars = [];
+    /** @type {number} */ var i = 1;
+    /** @type {string} */ var key;
+
     if (loader && tracker && (tracker instanceof loader)) {
-      /** @type {!Array.<string>} */ var vars = [];
-      for (/** @type {number} */ var i = 1; i < args[length_]; i++) {
-        /** @type {string} */ var key = 'prop' + i;
+      for (; i < args[length_]; i++) {
+        key = 'prop' + i;
         vars.push(key);
         tracker[key] = args[i];
       }
@@ -476,9 +495,12 @@
    * @private
    */
   function send_(trackers, func, args) {
+    /** @type {number} */ var i = 0;
+    /** @type {Object} */ var tracker;
+
     config_['debugMode'] && win.console && win.console.log(func, args);
-    for (/** @type {number} */ var i = 0; i < trackers[length_];) {
-      /** @type {Object} */ var tracker = trackers[i++];
+    for (; i < trackers[length_];) {
+      tracker = trackers[i++];
       if (tracker[func] && typeof tracker[func] == 'function')
         tracker[func].apply(tracker, args);
     }
