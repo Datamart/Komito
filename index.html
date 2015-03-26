@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Komito by Datamart</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Komito</h1>
+        <p>The Komito Collector is a tool to unlock the power of digital analytics.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/Datamart/Komito" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/Datamart/Komito/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/Datamart/Komito/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a id="komito-collector-at-glance" class="anchor" href="#komito-collector-at-glance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Komito Collector at glance</h1>
+
+<p>The Komito Collector is a tool to unlock the power of digital analytics.
+It enriches analytics data with important information about visitor's behavior.</p>
+
+<table>
+<thead>
+<tr>
+<th>Features</th>
+<th>Compatibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Actions</td>
+<td><a href="http://www.adobe.com/solutions/digital-analytics.html">Adobe Tag Loader</a></td>
+</tr>
+<tr>
+<td>Downloads</td>
+<td><a href="http://tongji.baidu.com/">Baidu Analytics</a></td>
+</tr>
+<tr>
+<td>External links</td>
+<td><a href="http://www.clicktale.com/">ClickTale</a></td>
+</tr>
+<tr>
+<td>Form submissions</td>
+<td><a href="http://www.google.com/analytics/">Google Analytics</a></td>
+</tr>
+<tr>
+<td>Social widgets</td>
+<td><a href="https://support.google.com/urchin">Urchin</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>Caring about privacy and security, the Komito Collector <strong>does not store</strong> any data.</p>
+
+<h2>
+<a id="integration-komito-collector" class="anchor" href="#integration-komito-collector" aria-hidden="true"><span class="octicon octicon-link"></span></a>Integration Komito Collector</h2>
+
+<p>In order to install Komito Collector on your website simply add a line of code just before closing <code>&lt;/body&gt;</code> tag:</p>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/min/komito.js<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<p><strong>Default Komito Collector configuration:</strong></p>
+
+<div class="highlight highlight-html"><pre><span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">  <span class="pl-k">var</span> _komito <span class="pl-k">=</span> _komito <span class="pl-k">||</span> {</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackTwitter<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,   <span class="pl-c">// Tracks Twitter widgets if they presents on page.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackFacebook<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,  <span class="pl-c">// Tracks Facebook widgets if they presents on page.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackLinkedIn<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,  <span class="pl-c">// Tracks LinkedIn plug-ins if they presents on page.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackDownloads<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>, <span class="pl-c">// Tracks download links.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackOutbound<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,  <span class="pl-c">// Tracks outbound links.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackForms<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,     <span class="pl-c">// Tracks forms submissions.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackUsers<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,     <span class="pl-c">// Tracks users logged in to social networks.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackActions<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,   <span class="pl-c">// Tracks 'mailto', 'tel', 'sms' and 'skype' actions.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>trackPrint<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>,     <span class="pl-c">// Tracks page prints.</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>debugMode<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-c1">0</span>       <span class="pl-c">// Enables 'debug' mode.</span></span>
+<span class="pl-s1">  };</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span></pre></div>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/Datamart">Datamart</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
