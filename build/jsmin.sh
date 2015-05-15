@@ -7,15 +7,12 @@ TMP="${CWD}/tmp"
 LIB="${CWD}/lib"
 
 JS_COMPILER_JAR="${LIB}/compiler.jar"
-CSS_COMPILER_JAR="${LIB}/closure-stylesheets.jar"
-
 JS_DOWNLOAD_URL=http://dl.google.com/closure-compiler/compiler-latest.zip
-CSS_DOWNLOAD_URL=http://closure-stylesheets.googlecode.com/files/closure-stylesheets-20111230.jar
 
 WGET="`which wget`"
 CURL="`which curl`"
 
-function minify::download() {
+function download() {
     mkdir -p ${LIB}
 
     if [ ! -f "${JS_COMPILER_JAR}" ]; then
@@ -28,19 +25,9 @@ function minify::download() {
         unzip compiler-latest.zip -d "${LIB}"
         cd ${CWD} && rm -rf ${TMP}
     fi
-
-    if [ ! -f "${CSS_COMPILER_JAR}" ]; then
-        if [ -n "$WGET" ]; then
-            $WGET --no-verbose "${CSS_DOWNLOAD_URL}"
-        else
-            $CURL "${CSS_DOWNLOAD_URL}" > ./closure-stylesheets-20111230.jar
-        fi
-        mv closure-stylesheets-20111230.jar "${CSS_COMPILER_JAR}"
-        rm -rf closure-stylesheets-20111230.jar
-    fi
 }
 
-function minify::js() {
+function minify() {
     local SRC_PATH
     local OUT_PATH
     SRC_PATH=$1
@@ -59,30 +46,12 @@ function minify::js() {
     fi
 }
 
-function minify::css() {
-    local SRC_PATH
-    local OUT_PATH
-    SRC_PATH=$1
-    OUT_PATH=$2
-
-    if [ -d "${SRC_PATH}" ]; then
-        rm -rf "${OUT_PATH}" && touch "${OUT_PATH}" && chmod 0666 "${OUT_PATH}"
-
-        find "${SRC_PATH}" -name "*.css" -print |
-         sed 's/.*/ &/' | sort -n |
-           xargs java -jar "${CSS_COMPILER_JAR}" \
-              --allow-unrecognized-properties \
-              --allow-unrecognized-functions \
-              --output-file "${OUT_PATH}"
-    fi
-}
-
 #
 # The main function.
 #
 function main() {
-    minify::download
-    minify::js "../src" "../min/komito.js"
+    download
+    minify "../src" "../min/komito.js"
 }
 
 main "$@"
