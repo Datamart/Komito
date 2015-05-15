@@ -2,7 +2,7 @@ body {
   background-attachment: fixed;
   background-image: url(http://dtm.io/images/komito-logo-600x455.png);
   background-size: cover;
-  opacity: 0.9;
+  opacity: .95;
 }
 a,
 .dtm-header .dtm-nav li.dtm-nav-main-current a,
