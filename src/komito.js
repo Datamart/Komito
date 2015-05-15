@@ -418,27 +418,23 @@
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {!RegExp} */ var re = /(https?:)?(www\.)?youtube\.com\/embed/;
-    /** @type {!Array.<Element>} */ var iframes = [];
+    /** @type {!Array} */ var iframes = [];
     /** @type {!Array.<string>} */ var types = ['finish', 'play', 'pause'];
     /** @type {HTMLIFrameElement} */ var element;
-    /** @type {string} */ var source;
 
     /** @param {Event} e The event */
     function listener(e) {
       element = /** @type {HTMLIFrameElement} */ (e.target || e.srcElement);
-      source = element['getVideoUrl']();
-      exec_(EVENT_ACTION_TYPE, 'video:youtube', types[e['data']], source);
+      exec_(EVENT_ACTION_TYPE, 'video:youtube', types[e['data']],
+          element['getVideoUrl']());
     }
 
     for (; i < length;) {
       element = elements[i++];
-      source = element.src;
-      if (re.test(source)) {
-        iframes.push(element);
-      }
+      re.test(element.src) && iframes.push(element);
     }
 
-    length = iframes.length;
+    length = iframes[length_];
     if (length) {
       win['onYouTubePlayerAPIReady'] = function() {
         for (i = 0; i < length;) {
@@ -598,7 +594,7 @@
     /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
     /** @type {number} */ var i = 0;
 
-    for (i = 0; i < tags.length;) {
+    for (i = 0; i < tags[length_];) {
       elements.push.apply(elements, getElements_(tags[i++]));
     }
     return elements;
