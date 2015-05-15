@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope
+      itemtype="http://schema.org/WebPage">
 <head>
+  <title itemprop="name">Komito Collector - Integration</title>
+  <meta name="og:title" content="Komito Collector - Integration">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="expires" content="Sun, 30 Nov 2014" /> 
-  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
-  <meta content="Popular modern and powerful data visualization library." name="description">
-  <meta content="html,svg,vml,javascript,charts,data visualization,animation" name="keywords">
-  <meta content="(none)" name="author">
-  <title>Integration | Komito Collector</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="The Komito collector is a tool to unlock the power of digital analytics.">
+  <meta name="og:description" content="The Komito collector is a tool to unlock the power of digital analytics.">
+  <meta name="og:image" content="http://dtm.io/images/dtm-products-komito.png">
+  <meta itemprop="image" content="http://dtm.io/images/dtm-products-komito.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@vpodk">
+  <meta name="twitter:url" content="http://datamart.github.io/Komito/integration/">
+  <meta itemprop="url" content="http://datamart.github.io/Komito/integration/">
+  <link rel="canonical" href="http://datamart.github.io/Komito/integration/">
   <link href="http://www.dtm.io/shared/favicon.ico" rel="shortcut icon">
-  <link href="http://www.dtm.io/shared/assets/compiled-shared.css" type="text/css" rel="stylesheet">
-  <link href="http://www.dtm.io/komito/assets/compiled.css" type="text/css" rel="stylesheet">
-  
+  <link href="http://www.dtm.io/shared/assets/compiled-shared.css" rel="stylesheet">
+  <link href="http://www.dtm.io/komito/assets/compiled.css" rel="stylesheet">
 
 <!--[if lte IE 8]><style type="text/css">.dtm-grid,.dtm-header{min-width: 1140px;}.dtm-header,.dtm-intro,.dtm-intro p span,.dtm-button,.dtm-footer,.dtm-page-scroller:hover{background-color: black;}
 .dtm-logo a{background: url('http://www.dtm.io/images/dtm-logo.png') no-repeat;}.dtm-page-company .dtm-intro p span,.dtm-section-form{background-color: white;}.dtm-section-quality{background-image: none;}.dtm-select:after,.dtm-select:before,.dtm-img-gallery:before,.dtm-img-gallery:after{display:none}input[type="text"],input[type="email"],.dtm-select select{line-height: 40px !important; padding-top: 4px;}.dtm-select select{height: auto; margin: 5px 0;padding-top: 4px;}.dtm-softdev input + label{display: none;}.dtm-dev-list > div{overflow: hidden;}.dtm-dev-list > div,.dtm-softdev .dtm-cell-body {height: auto;}.dtm-dev-list .dtm-sdev-img{margin-right: 0;text-align: center;} .dtm-page-home .dtm-content label {display:none !important;} .dtm-page-home .dtm-content { height: auto !important; overflow: visible !important;}.dtm-page-home .dtm-section.dtm-intro {background-image:none;padding-top: 110px !important; padding-bottom: 4%;}.dtm-softwaredev .cell-span4.cell-offset2 .dtm-cell-body{padding-top: 0;}.dtm-section.dtm-home-contacts{background-color: black;}</style><![endif]-->
@@ -26,26 +32,23 @@
         
           <a href="../"
              class="dtm-ext-logo"
-             title="Komito Collector"><svg version="1.1" id="dtmLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 83 75" enable-background="new 0 0 0 0" xml:space="preserve"><path fill-rule="evenodd" class="ls s-12Hour" clip-rule="evenodd" d="M41.008,0.938c9.558,0,18.338,3.321,25.255,8.87L29.338,2.652 C33.032,1.539,36.949,0.938,41.008,0.938L41.008,0.938z"/><path fill-rule="evenodd" class="ls s-Trianle" clip-rule="evenodd" d="M78.159,25.45c0.784,1.833,1.438,3.736,1.947,5.696L36.787,80.062 l-21-66.474L78.159,25.45L78.159,25.45z"/><path fill-rule="evenodd" class="ls s-5Hour" clip-rule="evenodd" d="M80.388,50.366C77.372,63.57,67.886,74.306,55.443,79.069L80.388,50.366L80.388,50.366z"/><path fill-rule="evenodd" class="ls s-8Hour" clip-rule="evenodd" d="M21.163,76.523C8.896,69.589,0.612,56.431,0.612,41.333
-                  c0-6.387,1.484-12.427,4.124-17.796L21.163,76.523L21.163,76.523z"/></svg><span><b>Datamart</b><i>Komito Collector</i></span></a>
-        
+             title="Komito Collector"><svg version="1.1" id="dtmLogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             x="0px" y="0px" width="48px" height="48px" viewBox="0 0 83 75"
+             enable-background="new 0 0 0 0" xml:space="preserve"><path fill-rule="evenodd"
+             class="ls s-12Hour" clip-rule="evenodd"
+             d="M41.008,0.938c9.558,0,18.338,3.321,25.255,8.87L29.338,2.652 C33.032,1.539,36.949,0.938,41.008,0.938L41.008,0.938z"/><path fill-rule="evenodd" class="ls s-Trianle" clip-rule="evenodd" d="M78.159,25.45c0.784,1.833,1.438,3.736,1.947,5.696L36.787,80.062 l-21-66.474L78.159,25.45L78.159,25.45z"/><path fill-rule="evenodd" class="ls s-5Hour" clip-rule="evenodd" d="M80.388,50.366C77.372,63.57,67.886,74.306,55.443,79.069L80.388,50.366L80.388,50.366z"/><path fill-rule="evenodd" class="ls s-8Hour" clip-rule="evenodd" d="M21.163,76.523C8.896,69.589,0.612,56.431,0.612,41.333
+                  c0-6.387,1.484-12.427,4.124-17.796L21.163,76.523L21.163,76.523z"/></svg><span><b>Komito Collector</b><i>by Datamart</i></span></a>
           <label for="dtm-nav-mobile" class="dtm-nav-mobile"><span class="dtm-nav-lines"></span></label>
         </div>
       </div>
-      <div class="dtm-grid-cell cell-span6"><nav><ul class="dtm-nav">
-
-  
-  <li>
-    <a href='../'
-       title='Komito Collector Overview'>Overview</a></li>
-  <li class="dtm-nav-main-current">
-    <a href='../integration/'
-       title='Komito Collector Integration'>Integration</a></li>
-  <li>
-    <a href='../download/'
-       title='Download Komito Collector'>Download</a></li>  
-       
-</ul></nav></div>
+      <div class="dtm-grid-cell cell-span6">
+        <nav>
+          <ul class="dtm-nav">
+            <li class="dtm-nav-main-current"><a href='./' title='Komito Collector Overview'>Overview</a></li>
+            <li><a href='./integration/' title='Komito Collector Integration'>Integration</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
 
 <div class="dtm-content">
@@ -56,7 +59,6 @@
 
         <p>In order to install Komito Collector on your website simply add a line of code just before closing <code>&lt;/body&gt;</code> tag:</p>
         <code><pre>&lt;script type="text/javascript" src="//datamart.github.io/Komito/komito.js"&gt;&lt;/script&gt;</pre></code>
-
 
         <h3>Default Komito Collector configuration:</h3>
         <code><pre>
@@ -70,6 +72,8 @@
     'trackForms': 1,     // Tracks forms submissions.
     'trackUsers': 1,     // Tracks users logged in to social networks.
     'trackActions': 1,   // Tracks 'mailto', 'tel', 'sms' and 'skype' actions.
+    'trackPrint': 1,     // Tracks page print actions.
+    'trackMedia': 1,     // Tracks HTML5 video, audio and YouTube player events.
     'debugMode': 0       // Enables 'debug' mode.
   };
 &lt;/script&gt;</pre></code>
@@ -108,30 +112,17 @@
   <div class="dtm-grid-row dtm-section dtm-dtv-dwn">
     <div class="dtm-grid-cell cell-span8 cell-offset2">
       <a title="Download Komito Collector"
-         class="dtm-button clr-red" href="../download/"><span>Get Komito Collector Now</span></a>
+         class="dtm-button clr-red"
+         href="//github.com/Datamart/Komito/tree/master"><span>Get Komito Collector Now</span></a>
     </div>
   </div>
 </div>
   <div class="dtm-grid-row dtm-footer">
     <div class="dtm-grid-cell cell-span8 cell-offset2">
       <div class="dtm-cell-body">
-        
-        <nav><ul class="dtm-nav">
-  <li>
-    <a href='../'
-       title='Komito Collector Overview'>Overview</a></li>
-  <li class="dtm-nav-main-current">
-    <a href='../integration/'
-       title='Komito Collector Integration'>Integration</a></li>
-  <li>
-    <a href='../download/'
-       title='Download Komito Collector'>Download</a></li>
-</ul></nav>
-        <p>
-          
+        <p style="padding-top:1em">
           Komito Collector is subject to the terms and conditions
           of <a href="http://www.apache.org/licenses/LICENSE-2.0" title="Apache License">Apache License 2.0</a>
-          
         </p>
         <div class="dtm-grid-row">
           <div class="dtm-grid-cell cell-span8">
@@ -143,26 +134,23 @@
             </div>
           </div>
           <div class="dtm-grid-cell cell-span4">
-            <div class="dtm-cell-body dtm-copyright"><div>&copy;&nbsp;2015&nbsp;Datamart&nbsp;LLC.</div><a href="http://www.linkedin.com/company/datamart-llc" target="_blank" title="Follow Us in LinkedIn"><img src="http://www.dtm.io/images/dtm-linkedin.png" alt="Follow Us in LinkedIn" width="24" height="24"></a></div>
+            <div class="dtm-cell-body dtm-copyright"><div>© 2015 Datamart Inc.</div><a
+                 href="//www.linkedin.com/company/datamartinc" target="_blank"
+                 title="Follow Us in LinkedIn"><img
+                 src="http://www.dtm.io/images/dtm-linkedin.png"
+                 alt="Follow Us in LinkedIn" width="24" height="24"></a></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div><!--/dtm-grid-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<img style="display:none;" width="1" height="1" alt="Urchin Traffic Monitor" src='http://www.dtm.io/__utm.gif?utmwv=5.4.6dc&amp;utmcs=UTF-8&amp;utmje=-&amp;utmfl=-&amp;utmsr=-&amp;utmsc=-&amp;utmac=UA-5065160-11&amp;utmdt=(none)&amp;utmn=1427354043&amp;utmhn=dtm.io&amp;utmp=/komito/integration/&amp;utmr=http://dtm.io/komito/&amp;utmul=en&amp;utmcc=__utma%3D10254137221.1622067893.1427354043.1427354043.1427354043.1%3B%2B__utmz%3D10254137221.1427354043.1.1.utmcsr%3D%28none%29%7Cutmccn%3D%28none%29%7Cutmcmd%3D%28none%29%3B'>
-<img style="display:none;" width="1" height="1" alt="Google Analytics Tracker" src='http://stats.g.doubleclick.net/__utm.gif?utmwv=5.4.6dc&amp;utmcs=UTF-8&amp;utmje=-&amp;utmfl=-&amp;utmsr=-&amp;utmsc=-&amp;utmac=UA-5065160-11&amp;utmdt=(none)&amp;utmn=1427354043&amp;utmhn=dtm.io&amp;utmp=/komito/integration/&amp;utmr=http://dtm.io/komito/&amp;utmul=en&amp;utmcc=__utma%3D10254137221.1622067893.1427354043.1427354043.1427354043.1%3B%2B__utmz%3D10254137221.1427354043.1.1.utmcsr%3D%28none%29%7Cutmccn%3D%28none%29%7Cutmcmd%3D%28none%29%3B'></body></html>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create','UA-5065160-14','auto');
+ga('send','pageview');
+</script>
+</body></html>
