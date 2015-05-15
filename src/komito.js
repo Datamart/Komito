@@ -38,6 +38,7 @@
     'trackActions': 1,
     'trackPrint': 1,
     'trackMedia': 1,
+    'trackScroll': 1,
     'debugMode': 0
   };
 
@@ -158,6 +159,7 @@
     config_['trackUsers'] && users_();
     config_['trackPrint'] && print_();
     config_['trackMedia'] && media_();
+    config_['trackScroll'] && scroll_();
   }
 
   /**
@@ -449,6 +451,28 @@
         getElements_('HEAD')[0].appendChild(
             doc.createElement('SCRIPT')).src = '//www.youtube.com/iframe_api';
     }
+  }
+
+  /**
+   * Tracks scroll events on page.
+   * @private
+   */
+  function scroll_() {
+    /** @type {number} */ var depth = 0;
+    /** @type {Element} */ var root = doc.documentElement;
+    /** @type {string} */ var evt = 'scroll';
+    /** @type {number} */ var percent;
+    /** @type {number} */ var step;
+
+    addEvent_(win, evt, function() {
+      percent = ((root.scrollTop + doc.body.scrollTop) /
+          (root.scrollHeight - root.clientHeight) * 100);
+      step = ~~(percent / 25) * 25;
+      if (depth != step) {
+        depth = step;
+        exec_(EVENT_ACTION_TYPE, evt, 'depth', depth);
+      }
+    });
   }
 
   /**
