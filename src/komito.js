@@ -458,19 +458,18 @@
    * @private
    */
   function scroll_() {
-    /** @type {number} */ var depth = 0;
     /** @type {Element} */ var root = doc.documentElement;
-    /** @type {string} */ var evt = 'scroll';
-    /** @type {number} */ var percent;
     /** @type {number} */ var step;
+    /** @type {number} */ var depth;
 
-    addEvent_(win, evt, function() {
-      percent = ((root.scrollTop + doc.body.scrollTop) /
-          (root.scrollHeight - root.clientHeight) * 100);
+    addEvent_(win, 'scroll', function() {
+      /** @type {number} */ var percent =
+          (root.scrollTop + doc.body.scrollTop) /
+          (root.scrollHeight - root.clientHeight) * 100;
       step = ~~(percent / 25) * 25;
       if (depth != step) {
         depth = step;
-        exec_(EVENT_ACTION_TYPE, evt, 'depth', depth);
+        exec_(EVENT_ACTION_TYPE, 'scroll', 'depth', depth);
       }
     });
   }
