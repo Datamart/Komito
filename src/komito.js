@@ -37,12 +37,13 @@
     'trackUsers': 1,
     'trackActions': 1,
     'trackPrint': 1,
+    'trackMedia': 1,
     'debugMode': 0
   };
 
   /**
    * Map of social networks.
-   * @type {Object.<string, string>}
+   * @type {!Object.<string, string>}
    */
   var NETWORKS = {
     'plus.google.com': 'Google+',
@@ -132,7 +133,8 @@
    */
   function init_() {
     /** @type {number} */ var i = 0;
-    /** @type {NodeList|HTMLCollection} */ var elements = doc[elements_]('A');
+    /** @type {NodeList|HTMLCollection} */ var elements = getElements_('A');
+    /** @type {number} */ var length = elements[length_];
     /** @type {string} */ var key;
 
     for (key in DEFAULTS) {
@@ -140,12 +142,13 @@
         config_[key] = DEFAULTS[key];
     }
 
-    for (; i < elements[length_];)
+    for (; i < length;)
       link_(/** @type {!HTMLAnchorElement} */ (elements[i++]), i);
 
     if (config_['trackForms']) {
       elements = doc.forms;
-      for (i = 0; i < elements[length_];)
+      length = elements[length_];
+      for (i = 0; i < length;)
         form_(/** @type {!HTMLFormElement} */ (elements[i++]), i);
     }
 
@@ -154,6 +157,7 @@
     config_['trackLinkedIn'] && linkedin_();
     config_['trackUsers'] && users_();
     config_['trackPrint'] && print_();
+    config_['trackMedia'] && media_();
   }
 
   /**
@@ -305,7 +309,7 @@
       };
     }
 
-    /** @type {NodeList} */ var elements = doc[elements_]('SCRIPT');
+    /** @type {NodeList} */ var elements = getElements_('SCRIPT');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {Element} */ var element;
@@ -373,6 +377,82 @@
 
     queryList && queryList['addListener'](afterprint);
     addEvent_(win, 'afterprint', afterprint);
+  }
+
+  /**
+   * Tracks media (video and audio) events on page.
+   * @private
+   */
+  function media_() {
+    /** @type {!Array.<HTMLMediaElement>} */ var elements =
+        /** @type {!Array.<HTMLMediaElement>} */ (toArray_('AUDIO', 'VIDEO'));
+    /** @type {number} */ var length = elements[length_] >>> 0;
+    /** @type {number} */ var i = 0;
+    /** @type {HTMLMediaElement} */ var element;
+    /** @type {string} */ var source;
+
+    /** @param {Event} e The event */
+    function listener(e) {
+      element = /** @type {HTMLMediaElement} */ (e.target || e.srcElement);
+      source = element['currentSrc'] || element['src'];
+      exec_(EVENT_ACTION_TYPE, element.tagName + ':html5', e.type, source);
+    }
+
+    for (; i < length;) {
+      element = elements[i++];
+      addEvent_(element, 'ended', listener);
+      addEvent_(element, 'pause', listener);
+      addEvent_(element, 'play', listener);
+    }
+
+    youtube_();
+  }
+
+  /**
+   * Tracks youtube video events on page.
+   * @see https://developers.google.com/youtube/iframe_api_reference
+   * @private
+   */
+  function youtube_() {
+    /** @type {NodeList} */ var elements = getElements_('IFRAME');
+    /** @type {number} */ var length = elements[length_];
+    /** @type {number} */ var i = 0;
+    /** @type {!RegExp} */ var re = /(https?:)?(www\.)?youtube\.com\/embed/;
+    /** @type {!Array.<Element>} */ var iframes = [];
+    /** @type {!Array.<string>} */ var types = ['finish', 'play', 'pause'];
+    /** @type {HTMLIFrameElement} */ var element;
+    /** @type {string} */ var source;
+
+    /** @param {Event} e The event */
+    function listener(e) {
+      element = /** @type {HTMLIFrameElement} */ (e.target || e.srcElement);
+      source = element['getVideoUrl']();
+      exec_(EVENT_ACTION_TYPE, 'video:youtube', types[e['data']], source);
+    }
+
+    for (; i < length;) {
+      element = elements[i++];
+      source = element.src;
+      if (re.test(source)) {
+        iframes.push(element);
+      }
+    }
+
+    length = iframes.length;
+    if (length) {
+      win['onYouTubePlayerAPIReady'] = function() {
+        for (i = 0; i < length;) {
+          new win['YT']['Player'](iframes[i++], {
+            'events': {'onStateChange': listener},
+            'playerVars': {'enablejsapi': 1}
+          });
+        }
+      };
+
+      if (!win['YT'])
+        getElements_('HEAD')[0].appendChild(
+            doc.createElement('SCRIPT')).src = '//www.youtube.com/iframe_api';
+    }
   }
 
   /**
@@ -495,15 +575,43 @@
    * @private
    */
   function send_(trackers, func, args) {
+    /** @type {number} */ var length = trackers[length_] >>> 0;
     /** @type {number} */ var i = 0;
     /** @type {Object} */ var tracker;
 
     config_['debugMode'] && win.console && win.console.log(func, args);
-    for (; i < trackers[length_];) {
+    for (; i < length;) {
       tracker = trackers[i++];
       if (tracker[func] && typeof tracker[func] == 'function')
         tracker[func].apply(tracker, args);
     }
+  }
+
+  /**
+   * @param {...string} var_args The elements tag names to convert.
+   * @return {!Array.<Element>} Returns converted elements to array.
+   * @private
+   */
+  function toArray_(var_args) {
+    /** @type {!Array.<Element>} */ var elements = [];
+    /** @type {Function} */ var slice = Array.prototype[slice_];
+    /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
+    /** @type {number} */ var i = 0;
+
+    for (i = 0; i < tags.length;) {
+      elements.push.apply(elements, getElements_(tags[i++]));
+    }
+    return elements;
+  }
+
+  /**
+   * The shortcut for '(HTMLDocument).getElementsByTagName' method.
+   * @param {string} tagName The tag name.
+   * @return {NodeList}
+   * @private
+   */
+  function getElements_(tagName) {
+    return doc.getElementsByTagName(tagName);
   }
 
   /**
@@ -540,13 +648,6 @@
    * @private
    */
   var attr_ = 'getAttribute';
-
-  /**
-   * The shortcut for '(HTMLDocument).getElementsByTagName' method.
-   * @type {string}
-   * @private
-   */
-  var elements_ = 'getElementsByTagName';
 
   /**
    * The shortcut for '(string).indexOf' method.
