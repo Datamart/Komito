@@ -458,17 +458,17 @@
    * @private
    */
   function scroll_() {
+    /** @type {Object} */ var map = {25: 0, 50: 0, 75: 0, 100: 0};
     /** @type {Element} */ var root = doc.documentElement;
-    /** @type {number} */ var step;
     /** @type {number} */ var depth;
 
     addEvent_(win, 'scroll', function() {
       /** @type {number} */ var percent =
           (root.scrollTop + doc.body.scrollTop) /
           (root.scrollHeight - root.clientHeight) * 100;
-      step = ~~(percent / 25) * 25;
-      if (depth != step) {
-        depth = step;
+      depth = ~~(percent / 25) * 25;
+      if (depth && !map[depth]) {
+        map[depth] = 1;
         exec_(EVENT_ACTION_TYPE, 'scroll', 'depth', depth);
       }
     });
