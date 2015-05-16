@@ -469,7 +469,7 @@
       depth = ~~(percent / 25) * 25;
       if (depth && !map[depth]) {
         map[depth] = 1;
-        exec_(EVENT_ACTION_TYPE, 'scroll', 'depth', depth);
+        exec_(EVENT_ACTION_TYPE, 'scroll', 'depth', depth + '%');
       }
     });
   }
