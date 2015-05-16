@@ -1,6 +1,7 @@
 body {
   background-attachment: fixed;
-  background-image: url(http://dtm.io/images/komito-logo-600x455.png);
+  background-color: white;
+  background-image: url(../komito-bg.png);
   background-size: cover;
   opacity: .95;
 }
