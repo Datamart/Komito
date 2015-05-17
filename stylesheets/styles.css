@@ -16,7 +16,7 @@ a,
 .dtm-logo a {padding: 0;}
 .dtm-product p {padding-top: 1em;}
 .dtm-footer .dtm-ext-logo b {font-weight: normal;}
-.dtm-footer p {max-width: auto;}
+.dtm-footer p {max-width: none;}
 .dtm-button.clr-red {
   background: #097ec7;
   background: -moz-linear-gradient(top, #dfeff9 0%, #097ec7 100%);
