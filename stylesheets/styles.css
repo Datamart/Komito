@@ -31,5 +31,3 @@ a,
 .dtm-button.clr-red:hover {background: #097ec7;}
 .kc-features {display: block; margin: -1em 0 2em 2.7em; text-decoration: none;}
 .kc-features i {font-style: normal; text-decoration: underline;}
-.kc-parameter {font-style: italic; font-size: .9em;}
-.kc-parameter code {font-size: 125%; font-style: normal;}
