@@ -1,0 +1,33 @@
+body {
+  background-attachment: fixed;
+  background-color: white;
+  background-image: url(/Komito/images/komito-bg.png);
+  background-size: cover;
+  opacity: .95;
+}
+a,
+.dtm-header .dtm-nav li.dtm-nav-main-current a,
+.dtm-footer nav li.dtm-nav-main-current a,
+.dtm-header .dtm-nav li a:hover,
+.dtm-footer a:hover {color: #097ec7;}
+.dtm-header .dtm-nav li.dtm-nav-main-current {border-top: 2px solid #097ec7;}
+.dtm-product h2, .dtm-product h4 {color: #333;}
+.dtm-header,.dtm-footer,.dtm-footer .dtm-copyright div {background-color: #333;}
+.dtm-logo a {padding: 0;}
+.dtm-product p {padding-top: 1em;}
+.dtm-footer .dtm-ext-logo b {font-weight: normal;}
+.dtm-footer p {max-width: none;}
+.dtm-button.clr-red {
+  background: #097ec7;
+  background: -moz-linear-gradient(top, #dfeff9 0%, #097ec7 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dfeff9), color-stop(100%, #097ec7));
+  background: -webkit-linear-gradient(top, #dfeff9 0%, #097ec7 100%);
+  background: -o-linear-gradient(top, #dfeff9 0%, #097ec7 100%);
+  background: -ms-linear-gradient(top, #dfeff9 0%, #097ec7 100%);
+  background: linear-gradient(to bottom, #dfeff9 0%, #097ec7 100%);
+  border: 1px solid #2f90d3;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfeff9', endColorstr='#097ec7', GradientType=0);
+}
+.dtm-button.clr-red:hover {background: #097ec7;}
+.kc-features {display: block; margin: -1em 0 2em 2.7em; text-decoration: none;}
+.kc-features i {font-style: normal; text-decoration: underline;}
