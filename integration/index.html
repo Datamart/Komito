@@ -2,117 +2,119 @@
 <html xmlns="http://www.w3.org/1999/xhtml" itemscope
       itemtype="http://schema.org/WebPage">
 <head>
-  <title itemprop="name">Komito - Integration</title>
-  <meta name="og:title" content="Komito - Integration">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="The Komito is a tool to unlock the power of digital analytics.">
-  <meta name="og:description" content="The Komito is a tool to unlock the power of digital analytics.">
-  <meta name="og:image" content="http://dtm.io/images/komito-logo-600x455.png">
-  <meta itemprop="image" content="http://dtm.io/images/komito-logo-120x90.png">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="@vpodk">
-  <meta name="twitter:url" content="http://datamart.github.io/Komito/integration/">
-  <meta itemprop="url" content="http://datamart.github.io/Komito/integration/">
-  <link rel="canonical" href="http://datamart.github.io/Komito/integration/">
-  <link href="/Komito/favicon.ico" rel="shortcut icon">
-  <link href="http://www.dtm.io/shared/assets/compiled-shared.css" rel="stylesheet">
-  <link href="../stylesheets/styles.css" rel="stylesheet">
-  <!--[if lte IE 8]><style type="text/css">.dtm-grid,.dtm-header,.dtm-footer{min-width: 1140px;}</style><![endif]-->
-  <!--[if lte IE 7]><style type="text/css">.dtm-grid-row{overflow:hidden;}</style><![endif]--> 
+<title itemprop="name">Komito - Integration</title>
+<meta name="og:title" content="Komito - Integration">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="The Komito is a tool to unlock the power of digital analytics.">
+<meta name="og:description" content="The Komito is a tool to unlock the power of digital analytics.">
+<meta name="og:image" content="http://dtm.io/images/komito-logo-600x455.png">
+<meta itemprop="image" content="http://dtm.io/images/komito-logo-120x90.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@vpodk">
+<meta name="twitter:url" content="http://datamart.github.io/Komito/integration/">
+<meta itemprop="url" content="http://datamart.github.io/Komito/integration/">
+<link rel="canonical" href="http://datamart.github.io/Komito/integration/">
+<link href="/Komito/favicon.ico" rel="shortcut icon">
+<link href="http://www.dtm.io/shared/assets/compiled-shared.css" rel="stylesheet">
+<link href="/Komito/stylesheets/styles.css" rel="stylesheet">
+<!--[if lte IE 8]><style type="text/css">.dtm-grid,.dtm-header,.dtm-footer{min-width: 1140px;}</style><![endif]-->
+<!--[if lte IE 7]><style type="text/css">.dtm-grid-row{overflow:hidden;}</style><![endif]--> 
 </head>
 <body class="dtm-page-komito dtm-product">
-  <input type="checkbox" id="dtm-nav-mobile" style="display:none;">
-  <div class="dtm-grid">
-    <div class="dtm-grid-row dtm-header">
-      <div class="dtm-grid-cell cell-span2 cell-offset2">
-        <div class="dtm-cell-body dtm-logo">
-          <a href="../"
-             class="dtm-ext-logo"
-             title="Komito"><img 
-             src="http://dtm.io/images/komito-logo-site.png"
-             alt="Komito"><span><b>Komito</b><i>by Datamart</i></span></a>
-          <label for="dtm-nav-mobile" class="dtm-nav-mobile"><span class="dtm-nav-lines"></span></label>
+<input type="checkbox" id="dtm-nav-mobile" style="display:none;">
+<div class="dtm-grid">
+  <div class="dtm-grid-row dtm-header">
+    <div class="dtm-grid-cell cell-span2 cell-offset2">
+      <div class="dtm-cell-body dtm-logo">
+        <a href="/Komito/"
+           class="dtm-ext-logo"
+           title="Komito"><img 
+           src="http://dtm.io/images/komito-logo-site.png"
+           alt="Komito"><span><b>Komito</b><i>by Datamart</i></span></a>
+        <label for="dtm-nav-mobile" class="dtm-nav-mobile"><span
+               class="dtm-nav-lines"></span></label>
+      </div>
+    </div>
+    <div class="dtm-grid-cell cell-span6">
+      <nav>
+        <ul class="dtm-nav">
+          <li><a href='/Komito/' title='Komito Overview'>Overview</a></li>
+          <li class="dtm-nav-main-current"><a href='/Komito/integration/'
+              title='Komito Integration'>Integration</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="dtm-content">
+    <div class="dtm-grid-row dtm-section">
+      <div class="dtm-grid-cell cell-span8 cell-offset2">
+        <div class="dtm-cell-body">
+          <h1>Integration of Komito</h1>
+
+          <p>In order to install Komito on your website simply add a line of code just before closing <code>&lt;/body&gt;</code> tag:</p>
+          <code><pre>&lt;script src="<a href="//datamart.github.io/Komito/komito.js" target="_blank">//datamart.github.io/Komito/komito.js</a>"&gt;&lt;/script&gt;</pre></code>
+
+          <h3>Default Komito configuration:</h3>
+          <code><pre>
+  &lt;script&gt;
+    <b>var</b> _komito = _komito || {
+      'trackTwitter': 1,   // Tracks Twitter widgets if they presents on page.
+      'trackFacebook': 1,  // Tracks Facebook widgets if they presents on page.
+      'trackLinkedIn': 1,  // Tracks LinkedIn plug-ins if they presents on page.
+      'trackDownloads': 1, // Tracks download links.
+      'trackOutbound': 1,  // Tracks outbound links.
+      'trackForms': 1,     // Tracks forms submissions.
+      'trackUsers': 1,     // Tracks users logged in to social networks.
+      'trackActions': 1,   // Tracks 'mailto', 'tel', 'sms' and 'skype' actions.
+      'trackPrint': 1,     // Tracks page print actions.
+      'trackMedia': 1,     // Tracks HTML5 video, audio and YouTube player events.
+      'trackScroll': 1,    // Tracks scroll depth.
+      'debugMode': 0       // Enables 'debug' mode.
+    };
+  &lt;/script&gt;</pre></code>
+
+          <h3 id="features">Komito configuration parameters:</h3>
+            <h4>Social:</h4>
+            <p>Tracks users' interaction with different on page widgets. Statistics available in custom reports or in social report.</p>
+            <p class="kc-parameter"><code>trackTwitter</code> &mdash; Tries to attach listener to Twitter widget object if it presents on page. Tracking events: favorite, follow, retweet, tweet.</p>
+            <p class="kc-parameter"><code>trackFacebook</code> &mdash; Tries to attach listener to Facebook widget object if it presents on page. Tracking events: like, unlike, message.</p>
+            <p class="kc-parameter"><code>trackLinkedIn</code> &mdash; Tries to attach listener to LinkedIn plugin if it presents on page. Tracking events: share, follow.</p>
+
+            <h4>Downloads:</h4>
+            <p>Tracks downloads by different file types. Statistics available in custom reports or in events report.</p>
+            <p class="kc-parameter"><code>trackDownloads</code> &mdash; Tracks downloads by different file types.</p>
+            <p>Default file extensions: <code>mp3, mp4, wma, mov, avi, wmv, mkv, eot, woff, ttf, txt, csv, tsv, pdf, doc, docx, xls, xlsx, ppt, pptx, zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z, ida, exe, sh, bat</code></p>
+
+            <h4>External links</h4>
+            <p>Tracks all outbounding links. Recognises links to social networks and lists those in the social report as well. Statistics available in custom reports or in events report (statistics for links to social networks will be available in social report).</p>
+            <p class="kc-parameter"><code>trackOutbound</code> &mdash; Tracks all outbounding links.</p>
+            <p>List of social networks: <i>Google+, Blogger, Facebook, Twitter, LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo, Reddit, Pinterest, Digg, Foursquare</i>.</p>
+
+            <h4>Forms</h4>
+            <p>Tracks submitted forms. Statistics available in custom reports or in events report.</p>
+            <p class="kc-parameter"><code>trackForms</code> &mdash; Attaches event listener to all forms on page.</p>
+
+            <h4>Logged in Users</h4>
+            <p>Tracks users that are logged in some social network while browsing your site. Statistics available in custom reports or in social report. Networks: Facebook, Google+, Twitter</p>
+            <p class="kc-parameter"><code>trackUsers</code> &mdash; Tracks users logged in to social networks.</p>
+
+            <h4>Action links</h4>
+            <p>Tracks action links (mailto, tel, skype, etc). Statistics available in custom reports or in events report.</p>
+            <p class="kc-parameter"><code>trackActions</code> &mdash; Attaches event listener to action links.</p>
         </div>
       </div>
-      <div class="dtm-grid-cell cell-span6">
-        <nav>
-          <ul class="dtm-nav">
-            <li><a href='../' title='Komito Overview'>Overview</a></li>
-            <li class="dtm-nav-main-current"><a href='../integration/'
-                title='Komito Integration'>Integration</a></li>
-          </ul>
-        </nav>
-      </div>
     </div>
-
-<div class="dtm-content">
-  <div class="dtm-grid-row dtm-section">
-    <div class="dtm-grid-cell cell-span8 cell-offset2">
-      <div class="dtm-cell-body">
-        <h1>Integration of Komito</h1>
-
-        <p>In order to install Komito on your website simply add a line of code just before closing <code>&lt;/body&gt;</code> tag:</p>
-        <code><pre>&lt;script src="<a href="//datamart.github.io/Komito/komito.js" target="_blank">//datamart.github.io/Komito/komito.js</a>"&gt;&lt;/script&gt;</pre></code>
-
-        <h3>Default Komito configuration:</h3>
-        <code><pre>
-&lt;script&gt;
-  <b>var</b> _komito = _komito || {
-    'trackTwitter': 1,   // Tracks Twitter widgets if they presents on page.
-    'trackFacebook': 1,  // Tracks Facebook widgets if they presents on page.
-    'trackLinkedIn': 1,  // Tracks LinkedIn plug-ins if they presents on page.
-    'trackDownloads': 1, // Tracks download links.
-    'trackOutbound': 1,  // Tracks outbound links.
-    'trackForms': 1,     // Tracks forms submissions.
-    'trackUsers': 1,     // Tracks users logged in to social networks.
-    'trackActions': 1,   // Tracks 'mailto', 'tel', 'sms' and 'skype' actions.
-    'trackPrint': 1,     // Tracks page print actions.
-    'trackMedia': 1,     // Tracks HTML5 video, audio and YouTube player events.
-    'trackScroll': 1,    // Tracks scroll depth.
-    'debugMode': 0       // Enables 'debug' mode.
-  };
-&lt;/script&gt;</pre></code>
-
-        <h3 id="features">Komito configuration parameters:</h3>
-          <h4>Social:</h4>
-          <p>Tracks users' interaction with different on page widgets. Statistics available in custom reports or in social report.</p>
-          <p class="kc-parameter"><code>trackTwitter</code> &mdash; Tries to attach listener to Twitter widget object if it presents on page. Tracking events: favorite, follow, retweet, tweet.</p>
-          <p class="kc-parameter"><code>trackFacebook</code> &mdash; Tries to attach listener to Facebook widget object if it presents on page. Tracking events: like, unlike, message.</p>
-          <p class="kc-parameter"><code>trackLinkedIn</code> &mdash; Tries to attach listener to LinkedIn plugin if it presents on page. Tracking events: share, follow.</p>
-
-          <h4>Downloads:</h4>
-          <p>Tracks downloads by different file types. Statistics available in custom reports or in events report.</p>
-          <p class="kc-parameter"><code>trackDownloads</code> &mdash; Tracks downloads by different file types.</p>
-          <p>Default file extensions: <code>mp3, mp4, wma, mov, avi, wmv, mkv, eot, woff, ttf, txt, csv, tsv, pdf, doc, docx, xls, xlsx, ppt, pptx, zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z, ida, exe, sh, bat</code></p>
-
-          <h4>External links</h4>
-          <p>Tracks all outbounding links. Recognises links to social networks and lists those in the social report as well. Statistics available in custom reports or in events report (statistics for links to social networks will be available in social report).</p>
-          <p class="kc-parameter"><code>trackOutbound</code> &mdash; Tracks all outbounding links.</p>
-          <p>List of social networks: <i>Google+, Blogger, Facebook, Twitter, LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo, Reddit, Pinterest, Digg, Foursquare</i>.</p>
-
-          <h4>Forms</h4>
-          <p>Tracks submitted forms. Statistics available in custom reports or in events report.</p>
-          <p class="kc-parameter"><code>trackForms</code> &mdash; Attaches event listener to all forms on page.</p>
-
-          <h4>Logged in Users</h4>
-          <p>Tracks users that are logged in some social network while browsing your site. Statistics available in custom reports or in social report. Networks: Facebook, Google+, Twitter</p>
-          <p class="kc-parameter"><code>trackUsers</code> &mdash; Tracks users logged in to social networks.</p>
-
-          <h4>Action links</h4>
-          <p>Tracks action links (mailto, tel, skype, etc). Statistics available in custom reports or in events report.</p>
-          <p class="kc-parameter"><code>trackActions</code> &mdash; Attaches event listener to action links.</p>
+    <div class="dtm-grid-row dtm-section dtm-dtv-dwn">
+      <div class="dtm-grid-cell cell-span8 cell-offset2">
+        <a title="Download Komito"
+           class="dtm-button clr-red"
+           href="//github.com/Datamart/Komito/tree/master"><span>Get Komito Now</span></a>
       </div>
     </div>
   </div>
-  <div class="dtm-grid-row dtm-section dtm-dtv-dwn">
-    <div class="dtm-grid-cell cell-span8 cell-offset2">
-      <a title="Download Komito"
-         class="dtm-button clr-red"
-         href="//github.com/Datamart/Komito/tree/master"><span>Get Komito Now</span></a>
-    </div>
-  </div>
-</div>
+
   <div class="dtm-grid-row dtm-footer">
     <div class="dtm-grid-cell cell-span8 cell-offset2">
       <div class="dtm-cell-body">
@@ -135,8 +137,10 @@
             <div class="dtm-cell-body dtm-copyright">
             <p style="text-align:right;margin-top:.8em">
               Komito is subject to the terms and conditions of
-              <a href="http://www.apache.org/licenses/LICENSE-2.0" title="Apache License">Apache License 2.0</a>
-              <br>© 2015 <a href="http://dtm.io" title="Datamart Inc.">Datamart Inc.</a>
+              <a href="http://www.apache.org/licenses/LICENSE-2.0"
+                title="Apache License">Apache License 2.0</a>
+              <br>© 2015 <a href="http://dtm.io"
+                title="Datamart Inc.">Datamart Inc.</a>
             </p>
             </div>
           </div>
