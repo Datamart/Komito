@@ -77,32 +77,48 @@
 
           <h3 id="features">Komito configuration parameters:</h3>
             <h4>Social:</h4>
-            <p>Tracks users' interaction with different on page widgets. Statistics available in custom reports or in social report.</p>
-            <p class="kc-parameter"><code>trackTwitter</code> &mdash; Tries to attach listener to Twitter widget object if it presents on page. Tracking events: favorite, follow, retweet, tweet.</p>
-            <p class="kc-parameter"><code>trackFacebook</code> &mdash; Tries to attach listener to Facebook widget object if it presents on page. Tracking events: like, unlike, message.</p>
-            <p class="kc-parameter"><code>trackLinkedIn</code> &mdash; Tries to attach listener to LinkedIn plugin if it presents on page. Tracking events: share, follow.</p>
+            <p>Tracks users' interaction with different on page widgets.
+              Statistics available in custom reports or in social report.</p>
+            <p class="kc-parameter">
+              <code>trackTwitter</code> Tracks <a target="_blank" rel="nofollow"
+              href="https://dev.twitter.com/docs/tfw/events">Twitter</a>
+              events if widget presents on page.
+              Tracking events: favorite, follow, retweet, tweet.
+            </p>
+            <p class="kc-parameter">
+              <code>trackFacebook</code> Tracks <a target="_blank" rel="nofollow"
+              href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe">Facebook</a>
+              events if widget presents on page.
+              Tracking events: like, unlike, message.
+            </p>
+            <p class="kc-parameter">
+              <code>trackLinkedIn</code> Tracks <a target="_blank" rel="nofollow"
+              href="https://developer.linkedin.com/plugins">LinkedIn</a>
+              events if plugin presents on page.
+              Tracking events: share, follow.
+            </p>
 
             <h4>Downloads:</h4>
             <p>Tracks downloads by different file types. Statistics available in custom reports or in events report.</p>
-            <p class="kc-parameter"><code>trackDownloads</code> &mdash; Tracks downloads by different file types.</p>
+            <p class="kc-parameter"><code>trackDownloads</code> — Tracks downloads by different file types.</p>
             <p>Default file extensions: <code>mp3, mp4, wma, mov, avi, wmv, mkv, eot, woff, ttf, txt, csv, tsv, pdf, doc, docx, xls, xlsx, ppt, pptx, zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z, ida, exe, sh, bat</code></p>
 
             <h4>External links</h4>
             <p>Tracks all outbounding links. Recognises links to social networks and lists those in the social report as well. Statistics available in custom reports or in events report (statistics for links to social networks will be available in social report).</p>
-            <p class="kc-parameter"><code>trackOutbound</code> &mdash; Tracks all outbounding links.</p>
+            <p class="kc-parameter"><code>trackOutbound</code> — Tracks all outbounding links.</p>
             <p>List of social networks: <i>Google+, Blogger, Facebook, Twitter, LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo, Reddit, Pinterest, Digg, Foursquare</i>.</p>
 
             <h4>Forms</h4>
             <p>Tracks submitted forms. Statistics available in custom reports or in events report.</p>
-            <p class="kc-parameter"><code>trackForms</code> &mdash; Attaches event listener to all forms on page.</p>
+            <p class="kc-parameter"><code>trackForms</code> — Attaches event listener to all forms on page.</p>
 
             <h4>Logged in Users</h4>
             <p>Tracks users that are logged in some social network while browsing your site. Statistics available in custom reports or in social report. Networks: Facebook, Google+, Twitter</p>
-            <p class="kc-parameter"><code>trackUsers</code> &mdash; Tracks users logged in to social networks.</p>
+            <p class="kc-parameter"><code>trackUsers</code> — Tracks users logged in to social networks.</p>
 
-            <h4>Action links</h4>
+            <h4>Call to action links</h4>
             <p>Tracks action links (mailto, tel, skype, etc). Statistics available in custom reports or in events report.</p>
-            <p class="kc-parameter"><code>trackActions</code> &mdash; Attaches event listener to action links.</p>
+            <p class="kc-parameter"><code>trackActions</code> — Attaches event listener to action links.</p>
         </div>
       </div>
     </div>
