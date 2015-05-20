@@ -69,7 +69,7 @@
       'trackUsers': 1,     // Tracks users logged in to social networks.
       'trackActions': 1,   // Tracks 'mailto', 'tel', 'sms' and 'skype' actions.
       'trackPrint': 1,     // Tracks page print actions.
-      'trackMedia': 1,     // Tracks HTML5 video, audio and YouTube player events.
+      'trackMedia': 1,     // Tracks HTML5 video, audio and YouTube players events.
       'trackScroll': 1,    // Tracks scroll depth.
       'debugMode': 0       // Prints all requests to console.
     };
@@ -122,22 +122,37 @@
               <br>• Other: <samp>ida, exe, sh, bat</samp>
             </div>
 
-            <h4>External links</h4>
-            <p>Tracks all outbounding links. Recognises links to social networks and lists those in the social report as well. Statistics available in custom reports or in events report (statistics for links to social networks will be available in social report).</p>
-            <p><code>trackOutbound</code> — Tracks all outbounding links.</p>
-            <p>List of social networks: <i>Google+, Blogger, Facebook, Twitter, LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo, Reddit, Pinterest, Digg, Foursquare</i>.</p>
+            <h4>Outbound links</h4>
+            <div>
+              • <samp>trackOutbound</samp> Tracks all outbound links.
+            </div>
+            <div><br><i>Note:</i> Recognizes outbound links to social networks
+              and lists those in the social report as well.</div>
+            <div><i>Social networks:</i> Google+, Blogger, Facebook, Twitter,
+              LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
+              Reddit, Pinterest, Digg, Foursquare.
+            </div>
 
             <h4>Forms</h4>
-            <p>Tracks submitted forms. Statistics available in custom reports or in events report.</p>
-            <p><code>trackForms</code> — Attaches event listener to all forms on page.</p>
+            <div>• <samp>trackForms</samp> Tracks submitted forms.</div>
 
             <h4>Logged in Users</h4>
-            <p>Tracks users that are logged in some social network while browsing your site. Statistics available in custom reports or in social report. Networks: Facebook, Google+, Twitter</p>
-            <p><code>trackUsers</code> — Tracks users logged in to social networks.</p>
+            <div>• <samp>trackUsers</samp> Tracks users logged in to social networks.</div>
+            <div><i>Social networks:</i> Facebook, Google+, Twitter.</div>
 
             <h4>Call to action links</h4>
-            <p>Tracks action links (mailto, tel, skype, etc). Statistics available in custom reports or in events report.</p>
-            <p><code>trackActions</code> — Attaches event listener to action links.</p>
+            <div>• <samp>trackActions</samp> Tracks CTA links (mailto, tel, sms, skype, etc).</div>
+
+            <h4>Print</h4>
+            <div>• <samp>trackPrint</samp> Tracks page print actions.</div>
+
+            <h4>Media</h4>
+            <div>• <samp>trackMedia</samp> Tracks HTML5 video, audio and YouTube players events.</div>
+
+            <h4>Scroll</h4>
+            <div>• <samp>trackScroll</samp> Tracks scroll depth.</div>
+
+            <p>&nbsp;</p>
         </div>
       </div>
     </div>
