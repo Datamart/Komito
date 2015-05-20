@@ -60,10 +60,10 @@
           <code><pre>
   &lt;script&gt;
     <b>var</b> _komito = _komito || {
-      'trackTwitter': 1,   // Tracks Twitter widgets if they presents on page.
-      'trackFacebook': 1,  // Tracks Facebook widgets if they presents on page.
-      'trackLinkedIn': 1,  // Tracks LinkedIn plug-ins if they presents on page.
-      'trackDownloads': 1, // Tracks download links.
+      'trackTwitter': 1,   // Tracks Twitter events if widget presents on page.
+      'trackFacebook': 1,  // Tracks Facebook events if widget presents on page.
+      'trackLinkedIn': 1,  // Tracks LinkedIn events if plugin presents on page.
+      'trackDownloads': 1, // Tracks files download links.
       'trackOutbound': 1,  // Tracks outbound links.
       'trackForms': 1,     // Tracks forms submissions.
       'trackUsers': 1,     // Tracks users logged in to social networks.
@@ -76,7 +76,7 @@
   &lt;/script&gt;</pre></code>
 
           <h3 id="features">Komito configuration parameters:</h3>
-            <h4>Social interaction:</h4>
+            <h4>Social Interaction:</h4>
             <p>Tracks users' interaction using social widgets.
               Statistics available in events, social or custom reports.
             </p>
@@ -99,10 +99,22 @@
               Tracking events: share, follow.
             </p>
 
-            <h4>Downloads:</h4>
-            <p>Tracks downloads by different file types. Statistics available in custom reports or in events report.</p>
-            <p class="kc-parameter"><code>trackDownloads</code> — Tracks downloads by different file types.</p>
-            <p>Default file extensions: <code>mp3, mp4, wma, mov, avi, wmv, mkv, eot, woff, ttf, txt, csv, tsv, pdf, doc, docx, xls, xlsx, ppt, pptx, zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z, ida, exe, sh, bat</code></p>
+            <h4>Files Downloads:</h4>
+            <p>
+              Tracks downloads by file types.
+              Statistics available in events or custom report.
+            </p>
+            <p class="kc-parameter">
+              <code>trackDownloads</code> Tracks downloads by different file types.
+            </p>
+            <p>Default file extensions:
+              Media: <code>mp3, mp4, wma, mov, avi, wmv, mkv<code><br>
+              Fonts: <code>eot, woff, ttf<code><br>
+              Text: <code>txt, csv, tsv<code><br>
+              Docs: <code>pdf, doc, docx, xls, xlsx, ppt, pptx<code><br>
+              Archives: <code>zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z<code><br>
+              Other: <code>ida, exe, sh, bat<code><br>
+            </p>
 
             <h4>External links</h4>
             <p>Tracks all outbounding links. Recognises links to social networks and lists those in the social report as well. Statistics available in custom reports or in events report (statistics for links to social networks will be available in social report).</p>
