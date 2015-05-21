@@ -1,7 +1,7 @@
 body {
   background-attachment: fixed;
   background-color: white;
-  background-image: url(../komito-bg.png);
+  background-image: url(/Komito/images/komito-bg.png);
   background-size: cover;
   opacity: .95;
 }
