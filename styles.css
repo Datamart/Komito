@@ -1,7 +1,7 @@
 body {
   background-attachment: fixed;
   background-color: white;
-  background-image: url(/Komito/images/komito-bg.png);
+  background-image: url(../komito-bg.png);
   background-size: cover;
   opacity: .95;
 }
@@ -11,6 +11,7 @@ a,
 .dtm-header .dtm-nav li a:hover,
 .dtm-footer a:hover {color: #097ec7;}
 .dtm-header .dtm-nav li.dtm-nav-main-current {border-top: 2px solid #097ec7;}
+.dtm-product h1 {margin-bottom: 0;}
 .dtm-product h2, .dtm-product h4 {color: #333;}
 .dtm-header,.dtm-footer,.dtm-footer .dtm-copyright div {background-color: #333;}
 .dtm-logo a {padding: 0;}
