@@ -33,5 +33,7 @@ a,
 .kc-features {display: block; margin: -1em 0 2em 2.7em; text-decoration: none;}
 .kc-features i {font-style: normal; text-decoration: underline;}
 
-.tag {color: navy;}
+.tag, .kwd {color: navy; font-weight: bold;}
 .atn {color: purple;}
+.str {color: green;}
+.com {color: gray;}
