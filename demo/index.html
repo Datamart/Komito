@@ -6,22 +6,30 @@
 <body>
 
 <script>
-// test classic GA
-var _gaq = { push: function() { console.log('GA Classic', '_gaq', arguments); } };
+// Emulating GA Classic.
+var _gaq = {
+  push: function(args) {
+    console.log('GA Classic', '_gaq', args);
+  }
+};
 
-// test tongji baidu
-var _hmt = { push: function() { console.log('Baidu', '_hmt', arguments); } };
+// Emulating Tongji Baidu
+var _hmt = {
+  push: function(args) {
+    console.log('Baidu', '_hmt', args);
+  }
+};
 
-// test Urchin
+// Emulating Urchin
 function __utmTrackEvent(category, action, opt_label, opt_value, opt_page) {
   console.log('Urchin', '__utmTrackEvent:', arguments);
 }
-// test ClickTale
+// Emulating ClickTale
 function ClickTaleEvent(event) {
   console.log('ClickTaleEvent:', event);
 }
 
-// Omniture (Adobe Marketing Cloud) tracking.
+// Emulating Omniture (Adobe Marketing Cloud) tracking.
 function TagLoader() {}
 var s = new TagLoader();
 s.tl = function(lnk, linkType, linkName) {
@@ -108,7 +116,7 @@ s.tl = function(lnk, linkType, linkName) {
   <legend>Facebook Buttons</legend>
   <div id="fb-root"></div>
   <script type="text/javascript" id="facebook-jssdk"
-          src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.1&amp;appId=367159160142267&amp;status=1&amp;cookie=1">
+          src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.3&amp;appId=367159160142267&amp;status=1&amp;cookie=1">
   </script>
   <div class="fb-like" data-href="http://datamart.github.io/Komito/"
        data-layout="button" data-action="like" data-show-faces="false"
