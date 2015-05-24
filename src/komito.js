@@ -11,7 +11,7 @@
  *
  * Include script before closing &lt;/body&gt; tag.
  * <code>
- *   &lt;script src="http://dtm.io/komito.js"&gt;&lt;/script&gt;
+ *   &lt;script src="//datamart.github.io/Komito/komito.js"&gt;&lt;/script&gt;
  * </code>
  */
 
@@ -245,9 +245,9 @@
         if (!win['__twitterIntentHandler']) {
           addEvent_(win, message_, function(e) {
             try {
-              if (e['origin'][substr_](-11) == 'twitter.com' && e['data']) {
+              if (e['origin'][substr_](-11) === 'twitter.com' && e['data']) {
                 data = win['JSON'] && win['JSON']['parse'](e['data']);
-                if (data && data['method'] == 'trigger' && data['params']) {
+                if (data && 'trigger' === data['method'] && data['params']) {
                   type = data['params'][0];
                   if (!(type in events))
                     exec_(SOCIAL_ACTION_TYPE, 'Twitter', type, loc[href_]);
@@ -329,6 +329,9 @@
    * @private
    */
   function users_() {
+    /** @type {number} */ var attempts = 5;
+    /** @type {string} */ var network;
+
     /**
      * @param {Image} image The image object.
      * @param {string} network The social network name.
@@ -340,27 +343,24 @@
       image.src = USERS[network];
     }
 
-    /** @type {number} */ var sent = 0;
-    /** @type {string} */ var network;
+    function status() {
+      if (win['FB'] && win['FB']['getLoginStatus']) {
+        win['FB']['getLoginStatus'](function(response) {
+          if (response && 'connected' === response['status']) {
+            exec_(SOCIAL_ACTION_TYPE, 'Facebook', 'status', 'logged in');
+          }
+          debug_('FB:', response);
+        });
+      } else if (--attempts) {
+        setTimeout(status, 2e3);
+      }
+    }
 
     for (network in USERS) {
       subscribe(new Image(1, 1), network);
     }
 
-    if (win['FB'] && win['FB']['getLoginStatus']) {
-      addEvent_(win, message_, function(e) {
-        try {
-          if (e['origin'][substr_](-12) == 'facebook.com' && e['data'] &&
-              ~e['data'][index_]('xd_action=proxy_ready')) {
-            win['FB']['getLoginStatus'](function(response) {
-              if (response && response['status'] !== 'unknown' && !sent++) {
-                exec_(SOCIAL_ACTION_TYPE, 'Facebook', 'status', 'logged in');
-              }
-            });
-          }
-        } catch (ex) {}
-      });
-    }
+    status();
   }
 
   /**
@@ -512,7 +512,7 @@
     args[0] = args[0] ? social_ : 'event';
     // args[0] = ['event', social_, 'ecom', 'campaign'][args[0]];
 
-    if (win[GA_KEY] && typeof win[GA_KEY] == 'function') {
+    if (win[GA_KEY] && typeof win[GA_KEY] === 'function') {
       trackers = win[GA_KEY]['getAll'] && win[GA_KEY]['getAll']();
       trackers && send_(trackers, 'send', args);
     }
@@ -548,7 +548,7 @@
       tracker['linkTrackVars'] = vars.join(',');
       send_(
           [tracker], 'tl', // 'tl' is 'trackLink' method.
-          [tracker, args[1] == 'download' ? 'd' : 'o', args[0]]);
+          [tracker, 'download' === args[1] ? 'd' : 'o', args[0]]);
     }
   }
 
@@ -598,12 +598,22 @@
     /** @type {number} */ var i = 0;
     /** @type {Object} */ var tracker;
 
-    config_['debugMode'] && win.console && win.console.log(func, args);
+    debug_(func, args);
     for (; i < length;) {
       tracker = trackers[i++];
-      if (tracker[func] && typeof tracker[func] == 'function')
+      if (tracker[func] && typeof tracker[func] === 'function')
         tracker[func].apply(tracker, args);
     }
+  }
+
+  /**
+   * @param {...*} var_args Arguments to log.
+   * @private
+   */
+  function debug_(var_args) {
+    /** @type {Console} */ var logger = win.console;
+    if (config_['debugMode'] && logger)
+      logger.log.apply(logger, arguments);
   }
 
   /**
