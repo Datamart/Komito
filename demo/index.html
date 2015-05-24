@@ -21,7 +21,35 @@
 <!--[if lte IE 8]><style type="text/css">.dtm-grid,.dtm-header,.dtm-footer{min-width: 1140px;}</style><![endif]-->
 <!--[if lte IE 7]><style type="text/css">.dtm-grid-row{overflow:hidden;}</style><![endif]-->
 </head>
-<body>
+<body class="dtm-page-komito dtm-product">
+<input type="checkbox" id="dtm-nav-mobile" style="display:none;">
+<div class="dtm-grid">
+  <div class="dtm-grid-row dtm-header">
+    <div class="dtm-grid-cell cell-span2 cell-offset2">
+      <div class="dtm-cell-body dtm-logo">
+        <a href="/Komito/"
+           class="dtm-ext-logo"
+           title="Komito"><img
+           src="/Komito/images/komito-logo-48x48.png"
+           alt="Komito"><span><b>Komito</b><i>by Datamart</i></span></a>
+        <label for="dtm-nav-mobile" class="dtm-nav-mobile"><span
+               class="dtm-nav-lines"></span></label>
+      </div>
+    </div>
+    <div class="dtm-grid-cell cell-span6">
+      <nav>
+        <ul class="dtm-nav">
+          <li class="dtm-nav-main-current"><a href="/Komito/"
+            title="Komito overview page.">Overview</a></li>
+          <li><a href="/Komito/integration/"
+            title="Step-by-step Komito integration instructions.">Integration</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+
+
 
 <h3>For more info please open dev console.</h3>
 
@@ -149,6 +177,8 @@ s.tl = function(lnk, linkType, linkName) {
        data-layout="button" data-show-faces="false"></div>
 </fieldset>
 <div>&nbsp;</div>
+
+</div><!--/dtm-grid-->
 
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
