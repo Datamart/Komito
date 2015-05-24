@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>var _komito = {debugMode: 1};</script>
+</head>
+<body>
+
+<script>
+// test classic GA
+var _gaq = { push: function() { console.log('GA Classic', '_gaq', arguments); } };
+
+// test tongji baidu
+var _hmt = { push: function() { console.log('Baidu', '_hmt', arguments); } };
+
+// test Urchin
+function __utmTrackEvent(category, action, opt_label, opt_value, opt_page) {
+  console.log('Urchin', '__utmTrackEvent:', arguments);
+}
+// test ClickTale
+function ClickTaleEvent(event) {
+  console.log('ClickTaleEvent:', event);
+}
+
+// Omniture (Adobe Marketing Cloud) tracking.
+function TagLoader() {}
+var s = new TagLoader();
+s.tl = function(lnk, linkType, linkName) {
+  s.lnk = lnk;
+  s.linkType = linkType;
+  s.linkName = linkName;
+  console.log('Adobe TagLoader', s);
+};
+</script>
+
+<fieldset>
+  <legend>Outbound Links</legend>
+  <a href="http://dtm.io/">Datamart</a>
+  &nbsp; <a target="_blank" href="http://www.linkedin.com/company/datamartinc">LinkedIn</a>
+  &nbsp; <a target="_blank" href="https://plus.google.com/+GoogleAnalytics/posts">Google+</a>
+  &nbsp; <a target="_blank" href="https://www.facebook.com/datamartinc">Facebook</a>
+  &nbsp; <a target="_blank" href="http://analytics.blogspot.com/">Blogger</a>
+  &nbsp; <a target="_blank" href="https://twitter.com/vpodk">Twitter</a>
+</fieldset>
+<div>&nbsp;</div>
+
+<fieldset>
+  <legend>Download Links</legend>
+  <a target="_blank"
+     href="http://dtm.io/case-studies/files/Datamart-Automotive_CaseStudy.pdf">Datamart-Automotive-CaseStudy.pdf</a>
+  &nbsp;
+  <a target="_blank"
+     href="http://dl.google.com/closure-compiler/compiler-latest.zip">Google-Closure-Compiler.zip</a>
+</fieldset>
+<div>&nbsp;</div>
+
+<fieldset>
+  <legend>Call To Action Links</legend>
+  <a href="mailto:hr@dtm.io">mailto:hr@dtm.io</a>
+  &nbsp;
+  <a href="mailto:komito-support@dtm.io?subject=Support">mailto:komito-support@dtm.io?subject=Support</a>
+  &nbsp;
+  <a href="tel:+14157997500">tel:+14157997500</a>
+  &nbsp;
+  <a href="sms:+14157997500">sms:+14157997500</a>
+  &nbsp;
+  <a href="skype:datamart.company?call">skype:datamart.company?call</a>
+</fieldset>
+<div>&nbsp;</div>
+
+<fieldset>
+  <legend>Forms</legend>
+  <form name="registration-form" onsubmit="return false">
+    <label>Name: <input name="name" value="name"></label><br>
+    <label>Age: <select name="age"><option value="20">20</option></select></label><br>
+    <textarea name="comment">comment</textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+</fieldset>
+<div>&nbsp;</div>
+
+<fieldset>
+  <legend>Twitter Buttons</legend>
+  <!--script>
+  window.twttr = (function (d,s,id) {
+    var t, js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+    js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+    return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+  }(document, "script", "twitter-wjs"));
+  </script-->
+  <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+  <a href="//twitter.com/share" class="twitter-share-button"
+     data-lang="en">Tweet</a>
+  <a href="//twitter.com/vpodk" class="twitter-follow-button"
+     data-show-count="false" data-lang="en">Follow @vpodk</a>
+</fieldset>
+<div>&nbsp;</div>
+
+<fieldset>
+  <legend>LinkedIn Buttons</legend>
+  <script type="text/javascript" src="//platform.linkedin.com/in.js"></script>
+  <script type="IN/Share" data-counter="right"></script>
+  <script type="IN/FollowCompany" data-id="6442972" data-counter="right"></script>
+</fieldset>
+<div>&nbsp;</div>
+
+<fieldset>
+  <legend>Facebook Buttons</legend>
+  <div id="fb-root"></div>
+  <script type="text/javascript" id="facebook-jssdk"
+          src="//connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v2.1&amp;appId=537758096356571&amp;status=1&amp;cookie=1">
+  </script><!-- appId=367159160142267 -->
+  <div class="fb-like" data-href="http://datamart.github.io/Komito/"
+       data-layout="button" data-action="like" data-show-faces="false"
+       data-share="false"></div>
+  <div class="fb-share-button" data-href="http://datamart.github.io/Komito/"></div>
+  <div class="fb-send" data-href="http://datamart.github.io/Komito/"
+       data-colorscheme="light"></div>
+  <div class="fb-follow" data-href="http://datamart.github.io/Komito/"
+       data-colorscheme="light"
+       data-layout="button" data-show-faces="false"></div>
+</fieldset>
+<div>&nbsp;</div>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create','UA-5065160-14','auto');ga('require','displayfeatures');ga('send','pageview');
+</script>
+<script src="//datamart.github.io/Komito/komito.js"></script>
+</body>
+</html>
