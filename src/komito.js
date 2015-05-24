@@ -329,6 +329,7 @@
    * @private
    */
   function users_() {
+    /** @type {number} */ var sent = 0;
     /** @type {number} */ var attempts = 5;
     /** @type {string} */ var network;
 
@@ -343,14 +344,34 @@
       image.src = USERS[network];
     }
 
+    /**
+     * @param {function(function(Object))} fn Facebook getLoginStatus function.
+     */
+    function getStatus(fn) {
+      fn(function(response) {
+        if (response && response['status'] !== 'unknown' && !sent++) {
+          exec_(SOCIAL_ACTION_TYPE, 'Facebook', 'status', 'logged in');
+        }
+        debug_('FB:', response);
+      });
+    }
+
     function status() {
-      if (win['FB'] && win['FB']['getLoginStatus']) {
-        win['FB']['getLoginStatus'](function(response) {
-          if (response && 'connected' === response['status']) {
-            exec_(SOCIAL_ACTION_TYPE, 'Facebook', 'status', 'logged in');
-          }
-          debug_('FB:', response);
+      /** @type {function(function(Object))} */
+      var fn = win['FB'] && win['FB']['getLoginStatus'];
+      if (fn) {
+        getStatus(fn);
+
+        addEvent_(win, message_, function(e) {
+          try {
+            if (e['origin'][substr_](-12) == 'facebook.com' &&
+                e['data'] &&
+                ~e['data'][index_]('xd_action=proxy_ready')) {
+              getStatus(fn);
+            }
+          } catch (ex) {}
         });
+
       } else if (--attempts) {
         setTimeout(status, 2e3);
       }
