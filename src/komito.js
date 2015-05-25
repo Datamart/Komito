@@ -420,7 +420,7 @@
       element = /** @type {HTMLMediaElement} */ (e.target || e.srcElement);
       source = element['currentSrc'] || element['src'];
       tag = element.tagName[lower_]();
-      exec_(EVENT_ACTION_TYPE, + tag + ':html5', e.type, source);
+      exec_(EVENT_ACTION_TYPE, tag + ':html5', e.type, source);
     }
 
     for (; i < length;) {
