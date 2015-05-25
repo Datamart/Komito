@@ -458,6 +458,7 @@
     /** @type {!Array} */ var iframes = [];
     /** @type {!Array.<string>} */ var types = ['finish', 'play', 'pause'];
     /** @type {HTMLIFrameElement} */ var element;
+    /** @type {string} */ var source;
 
     /** @param {Event} e The event */
     function listener(e) {
@@ -468,7 +469,13 @@
 
     for (; i < length;) {
       element = elements[i++];
-      re.test(element.src) && iframes.push(element);
+      source = element.src;
+      if (re.test(source)) {
+        if (source[index_]('enablejsapi') < 0) {
+          element.src += (~source.indexOf('?') ? '&' : '?') + 'enablejsapi=1';
+        }
+        iframes.push(element);
+      }
     }
 
     length = iframes[length_];
