@@ -37,3 +37,8 @@ a,
 .atn {color: purple;}
 .str {color: green;}
 .com {color: gray;}
+
+.odd {
+  background-color: #e6e6e6;
+  background-color: rgba(230,230,230,.5);
+}
