@@ -473,7 +473,7 @@
 
     length = iframes[length_];
     if (length) {
-      win['onYouTubePlayerAPIReady'] = function() {
+      win['onYouTubeIframeAPIReady'] = function() {
         for (i = 0; i < length;) {
           new win['YT']['Player'](iframes[i++], {
             'events': {'onStateChange': listener},
