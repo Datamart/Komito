@@ -454,25 +454,22 @@
     /** @type {NodeList} */ var elements = getElements_('IFRAME');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
-    /** @type {RegExp} */ var re = /^(https?:)?\/\/(www\.)?youtube\.com\/embed/;
     /** @type {!Array} */ var iframes = [];
-    /** @type {!Array.<string>} */ var types = ['ended', 'play', 'pause'];
     /** @type {string} */ var type;
     /** @type {HTMLIFrameElement} */ var element;
     /** @type {string} */ var source;
 
     /** @param {Event} e The event */
     function listener(e) {
-      type = types[e['data']];
+      type = ['ended', 'play', 'pause'][e['data']];
       type && exec_(
-          EVENT_ACTION_TYPE, 'video:youtube', type,
-          (e.target || e.srcElement)['getVideoUrl']());
+          EVENT_ACTION_TYPE, 'video:youtube', type, e.target['getVideoUrl']());
     }
 
     for (; i < length;) {
       element = elements[i++];
       source = element.src;
-      if (re.test(source)) {
+      if (/^(https?:)?\/\/(www\.)?youtube\.com\/embed/.test(source)) {
         if (0 > source[index_]('enablejsapi')) {
           element.src += (~source.indexOf('?') ? '&' : '?') + 'enablejsapi=1';
         }
