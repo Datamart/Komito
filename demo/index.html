@@ -206,43 +206,7 @@
       <div class="dtm-grid-row dtm-section">
         <div class="dtm-grid-cell cell-span8 cell-offset2">
           <div class="dtm-cell-body">
-
-<script>
-// Emulating GA Classic.
-var _gaq = {
-  push: function(args) {
-    console.log('GA Classic', '_gaq', args);
-  }
-};
-
-// Emulating Tongji Baidu
-var _hmt = {
-  push: function(args) {
-    console.log('Baidu', '_hmt', args);
-  }
-};
-
-// Emulating Urchin
-function __utmTrackEvent(category, action, opt_label, opt_value, opt_page) {
-  console.log('Urchin', '__utmTrackEvent:', arguments);
-}
-// Emulating ClickTale
-function ClickTaleEvent(event) {
-  console.log('ClickTaleEvent:', event);
-}
-
-// Emulating Omniture (Adobe Marketing Cloud) tracking.
-function TagLoader() {}
-var s = new TagLoader();
-s.tl = function(lnk, linkType, linkName) {
-  s.lnk = lnk;
-  s.linkType = linkType;
-  s.linkName = linkName;
-  console.log('Adobe TagLoader', s);
-};
-</script>
-
-
+            <p>&nbsp;<p>
           </div><!--/dtm-cell-body-->
         </div><!--/dtm-grid-cell-->
       </div><!--/dtm-grid-row-->
@@ -284,6 +248,41 @@ s.tl = function(lnk, linkType, linkName) {
     </div>
   </div>
 </div><!--/dtm-grid-->
+
+<script>
+// Emulating GA Classic.
+var _gaq = {
+  push: function(args) {
+    console.log('GA Classic', '_gaq', args);
+  }
+};
+
+// Emulating Tongji Baidu
+var _hmt = {
+  push: function(args) {
+    console.log('Baidu', '_hmt', args);
+  }
+};
+
+// Emulating Urchin
+function __utmTrackEvent(category, action, opt_label, opt_value, opt_page) {
+  console.log('Urchin', '__utmTrackEvent:', arguments);
+}
+// Emulating ClickTale
+function ClickTaleEvent(event) {
+  console.log('ClickTaleEvent:', event);
+}
+
+// Emulating Omniture (Adobe Marketing Cloud) tracking.
+function TagLoader() {}
+var s = new TagLoader();
+s.tl = function(lnk, linkType, linkName) {
+  s.lnk = lnk;
+  s.linkType = linkType;
+  s.linkName = linkName;
+  console.log('Adobe TagLoader', s);
+};
+</script>
 
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
