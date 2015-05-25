@@ -407,12 +407,17 @@
    * @private
    */
   function media_() {
+    /** @type {!Array.<string>} */ var events = [
+      'ended', 'pause', 'play',
+      'webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange'];
     /** @type {!Array.<HTMLMediaElement>} */ var elements =
         /** @type {!Array.<HTMLMediaElement>} */ (toArray_('AUDIO', 'VIDEO'));
     /** @type {number} */ var length = elements[length_] >>> 0;
     /** @type {number} */ var i = 0;
+    /** @type {number} */ var j;
     /** @type {HTMLMediaElement} */ var element;
     /** @type {string} */ var source;
+    /** @type {string} */ var type;
     /** @type {string} */ var tag;
 
     /** @param {Event} e The event */
@@ -420,14 +425,21 @@
       element = /** @type {HTMLMediaElement} */ (e.target || e.srcElement);
       source = element['currentSrc'] || element['src'];
       tag = element.tagName[lower_]();
-      exec_(EVENT_ACTION_TYPE, tag + ':html5', e.type, source);
+      type = e.type;
+      if (~type[index_]('fullscreen')) {
+        if (doc['fullScreen'] || doc['mozFullScreen'] ||
+            doc['webkitIsFullScreen'])
+          exec_(EVENT_ACTION_TYPE, tag + ':html5', 'fullscreen', source);
+      } else {
+        exec_(EVENT_ACTION_TYPE, tag + ':html5', type, source);
+      }
     }
 
     for (; i < length;) {
       element = elements[i++];
-      addEvent_(element, 'ended', listener);
-      addEvent_(element, 'pause', listener);
-      addEvent_(element, 'play', listener);
+      for (j = 0; j < 6;) { // 6 == events.length
+        addEvent_(element, events[j++], listener);
+      }
     }
 
     youtube_();
