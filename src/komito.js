@@ -454,7 +454,7 @@
     /** @type {NodeList} */ var elements = getElements_('IFRAME');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
-    /** @type {RegExp} */ var re = /^(https?:)\/\/?(www\.)?youtube\.com\/embed/;
+    /** @type {RegExp} */ var re = /^(https?:)?\/\/(www\.)?youtube\.com\/embed/;
     /** @type {!Array} */ var iframes = [];
     /** @type {!Array.<string>} */ var types = ['finish', 'play', 'pause'];
     /** @type {HTMLIFrameElement} */ var element;
