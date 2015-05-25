@@ -123,6 +123,39 @@
       </div>
 
       <div class="dtm-grid-row dtm-section">
+        <div class="dtm-grid-cell cell-span4 cell-offset2">
+          <div class="dtm-cell-body">
+            <h4>Forms Links</h4>
+            <div>Clicking on links "Forms" event will be dispatched.</div>
+          </div>
+        </div>
+        <div class="dtm-grid-cell cell-span4">
+          <div class="dtm-cell-body">
+            <form name="registration-form" onsubmit="return false"
+                  class="dtm-form">
+              <div class="dtm-form-item">
+                <label>Name:</label>
+                <input name="name" value="name" type="text">
+              </div>
+              <div class="dtm-form-item">
+                <label>Age:</label>
+                <div class="dtm-select">
+                  <select name="age"><option value="20">20</option></select>
+                </div>
+              </div>
+              <div class="dtm-form-item">
+                <textarea name="comment">comment</textarea>
+              </div>
+              <div class="dtm-form-item">
+                <button type="submit"
+                        class="dtm-button clr-red"><span>Submit</span></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="dtm-grid-row dtm-section">
         <div class="dtm-grid-cell cell-span8 cell-offset2">
           <div class="dtm-cell-body">
 
@@ -161,28 +194,6 @@ s.tl = function(lnk, linkType, linkName) {
 };
 </script>
 
-<fieldset>
-  <legend>Forms</legend>
-  <form name="registration-form" onsubmit="return false" class="dtm-form">
-    <div class="dtm-form-item">
-      <label>Name:</label>
-      <input name="name" value="name" type="text">
-    </div>
-    <div class="dtm-form-item">
-      <label>Age:</label>
-      <div class="dtm-select">
-        <select name="age"><option value="20">20</option></select>
-      </div>
-    </div>
-    <div class="dtm-form-item">
-      <textarea name="comment">comment</textarea>
-    </div>
-    <div class="dtm-form-item">
-      <button type="submit" class="dtm-button clr-red"><span>Submit</span></button>
-    </div>
-  </form>
-</fieldset>
-<div>&nbsp;</div>
 
 <fieldset>
   <legend>Twitter Buttons</legend>
