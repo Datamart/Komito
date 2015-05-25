@@ -40,3 +40,5 @@ a,
 
 .odd {background-color: #e6e6e6;background-color: rgba(230,230,230,.5);}
 .demo .dtm-section h4 {padding-top: 1.1em;}
+video, .video {margin:1em 0;outline:0;transform:translateZ(0);width:100%;}
+iframe.video {margin:0 0 1em;min-height:20em;}
