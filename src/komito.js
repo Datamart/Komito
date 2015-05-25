@@ -413,12 +413,14 @@
     /** @type {number} */ var i = 0;
     /** @type {HTMLMediaElement} */ var element;
     /** @type {string} */ var source;
+    /** @type {string} */ var tag;
 
     /** @param {Event} e The event */
     function listener(e) {
       element = /** @type {HTMLMediaElement} */ (e.target || e.srcElement);
       source = element['currentSrc'] || element['src'];
-      exec_(EVENT_ACTION_TYPE, element.tagName + ':html5', e.type, source);
+      tag = element.tagName[lower_]();
+      exec_(EVENT_ACTION_TYPE, + tag + ':html5', e.type, source);
     }
 
     for (; i < length;) {
