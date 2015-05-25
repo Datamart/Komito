@@ -196,7 +196,7 @@
     if (config_['trackActions'] && !isHttp) {
       addEvent_(link, mousedown_, function() {
         exec_(
-            EVENT_ACTION_TYPE, proto,
+            EVENT_ACTION_TYPE, 'cta:' + proto,
             // 'tel:1234567890'.slice('tel'.length + 1) == '1234567890';
             // 'mailto:hr@dtm.io'.slice('mailto'.length + 1) == 'hr@dtm.io';
             href[slice_](proto[length_] + 1).split('?')[0],
