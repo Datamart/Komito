@@ -456,22 +456,24 @@
     /** @type {number} */ var i = 0;
     /** @type {RegExp} */ var re = /^(https?:)?\/\/(www\.)?youtube\.com\/embed/;
     /** @type {!Array} */ var iframes = [];
-    /** @type {!Array.<string>} */ var types = ['finish', 'play', 'pause'];
+    /** @type {!Array.<string>} */ var types = ['ended', 'play', 'pause'];
+    /** @type {string} */ var type;
     /** @type {HTMLIFrameElement} */ var element;
     /** @type {string} */ var source;
 
     /** @param {Event} e The event */
     function listener(e) {
-      element = /** @type {HTMLIFrameElement} */ (e.target || e.srcElement);
-      exec_(EVENT_ACTION_TYPE, 'video:youtube', types[e['data']],
-          element['getVideoUrl']());
+      type = types[e['data']];
+      type && exec_(
+          EVENT_ACTION_TYPE, 'video:youtube', type,
+          (e.target || e.srcElement)['getVideoUrl']());
     }
 
     for (; i < length;) {
       element = elements[i++];
       source = element.src;
       if (re.test(source)) {
-        if (source[index_]('enablejsapi') < 0) {
+        if (0 > source[index_]('enablejsapi')) {
           element.src += (~source.indexOf('?') ? '&' : '?') + 'enablejsapi=1';
         }
         iframes.push(element);
@@ -482,10 +484,8 @@
     if (length) {
       win['onYouTubeIframeAPIReady'] = function() {
         for (i = 0; i < length;) {
-          new win['YT']['Player'](iframes[i++], {
-            'events': {'onStateChange': listener},
-            'playerVars': {'enablejsapi': 1}
-          });
+          addEvent_(
+              new win['YT']['Player'](iframes[i++]), 'onStateChange', listener);
         }
       };
 
