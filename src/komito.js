@@ -250,8 +250,8 @@
                 params = data && data['params'];
                 if (params && 'trigger' === data['method']) {
                   type = params[0];
-                  if ('click' === type) {
-                    type += '-' + params[1] && params[1]['region'];
+                  if ('click' === type && params[1]) {
+                    type += '-' + params[1]['region'];
                   }
 
                   if (!events[type]) {
@@ -264,9 +264,7 @@
           });
 
           win['twttr']['ready'](function(twttr) {
-            twttr['events']['bind'](message_, function(e) {
-              debug_('twttr.events.bind.message: ', e);
-            });
+            twttr['events']['bind'](message_, function() {});
           });
           win['__twitterIntentHandler'] = true;
         }
