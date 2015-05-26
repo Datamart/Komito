@@ -249,7 +249,11 @@
                 data = win['JSON'] && win['JSON']['parse'](e['data']);
                 params = data && data['params'];
                 if (params && 'trigger' === data['method']) {
-                  type = (params[1] || {})['region'] || params[0] || 'click';
+                  type = params[0];
+                  if ('click' === type) {
+                    type += '-' + params[1] && params[1]['region'];
+                  }
+
                   if (!events[type]) {
                     events[type] = 1;
                     exec_(SOCIAL_ACTION_TYPE, 'Twitter', type, loc[href_]);
@@ -260,7 +264,9 @@
           });
 
           win['twttr']['ready'](function(twttr) {
-            twttr['events']['bind'](message_, function() {});
+            twttr['events']['bind'](message_, function(e) {
+              debug_('twttr.events.bind.message: ', e);
+            });
           });
           win['__twitterIntentHandler'] = true;
         }
