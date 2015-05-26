@@ -359,7 +359,7 @@
      */
     function getStatus(fn) {
       fn(function(response) {
-        if (response && response['status'] !== 'unknown' && !sent++) {
+        if (response && 'unknown' !== response['status'] && !sent++) {
           exec_(SOCIAL_ACTION_TYPE, 'Facebook', 'status', 'logged in');
         }
         debug_('FB:', response);
@@ -374,7 +374,7 @@
 
         addEvent_(win, message_, function(e) {
           try {
-            if (e['origin'][substr_](-12) == 'facebook.com' &&
+            if ('facebook.com' === e['origin'][substr_](-12) &&
                 e['data'] &&
                 ~e['data'][index_]('xd_action=proxy_ready')) {
               getStatus(fn);
@@ -561,7 +561,7 @@
     args[0] = args[0] ? social_ : 'event';
     // args[0] = ['event', social_, 'ecom', 'campaign'][args[0]];
 
-    if (win[GA_KEY] && typeof win[GA_KEY] === 'function') {
+    if ('function' === typeof win[GA_KEY]) {
       trackers = win[GA_KEY]['getAll'] && win[GA_KEY]['getAll']();
       trackers && send_(trackers, 'send', args);
     }
@@ -650,7 +650,7 @@
     debug_(func, args);
     for (; i < length;) {
       tracker = trackers[i++];
-      if (tracker[func] && typeof tracker[func] === 'function')
+      if ('function' === typeof tracker[func])
         tracker[func].apply(tracker, args);
     }
   }
