@@ -183,7 +183,11 @@
     if (config_['trackOutbound'] && isHttp && !~host[index_](loc.hostname)) {
       addEvent_(link, mousedown_, function() {
         exec_(EVENT_ACTION_TYPE, 'outbound', host, href, index);
-        social && exec_(SOCIAL_ACTION_TYPE, social, 'outbound', href);
+        if (social) {
+          var type = 'twitter.com' === host[substr_](-11) ?
+              'intent-' + link.pathname.split('/').pop() : 'outbound';
+          exec_(SOCIAL_ACTION_TYPE, social, type, href);
+        }
       });
     }
 
