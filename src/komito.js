@@ -235,30 +235,28 @@
    */
   function twitter_() {
     twitter_.counter = twitter_.counter || 0;
-    /** @type {!Object.<string, number>} */
-    var events = {'click': 0, 'message': 0};
+    /** @type {!Object.<string, number>} */ var events = {};
     /** @type {string} */ var type;
     /** @type {Object.<string, *>} */ var data;
+    /** @type {Array} */ var params;
 
     if (twitter_.counter++ < 9) {
       if (win['twttr'] && win['twttr']['ready']) {
         if (!win['__twitterIntentHandler']) {
           addEvent_(win, message_, function(e) {
             try {
-              if (e['origin'][substr_](-11) === 'twitter.com' && e['data']) {
+              if ('twitter.com' === e['origin'][substr_](-11) && e['data']) {
                 data = win['JSON'] && win['JSON']['parse'](e['data']);
-                if (data && 'trigger' === data['method'] && data['params']) {
-                  type = data['params'][0];
-                  if (!(type in events))
+                params = data && data['params'];
+                if (params && 'trigger' === data['method']) {
+                  type = (params[1] || {})['region'] || params[0] || 'click';
+                  if (!events[type]) {
+                    events[type] = 1;
                     exec_(SOCIAL_ACTION_TYPE, 'Twitter', type, loc[href_]);
+                  }
                 }
               }
             } catch (ex) {}
-          });
-
-          win['twttr']['ready'](function(twttr) {
-            for (type in events)
-              twttr['events']['bind'](type, function() {});
           });
           win['__twitterIntentHandler'] = true;
         }
