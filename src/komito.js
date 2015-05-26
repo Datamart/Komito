@@ -258,6 +258,10 @@
               }
             } catch (ex) {}
           });
+
+          win['twttr']['ready'](function(twttr) {
+            twttr['events']['bind'](message_, function() {});
+          });
           win['__twitterIntentHandler'] = true;
         }
       } else setTimeout(twitter_, 5e3);
