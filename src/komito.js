@@ -39,7 +39,7 @@
     'trackPrint': 1,
     'trackMedia': 1,
     'trackScroll': 1,
-    'debugMode': 0
+    'debugMode': /[?&]debug=1/.test(loc.search)
   };
 
   /**
@@ -74,9 +74,9 @@
 
   /**
    * Mapping for tracking logged in users.
-   * For Facebook users see "users_" method.
+   * For Facebook users see "trackUsers_" method.
    * @type {!Object.<string, string>}
-   * @see users_
+   * @see trackUsers_
    */
   var USERS = {
     'Google': 'https://accounts.google.com/CheckCookie?continue=' +
@@ -144,22 +144,22 @@
     }
 
     for (; i < length;)
-      link_(/** @type {!HTMLAnchorElement} */ (elements[i++]), i);
+      trackLink_(/** @type {!HTMLAnchorElement} */ (elements[i++]), i);
 
     if (config_['trackForms']) {
       elements = doc.forms;
       length = elements[length_];
       for (i = 0; i < length;)
-        form_(/** @type {!HTMLFormElement} */ (elements[i++]), i);
+        trackForm_(/** @type {!HTMLFormElement} */ (elements[i++]), i);
     }
 
-    config_['trackTwitter'] && twitter_();
-    config_['trackFacebook'] && facebook_();
-    config_['trackLinkedIn'] && linkedin_();
-    config_['trackUsers'] && users_();
-    config_['trackPrint'] && print_();
-    config_['trackMedia'] && media_();
-    config_['trackScroll'] && scroll_();
+    config_['trackTwitter'] && trackTwitter_();
+    config_['trackFacebook'] && trackFacebook_();
+    config_['trackLinkedIn'] && trackLinkedIn_();
+    config_['trackUsers'] && trackUsers_();
+    config_['trackPrint'] && trackPrint_();
+    config_['trackMedia'] && trackMedia_();
+    config_['trackScroll'] && trackScroll_();
   }
 
   /**
@@ -169,7 +169,7 @@
    * @param {number} index The link collection index.
    * @private
    */
-  function link_(link, index) {
+  function trackLink_(link, index) {
     /** @type {string} */ var proto = link.protocol[slice_](0, -1);
     /** @type {string} */ var href = link[href_];
     /** @type {string} */ var host = link.hostname;
@@ -222,7 +222,7 @@
    * @param {number} index The from collection index.
    * @private
    */
-  function form_(form, index) {
+  function trackForm_(form, index) {
     addEvent_(form, 'submit', function() {
       /** @type {HTMLCollection} */ var elements = form.elements;
       /** @type {number} */ var i = 0;
@@ -243,14 +243,14 @@
    * @link https://dev.twitter.com/docs/tfw/events
    * @private
    */
-  function twitter_() {
-    twitter_.counter = twitter_.counter || 0;
+  function trackTwitter_() {
+    trackTwitter_.counter = trackTwitter_.counter || 0;
     /** @type {!Object.<string, number>} */ var events = {};
     /** @type {string} */ var type;
     /** @type {Object.<string, *>} */ var data;
     /** @type {Array} */ var params;
 
-    if (twitter_.counter++ < 9) {
+    if (trackTwitter_.counter++ < 9) {
       if (win['twttr'] && win['twttr']['ready']) {
         if (!win['__twitterIntentHandler']) {
           addEvent_(win, message_, function(e) {
@@ -278,7 +278,7 @@
           });
           win['__twitterIntentHandler'] = true;
         }
-      } else setTimeout(twitter_, 5e3);
+      } else setTimeout(trackTwitter_, 5e3);
     }
   }
 
@@ -287,14 +287,14 @@
    * http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe
    * @private
    */
-  function facebook_() {
-    facebook_.counter = facebook_.counter || 0;
+  function trackFacebook_() {
+    trackFacebook_.counter = trackFacebook_.counter || 0;
     /** @param {string} action The Facebook event type. */
     function listener(action) {
       exec_(SOCIAL_ACTION_TYPE, 'Facebook', action, loc[href_]);
     }
 
-    if (facebook_.counter++ < 9) {
+    if (trackFacebook_.counter++ < 9) {
       /** @type {Object} */ var fb = win['FB'];
       /** @type {!function(string, Function)} */
       var subscribe = fb && fb['Event'] && fb['Event']['subscribe'];
@@ -304,7 +304,7 @@
           subscribe('edge.remove', function() { listener('unlike'); });
           subscribe(message_ + '.send', function() { listener(message_); });
         } catch (e) {}
-      } else setTimeout(facebook_, 5e3);
+      } else setTimeout(trackFacebook_, 5e3);
     }
   }
 
@@ -313,7 +313,7 @@
    * @link https://developer.linkedin.com/plugins
    * @private
    */
-  function linkedin_() {
+  function trackLinkedIn_() {
     /**
      * @param {Element} element The script element.
      * @param {string} action The social action type.
@@ -344,7 +344,7 @@
    * Tracks pageviews by users logged in to social networks.
    * @private
    */
-  function users_() {
+  function trackUsers_() {
     /** @type {number} */ var sent = 0;
     /** @type {number} */ var attempts = 5;
     /** @type {string} */ var network;
@@ -409,7 +409,7 @@
    * Tracks page prints.
    * @private
    */
-  function print_() {
+  function trackPrint_() {
     /** @type {function(string):MediaQueryList} */
     var matchMedia = win['matchMedia'];
     /** @type {MediaQueryList} */
@@ -427,7 +427,7 @@
    * Tracks media (video and audio) events on page.
    * @private
    */
-  function media_() {
+  function trackMedia_() {
     /** @type {!Array.<string>} */ var events = [
       'ended', 'pause', 'play',
       'webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange'];
@@ -517,7 +517,7 @@
    * Tracks scroll events on page.
    * @private
    */
-  function scroll_() {
+  function trackScroll_() {
     /** @type {Object} */ var map = {25: 0, 50: 0, 75: 0, 100: 0};
     /** @type {Element} */ var root = doc.documentElement;
     /** @type {number} */ var depth;
