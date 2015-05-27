@@ -173,18 +173,20 @@
     /** @type {string} */ var proto = link.protocol[slice_](0, -1);
     /** @type {string} */ var href = link[href_];
     /** @type {string} */ var host = link.hostname;
-    /** @type {!Array.<string>} */ var path = link.pathname.split('/');
     /** @type {boolean} */ var isHttp = /^https?$/.test(proto);
-    /** @type {string} */ var social = NETWORKS[host.replace('www.', '')];
     /** @type {string} */
     var ext = (href.match(EXT_PATTERN) || ['']).pop()[lower_]();
     /** @type {number} */
     var trackExt = ext ? ~DOWNLOADS[index_](',' + ext + ',') : 0;
-    /** @type {string} */var type;
+    /** @type {string} */ var type;
+    /** @type {string} */ var social;
+    /** @type {Array.<string>} */ var path;
 
     if (config_['trackOutbound'] && isHttp && !~host[index_](loc.hostname)) {
       addEvent_(link, mousedown_, function() {
         type = 'outbound';
+        social = NETWORKS[host.replace('www.', '')];
+        path = link.pathname.split('/');
         exec_(EVENT_ACTION_TYPE, type, host, href, index);
         if (social) {
           if ('twitter.com' === host[substr_](-11) &&
