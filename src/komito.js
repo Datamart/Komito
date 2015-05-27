@@ -173,19 +173,23 @@
     /** @type {string} */ var proto = link.protocol[slice_](0, -1);
     /** @type {string} */ var href = link[href_];
     /** @type {string} */ var host = link.hostname;
+    /** @type {!Array.<string>} */ var path = link.pathname.split('/');
     /** @type {boolean} */ var isHttp = /^https?$/.test(proto);
     /** @type {string} */ var social = NETWORKS[host.replace('www.', '')];
     /** @type {string} */
     var ext = (href.match(EXT_PATTERN) || ['']).pop()[lower_]();
     /** @type {number} */
     var trackExt = ext ? ~DOWNLOADS[index_](',' + ext + ',') : 0;
+    /** @type {string} */var type;
 
     if (config_['trackOutbound'] && isHttp && !~host[index_](loc.hostname)) {
       addEvent_(link, mousedown_, function() {
-        exec_(EVENT_ACTION_TYPE, 'outbound', host, href, index);
+        type = 'outbound';
+        exec_(EVENT_ACTION_TYPE, type, host, href, index);
         if (social) {
-          var type = 'twitter.com' === host[substr_](-11) ?
-              'intent-' + link.pathname.split('/').pop() : 'outbound';
+          if ('twitter.com' === host[substr_](-11) &&
+              'intent' === path[path.length - 2])
+            type = 'intent-' + path.pop();
           exec_(SOCIAL_ACTION_TYPE, social, type, href);
         }
       });
@@ -335,7 +339,7 @@
   }
 
   /**
-   * Tracks users logged in to social networks.
+   * Tracks pageviews by users logged in to social networks.
    * @private
    */
   function users_() {
@@ -344,12 +348,19 @@
     /** @type {string} */ var network;
 
     /**
+     * @param {string} network The social network name.
+     */
+    function pageview(network) {
+      exec_(SOCIAL_ACTION_TYPE, network, 'pageview', loc[href_]);
+    }
+
+    /**
      * @param {Image} image The image object.
      * @param {string} network The social network name.
      */
     function subscribe(image, network) {
       addEvent_(image, 'load', function() {
-        exec_(SOCIAL_ACTION_TYPE, network, 'status', 'logged in');
+        pageview(network);
       });
       image.src = USERS[network];
     }
@@ -359,10 +370,8 @@
      */
     function getStatus(fn) {
       fn(function(response) {
-        if (response && 'unknown' !== response['status'] && !sent++) {
-          exec_(SOCIAL_ACTION_TYPE, 'Facebook', 'status', 'logged in');
-        }
-        debug_('FB:', response);
+        if (response && 'unknown' !== response['status'] && !sent++)
+          pageview('Facebook');
       });
     }
 
