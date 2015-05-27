@@ -196,7 +196,7 @@
    * @private
    */
   function trackOutboundListener_(e) {
-    /** @type {HTMLAnchorElement} */ var link = getEventTarget_(e);
+    /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
     /** @type {string} */ var type = 'outbound';
     /** @type {string} */ var host = link[hostname_];
     /** @type {string} */ var social = NETWORKS[host.replace('www.', '')];
@@ -218,7 +218,7 @@
    * @private
    */
   function trackDownloadsListener_(e) {
-    /** @type {HTMLAnchorElement} */ var link = getEventTarget_(e);
+    /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
 
     exec_(
         EVENT_ACTION_TYPE, 'download',
@@ -232,7 +232,7 @@
    * @private
    */
   function trackActionsListener_(e) {
-    /** @type {HTMLAnchorElement} */ var link = getEventTarget_(e);
+    /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
     /** @type {string} */ var proto = link.protocol[slice_](0, -1);
 
     exec_(
@@ -249,7 +249,8 @@
    * @private
    */
   function trackFormListener_(e) {
-    /** @type {HTMLFormElement} */ var form = getEventTarget_(e);
+    /** @type {HTMLFormElement} */ var form =
+        /** @type {HTMLFormElement} */ (getEventTarget_(e));
     /** @type {HTMLCollection} */ var elements = form.elements;
     /** @type {number} */ var i = 0;
     /** @type {Element} */ var element;
@@ -591,10 +592,24 @@
 
   /**
    * @param {Event} e The mousedown event.
+   * @return {EventTarget}
    * @private
    */
   function getEventTarget_(e) {
     return e[target_] || e[srcElement_];
+  }
+
+  /**
+   * @param {Event} e The mousedown event.
+   * @return {HTMLAnchorElement}
+   * @private
+   */
+  function getLinkEventTarget_(e) {
+    /** @type {Node} */ var target = e[target_] || e[srcElement_];
+    while (target && 'A' == target.tagName) {
+      target = target.parentNode;
+    }
+    return /** @type {HTMLAnchorElement} */ (target);
   }
 
   /**
