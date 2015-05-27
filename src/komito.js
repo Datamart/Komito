@@ -134,7 +134,8 @@
    */
   function init_() {
     /** @type {number} */ var i = 0;
-    /** @type {NodeList|HTMLCollection} */ var elements = getElements_('A');
+    /** @type {NodeList|HTMLCollection} */
+    var elements = getElementsByTagName_('A');
     /** @type {number} */ var length = elements[length_];
     /** @type {string} */ var key;
 
@@ -144,13 +145,16 @@
     }
 
     for (; i < length;)
-      trackLink_(/** @type {!HTMLAnchorElement} */ (elements[i++]), i);
+      trackLink_(/** @type {!HTMLAnchorElement} */ (elements[i++]));
 
     if (config_['trackForms']) {
       elements = doc.forms;
       length = elements[length_];
       for (i = 0; i < length;)
-        trackForm_(/** @type {!HTMLFormElement} */ (elements[i++]), i);
+        addListener_(
+            /** @type {!HTMLFormElement} */ (elements[i++]),
+            submit_,
+            trackFormListener_);
     }
 
     config_['trackTwitter'] && trackTwitter_();
@@ -166,76 +170,98 @@
    * Attaches event listener if passed link is outbound, social or downloadable.
    * The attached listener sends event to trackers.
    * @param {!HTMLAnchorElement} link The link element.
-   * @param {number} index The link collection index.
    * @private
    */
-  function trackLink_(link, index) {
-    /** @type {string} */ var proto = link.protocol[slice_](0, -1);
-    /** @type {string} */ var href = link[href_];
-    /** @type {string} */ var host = link.hostname;
-    /** @type {boolean} */ var isHttp = /^https?$/.test(proto);
+  function trackLink_(link) {
+    /** @type {boolean} */ var isHttp = /^https?:$/.test(link.protocol);
     /** @type {string} */
-    var ext = (href.match(EXT_PATTERN) || ['']).pop()[lower_]();
-    /** @type {number} */
-    var trackExt = ext ? ~DOWNLOADS[index_](',' + ext + ',') : 0;
-    /** @type {string} */ var type;
-    /** @type {string} */ var social;
-    /** @type {Array.<string>} */ var path;
+    var ext = (link[href_].match(EXT_PATTERN) || ['']).pop()[toLowerCase_]();
 
-    if (config_['trackOutbound'] && isHttp && !~host[index_](loc.hostname)) {
-      addEvent_(link, mousedown_, function() {
-        type = 'outbound';
-        social = NETWORKS[host.replace('www.', '')];
-        path = link.pathname.split('/');
-        exec_(EVENT_ACTION_TYPE, type, host, href, index);
-        if (social) {
-          if ('twitter.com' === host[substr_](-11) &&
-              'intent' === path[path.length - 2])
-            type = 'intent-' + path.pop();
-          exec_(SOCIAL_ACTION_TYPE, social, type, href);
-        }
-      });
-    }
+    config_['trackOutbound'] &&
+        isHttp &&
+        !~link[hostname_][indexOf_](loc[hostname_]) &&
+        addListener_(link, mousedown_, trackOutboundListener_);
 
-    if (config_['trackDownloads'] && trackExt) {
-      addEvent_(link, mousedown_, function() {
-        exec_(EVENT_ACTION_TYPE, 'download', ext, href);
-      });
-    }
+    config_['trackDownloads'] &&
+        (ext ? ~DOWNLOADS[indexOf_](',' + ext + ',') : 0) &&
+        addListener_(link, mousedown_, trackDownloadsListener_);
 
-    if (config_['trackActions'] && !isHttp) {
-      addEvent_(link, mousedown_, function() {
-        exec_(
-            EVENT_ACTION_TYPE, 'cta:' + proto,
-            // 'tel:1234567890'.slice('tel'.length + 1) == '1234567890';
-            // 'mailto:hr@dtm.io'.slice('mailto'.length + 1) == 'hr@dtm.io';
-            href[slice_](proto[length_] + 1).split('?')[0],
-            loc[href_]);
-      });
-    }
+    config_['trackActions'] &&
+        !isHttp &&
+        addListener_(link, mousedown_, trackActionsListener_);
   }
 
   /**
-   * Attaches event listener to passed form element.
-   * The attached listener sends event to trackers.
-   * @param {!HTMLFormElement} form The from element.
-   * @param {number} index The from collection index.
+   * @param {Event} e The mousedown event.
    * @private
    */
-  function trackForm_(form, index) {
-    addEvent_(form, 'submit', function() {
-      /** @type {HTMLCollection} */ var elements = form.elements;
-      /** @type {number} */ var i = 0;
-      /** @type {Element} */ var element;
+  function trackOutboundListener_(e) {
+    /** @type {HTMLAnchorElement} */ var link = getEventTarget_(e);
+    /** @type {string} */ var type = 'outbound';
+    /** @type {string} */ var host = link[hostname_];
+    /** @type {string} */ var social = NETWORKS[host.replace('www.', '')];
+    /** @type {Array.<string>} */ var path = link.pathname.split('/');
+    /** @type {string} */ var href = link[href_];
 
-      for (; i < elements[length_];) {
-        element = elements[i++];
-        element.name && exec_(
-            EVENT_ACTION_TYPE, 'form',
-            form[attr_]('name') || form[attr_]('id') || 'form ' + index,
-            element.name + ':' + (element.type || element.tagName));
-      }
-    });
+    exec_(EVENT_ACTION_TYPE, type, host, href);
+    if (social) {
+      if ('twitter.com' === host[substr_](-11) &&
+          'intent' === path[path[length_] - 2])
+        type = 'intent-' + path.pop();
+      exec_(SOCIAL_ACTION_TYPE, social, type, href);
+    }
+    removeListener_(link, mousedown_, trackOutboundListener_);
+  }
+
+  /**
+   * @param {Event} e The mousedown event.
+   * @private
+   */
+  function trackDownloadsListener_(e) {
+    /** @type {HTMLAnchorElement} */ var link = getEventTarget_(e);
+
+    exec_(
+        EVENT_ACTION_TYPE, 'download',
+        (link[href_].match(EXT_PATTERN) || ['']).pop()[toLowerCase_](),
+        link[href_]);
+    removeListener_(link, mousedown_, trackDownloadsListener_);
+  }
+
+  /**
+   * @param {Event} e The mousedown event.
+   * @private
+   */
+  function trackActionsListener_(e) {
+    /** @type {HTMLAnchorElement} */ var link = getEventTarget_(e);
+    /** @type {string} */ var proto = link.protocol[slice_](0, -1);
+
+    exec_(
+        EVENT_ACTION_TYPE, 'cta:' + proto,
+        // 'tel:1234567890'.slice('tel'.length + 1) == '1234567890';
+        // 'mailto:hr@dtm.io'.slice('mailto'.length + 1) == 'hr@dtm.io';
+        link[href_][slice_](proto[length_] + 1).split('?')[0],
+        loc[href_]);
+    removeListener_(link, mousedown_, trackActionsListener_);
+  }
+
+  /**
+   * @param {Event} e The form submit event.
+   * @private
+   */
+  function trackFormListener_(e) {
+    /** @type {HTMLFormElement} */ var form = getEventTarget_(e);
+    /** @type {HTMLCollection} */ var elements = form.elements;
+    /** @type {number} */ var i = 0;
+    /** @type {Element} */ var element;
+
+    for (; i < elements[length_];) {
+      element = elements[i++];
+      element.name && exec_(
+          EVENT_ACTION_TYPE, 'form',
+          form[attr_]('name') || form[attr_]('id') || 'form',
+          element.name + ':' + (element.type || element.tagName));
+    }
+    removeListener_(form, submit_, trackFormListener_);
   }
 
   /**
@@ -253,7 +279,7 @@
     if (trackTwitter_.counter++ < 9) {
       if (win['twttr'] && win['twttr']['ready']) {
         if (!win['__twitterIntentHandler']) {
-          addEvent_(win, message_, function(e) {
+          addListener_(win, message_, function(e) {
             try {
               if ('twitter.com' === e['origin'][substr_](-11) && e['data']) {
                 data = win['JSON'] && win['JSON']['parse'](e['data']);
@@ -327,7 +353,7 @@
       };
     }
 
-    /** @type {NodeList} */ var elements = getElements_('SCRIPT');
+    /** @type {NodeList} */ var elements = getElementsByTagName_('SCRIPT');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {Element} */ var element;
@@ -335,8 +361,8 @@
 
     for (; i < length;) {
       element = elements[i++];
-      type = (element[attr_]('type') || '')[lower_]();
-      (!type[index_]('in/')) && subscribe(element, type[substr_](3));
+      type = (element[attr_]('type') || '')[toLowerCase_]();
+      (!type[indexOf_]('in/')) && subscribe(element, type[substr_](3));
     }
   }
 
@@ -361,7 +387,7 @@
      * @param {string} network The social network name.
      */
     function subscribe(image, network) {
-      addEvent_(image, 'load', function() {
+      addListener_(image, 'load', function() {
         pageview(network);
       });
       image.src = USERS[network];
@@ -383,11 +409,11 @@
       if (fn) {
         getStatus(fn);
 
-        addEvent_(win, message_, function(e) {
+        addListener_(win, message_, function(e) {
           try {
             if ('facebook.com' === e['origin'][substr_](-12) &&
                 e['data'] &&
-                ~e['data'][index_]('xd_action=proxy_ready')) {
+                ~e['data'][indexOf_]('xd_action=proxy_ready')) {
               getStatus(fn);
             }
           } catch (ex) {}
@@ -414,13 +440,15 @@
     var matchMedia = win['matchMedia'];
     /** @type {MediaQueryList} */
     var queryList = matchMedia && matchMedia('print');
-
-    function afterprint() {
+    /** @type {?function(Event)} */ var listener = function() {
       exec_(EVENT_ACTION_TYPE, 'print', doc.title, loc[href_]);
-    }
+      queryList && queryList['removeListener'](listener);
+      removeListener_(win, 'afterprint', listener);
+      listener = null;
+    };
 
-    queryList && queryList['addListener'](afterprint);
-    addEvent_(win, 'afterprint', afterprint);
+    queryList && queryList['addListener'](listener);
+    addListener_(win, 'afterprint', listener);
   }
 
   /**
@@ -443,11 +471,11 @@
 
     /** @param {Event} e The event */
     function listener(e) {
-      element = /** @type {HTMLMediaElement} */ (e.target || e.srcElement);
+      element = /** @type {HTMLMediaElement} */ (getEventTarget_(e));
       source = element['currentSrc'] || element['src'];
-      tag = element.tagName[lower_]();
+      tag = element.tagName[toLowerCase_]();
       type = e.type;
-      if (~type[index_]('fullscreen')) {
+      if (~type[indexOf_]('fullscreen')) {
         if (doc['fullScreen'] || doc['mozFullScreen'] ||
             doc['webkitIsFullScreen'])
           exec_(EVENT_ACTION_TYPE, tag + ':html5', 'fullscreen', source);
@@ -459,11 +487,11 @@
     for (; i < length;) {
       element = elements[i++];
       for (j = 0; j < 6;) { // 6 == events.length
-        addEvent_(element, events[j++], listener);
+        addListener_(element, events[j++], listener);
       }
     }
 
-    youtube_();
+    trackYouTube_();
   }
 
   /**
@@ -471,8 +499,8 @@
    * @see https://developers.google.com/youtube/iframe_api_reference
    * @private
    */
-  function youtube_() {
-    /** @type {NodeList} */ var elements = getElements_('IFRAME');
+  function trackYouTube_() {
+    /** @type {NodeList} */ var elements = getElementsByTagName_('IFRAME');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {!Array} */ var iframes = [];
@@ -484,17 +512,18 @@
     function listener(e) {
       type = ['ended', 'play', 'pause'][e['data']];
       type && exec_(
-          EVENT_ACTION_TYPE, 'video:youtube', type, e.target['getVideoUrl']());
+          EVENT_ACTION_TYPE, 'video:youtube',
+          type, e[target_]['getVideoUrl']());
     }
 
     for (; i < length;) {
       element = elements[i++];
       source = element.src;
       if (/^(https?:)?\/\/(www\.)?youtube\.com\/embed/.test(source)) {
-        if (0 > source[index_]('enablejsapi')) {
-          element.src += (~source.indexOf('?') ? '&' : '?') + 'enablejsapi=1';
+        if (0 > source[indexOf_]('enablejsapi')) {
+          element.src += (~source[indexOf_]('?') ? '&' : '?') + 'enablejsapi=1';
         }
-        iframes.push(element);
+        iframes[push_](element);
       }
     }
 
@@ -502,13 +531,13 @@
     if (length) {
       win['onYouTubeIframeAPIReady'] = function() {
         for (i = 0; i < length;) {
-          addEvent_(
+          addListener_(
               new win['YT']['Player'](iframes[i++]), 'onStateChange', listener);
         }
       };
 
       if (!win['YT'])
-        getElements_('HEAD')[0].appendChild(
+        getElementsByTagName_('HEAD')[0].appendChild(
             doc.createElement('SCRIPT')).src = '//www.youtube.com/iframe_api';
     }
   }
@@ -522,7 +551,7 @@
     /** @type {Element} */ var root = doc.documentElement;
     /** @type {number} */ var depth;
 
-    addEvent_(win, 'scroll', function() {
+    addListener_(win, 'scroll', function() {
       /** @type {number} */ var percent =
           (root.scrollTop + doc.body.scrollTop) /
           (root.scrollHeight - root.clientHeight) * 100;
@@ -538,13 +567,34 @@
    * Adds event listener.
    * @param {Element|Window|HTMLDocument} element The HTML element.
    * @param {string} type The event type.
-   * @param {!Function} listener The event listener.
+   * @param {?function(Event)} listener The event listener.
    * @private
    */
-  function addEvent_(element, type, listener) {
-    element[listen_] ?
-        element[listen_](type, listener, !1) :
+  function addListener_(element, type, listener) {
+    element[addEventListener_] ?
+        element[addEventListener_](type, listener, !1) :
         element.attachEvent('on' + type, listener);
+  }
+
+  /**
+   * Removes event listener.
+   * @param {Element|Window|HTMLDocument} element The HTML element.
+   * @param {string} type The event type.
+   * @param {?function(Event)} listener The event listener.
+   * @private
+   */
+  function removeListener_(element, type, listener) {
+    element[removeEventListener_] ?
+        element[removeEventListener_](type, listener, !1) :
+        element.detachEvent('on' + type, listener);
+  }
+
+  /**
+   * @param {Event} e The mousedown event.
+   * @private
+   */
+  function getEventTarget_(e) {
+    return e[target_] || e[srcElement_];
   }
 
   /**
@@ -581,7 +631,7 @@
     argv = convert_(args);
     send_([win], 'ClickTaleEvent', [argv.join(':')]);
     send_([win], '__utmTrackEvent', argv);
-    win['_hmt'] && send_([win['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
+    win['_hmt'] && send_([win['_hmt']], push_, [['_trackEvent'].concat(argv)]);
     execClassicGA_(args);
   }
 
@@ -593,14 +643,14 @@
   function execTagLoader_(args) {
     /** @type {Function} */ var loader = win['TagLoader'];
     /** @type {Object} */ var tracker = win['s'];
-    /** @type {!Array.<string>} */ var vars = [];
+    /** @type {!Array} */ var vars = [];
     /** @type {number} */ var i = 1;
     /** @type {string} */ var key;
 
     if (loader && tracker && (tracker instanceof loader)) {
       for (; i < args[length_]; i++) {
         key = 'prop' + i;
-        vars.push(key);
+        vars[push_](key);
         tracker[key] = args[i];
       }
 
@@ -626,7 +676,7 @@
       if (trackers) {
         send_(trackers, args[0], args[slice_](1));
       } else if (win['_gaq']) {
-        send_([win['_gaq']], 'push', [args]);
+        send_([win['_gaq']], push_, [args]);
       }
     }
   }
@@ -682,13 +732,13 @@
    * @private
    */
   function toArray_(var_args) {
-    /** @type {!Array.<Element>} */ var elements = [];
+    /** @type {!Array} */ var elements = [];
     /** @type {Function} */ var slice = Array.prototype[slice_];
     /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
     /** @type {number} */ var i = 0;
 
     for (i = 0; i < tags[length_];) {
-      elements.push.apply(elements, getElements_(tags[i++]));
+      elements[push_].apply(elements, getElementsByTagName_(tags[i++]));
     }
     return elements;
   }
@@ -699,7 +749,7 @@
    * @return {NodeList}
    * @private
    */
-  function getElements_(tagName) {
+  function getElementsByTagName_(tagName) {
     return doc.getElementsByTagName(tagName);
   }
 
@@ -725,11 +775,25 @@
   var slice_ = 'slice';
 
   /**
+   * The shortcut for '(Array).push' method.
+   * @type {string}
+   * @private
+   */
+  var push_ = 'push';
+
+  /**
    * The shortcut for '(Location|HTMLAnchorElement).href' attribute.
    * @type {string}
    * @private
    */
   var href_ = 'href';
+
+  /**
+   * The shortcut for '(Location|HTMLAnchorElement).hostname' attribute.
+   * @type {string}
+   * @private
+   */
+  var hostname_ = 'hostname';
 
   /**
    * The shortcut for '(Element).getAttribute' method.
@@ -743,7 +807,7 @@
    * @type {string}
    * @private
    */
-  var index_ = 'indexOf';
+  var indexOf_ = 'indexOf';
 
   /**
    * The shortcut for '(string).substr' method.
@@ -757,14 +821,21 @@
    * @type {string}
    * @private
    */
-  var lower_ = 'toLowerCase';
+  var toLowerCase_ = 'toLowerCase';
 
   /**
    * The shortcut for '(HTMLDocument|Node).addEventListener' method.
    * @type {string}
    * @private
    */
-  var listen_ = 'addEventListener';
+  var addEventListener_ = 'addEventListener';
+
+  /**
+   * The shortcut for '(HTMLDocument|Node).addEventListener' method.
+   * @type {string}
+   * @private
+   */
+  var removeEventListener_ = 'removeEventListener';
 
   /**
    * @type {string}
@@ -782,7 +853,27 @@
    * @type {string}
    * @private
    */
+  var submit_ = 'submit';
+
+  /**
+   * @type {string}
+   * @private
+   */
   var social_ = 'social';
+
+  /**
+   * The shortcut for '(Event).srcElement' property.
+   * @type {string}
+   * @private
+   */
+  var srcElement_ = 'srcElement';
+
+  /**
+   * The shortcut for '(Event).target' property.
+   * @type {string}
+   * @private
+   */
+  var target_ = 'target';
 
   init_();
 
