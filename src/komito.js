@@ -606,7 +606,7 @@
    */
   function getLinkEventTarget_(e) {
     /** @type {Node} */ var target = e[target_] || e[srcElement_];
-    while (target && 'A' == target.tagName) {
+    while (target && 'A' !== target.tagName) {
       target = target.parentNode;
     }
     return /** @type {HTMLAnchorElement} */ (target);
