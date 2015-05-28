@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # https://developers.google.com/closure/compiler/
+# https://github.com/google/closure-compiler/wiki/Warnings
 
 CWD=$(cd $(dirname $0); pwd)
 TMP="${CWD}/tmp"
@@ -42,6 +43,18 @@ function minify() {
                   --warning_level VERBOSE \
                   --charset UTF-8 \
                   --use_types_for_optimization \
+                  --jscomp_warning accessControls \
+                  --jscomp_warning checkDebuggerStatement \
+                  --jscomp_warning checkEventfulObjectDisposal \
+                  --jscomp_warning checkRegExp \
+                  --jscomp_warning const \
+                  --jscomp_warning inferredConstCheck \
+                  --jscomp_warning missingProperties \
+                  --jscomp_warning missingReturn \
+                  --jscomp_warning newCheckTypes \
+                  --jscomp_warning strictModuleDepCheck \
+                  --jscomp_warning typeInvalidation \
+                  --jscomp_warning undefinedNames \
                   --js_output_file "${OUT_PATH}"
     fi
 }
