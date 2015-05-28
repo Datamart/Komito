@@ -473,14 +473,14 @@
     function listener(e) {
       element = /** @type {HTMLMediaElement} */ (getEventTarget_(e));
       source = element['currentSrc'] || element['src'];
-      tag = element.tagName[toLowerCase_]();
+      tag = element.tagName[toLowerCase_]() + ':html5';
       type = e.type;
       if (~type[indexOf_]('fullscreen')) {
         if (doc['fullScreen'] || doc['mozFullScreen'] ||
             doc['webkitIsFullScreen'])
-          exec_(EVENT_ACTION_TYPE, tag + ':html5', 'fullscreen', source);
+          exec_(EVENT_ACTION_TYPE, tag, 'fullscreen', source);
       } else {
-        exec_(EVENT_ACTION_TYPE, tag + ':html5', type, source);
+        exec_(EVENT_ACTION_TYPE, tag, type, source);
       }
     }
 
