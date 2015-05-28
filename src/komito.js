@@ -460,9 +460,8 @@
     /** @type {!Array.<string>} */ var events = [
       'ended', 'pause', 'play',
       'webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange'];
-    /** @type {!Array.<HTMLMediaElement>} */ var elements =
-        /** @type {!Array.<HTMLMediaElement>} */ (toArray_('AUDIO', 'VIDEO'));
-    /** @type {number} */ var length = elements[length_] >>> 0;
+    /** @type {!Array} */ var elements = toArray_('AUDIO', 'VIDEO');
+    /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {number} */ var j;
     /** @type {HTMLMediaElement} */ var element;
@@ -713,13 +712,13 @@
   }
 
   /**
-   * @param {!Array.<Object>} trackers The list of trackers.
+   * @param {!Array} trackers The list of trackers.
    * @param {string} func The function name.
    * @param {!Array} args The func arguments.
    * @private
    */
   function send_(trackers, func, args) {
-    /** @type {number} */ var length = trackers[length_] >>> 0;
+    /** @type {number} */ var length = trackers[length_];
     /** @type {number} */ var i = 0;
     /** @type {Object} */ var tracker;
 
@@ -743,7 +742,7 @@
 
   /**
    * @param {...string} var_args The elements tag names to convert.
-   * @return {!Array.<Element>} Returns converted elements to array.
+   * @return {!Array} Returns converted elements to array.
    * @private
    */
   function toArray_(var_args) {
