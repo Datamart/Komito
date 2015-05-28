@@ -752,7 +752,7 @@
     /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
     /** @type {number} */ var i = 0;
 
-    for (i = 0; i < tags[length_];) {
+    for (; i < tags[length_];) {
       elements[push_].apply(elements, getElementsByTagName_(tags[i++]));
     }
     return elements;
