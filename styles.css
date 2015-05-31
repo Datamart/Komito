@@ -14,6 +14,8 @@ a,
 .dtm-header .dtm-nav li a:hover,
 .dtm-footer a:hover {color: #097ec7;}
 .dtm-header .dtm-nav li.dtm-nav-main-current {border-top: 2px solid #097ec7;}
+.dtm-header .dtm-product h1 {font-size: 1em; font-weight: 600;   margin-top: -0.1em;}
+
 .dtm-product h1 {margin-bottom: 0;}
 .dtm-product h2, .dtm-product h4 {color: #333;}
 .dtm-header,.dtm-footer,.dtm-footer .dtm-copyright div {background-color: #333;}
