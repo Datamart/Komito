@@ -48,5 +48,5 @@ a,
 video, .video {margin:1em 0;outline:0;width:100%;}
 iframe.video {margin:0 0 1em;min-height:20em;}
 
-.dtm-dtv-dwn {line-height: 35px;}
-.dtm-dtv-dwn .dtm-button {line-height: 20px;}
+.dtm-dtv-dwn {line-height: 2.5em;}
+.dtm-dtv-dwn .dtm-button {line-height: 1em;}
