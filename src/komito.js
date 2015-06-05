@@ -497,6 +497,8 @@
    * @private
    */
   function trackYouTube_() {
+    /** @type {!RegExp} */
+    var re = /^(https?:)?\/\/(www\.)?youtube(\-nocookie)\.com\/(embed|watch|v)/;
     /** @type {NodeList} */ var elements = getElementsByTagName_('IFRAME');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
@@ -504,8 +506,6 @@
     /** @type {string} */ var type;
     /** @type {HTMLIFrameElement} */ var element;
     /** @type {string} */ var source;
-    /** @type {!RegExp} */
-    var re = /^(https?:)?\/\/(www\.)?youtube(\-nocookie)\.com\/(embed|watch|v)/;
 
     /** @param {Event} e The event */
     function listener(e) {
