@@ -1,15 +1,17 @@
 
 /**
- * @fileoverview The Komito Collector is a tool to unlock the power of
- * digital analytics. It enriches analytics data with important information
- * about visitor's behavior.
- * @link http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+ * @fileoverview Komito Analytics is an enhancement for the most popular
+ * analytics software. It unlocks power of digital analytics with additional
+ * insights about visitor's behavior.
+ *
+ * @link http://google.github.io/styleguide/javascriptguide.xml
  * @link http://developers.google.com/closure/compiler/docs/js-for-compiler
+ *
  * @link http://developers.google.com/analytics/devguides/collection/gajs
  * @link http://developers.google.com/analytics/devguides/collection/analyticsjs
  * @link http://tongji.baidu.com/open/api/more?p=ref_trackEvent
  *
- * Include script before closing &lt;/body&gt; tag.
+ * Include script before closing <code>&lt;/body&gt;</code> tag.
  * <code>
  *   &lt;script src="//datamart.github.io/Komito/komito.js"&gt;&lt;/script&gt;
  * </code>
