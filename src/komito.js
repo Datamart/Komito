@@ -504,6 +504,8 @@
     /** @type {string} */ var type;
     /** @type {HTMLIFrameElement} */ var element;
     /** @type {string} */ var source;
+    /** @type {!RegExp} */
+    var re = /^(https?:)?\/\/(www\.)?youtube(\-nocookie)\.com\/(embed|watch|v)/;
 
     /** @param {Event} e The event */
     function listener(e) {
@@ -516,7 +518,7 @@
     for (; i < length;) {
       element = elements[i++];
       source = element.src;
-      if (/^(https?:)?\/\/(www\.)?youtube\.com\/embed/.test(source)) {
+      if (re.test(source)) {
         if (0 > source[indexOf_]('enablejsapi')) {
           element.src += (~source[indexOf_]('?') ? '&' : '?') + 'enablejsapi=1';
         }
