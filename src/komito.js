@@ -605,7 +605,7 @@
    * @private
    */
   function getLinkEventTarget_(e) {
-    /** @type {Node} */ var target = e[target_] || e[srcElement_];
+    /** @type {Node} */ var target = /** @type {Node} */ (getEventTarget_(e));
     while (target && 'A' !== target.tagName) {
       target = target.parentNode;
     }
