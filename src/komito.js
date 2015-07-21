@@ -254,10 +254,11 @@
     /** @type {HTMLFormElement} */ var form =
         /** @type {HTMLFormElement} */ (getEventTarget_(e));
     /** @type {HTMLCollection} */ var elements = form.elements;
+    /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {Element} */ var element;
 
-    for (; i < elements[length_];) {
+    for (; i < length;) {
       element = elements[i++];
       element.name && exec_(
           EVENT_ACTION_TYPE, 'form',
