@@ -131,6 +131,11 @@
   var SOCIAL_ACTION_TYPE = 1;
 
   /**
+   * The shortcut for 'Array.prototype' property.
+   */
+  var ARRAY_PROTO = Array.prototype;
+
+  /**
    * Initializes extension.
    * @private
    */
@@ -631,7 +636,7 @@
    * _hmt.push(['_trackEvent', 'social:action', network, target]);
    */
   function exec_(var_args) {
-    /** @type {!Array} */ var args = Array.prototype[slice_].call(arguments, 0);
+    /** @type {!Array} */ var args = ARRAY_PROTO[slice_].call(arguments, 0);
     /** @type {Array.<Object>} */ var trackers;
     /** @type {Array} */ var argv;
 
@@ -749,12 +754,12 @@
    */
   function toArray_(var_args) {
     /** @type {!Array} */ var elements = [];
-    /** @type {Function} */ var slice = Array.prototype[slice_];
+    /** @type {Function} */ var slice = ARRAY_PROTO[slice_];
     /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
     /** @type {number} */ var i = 0;
 
     for (; i < tags[length_];) {
-      elements[push_].apply(elements, getElementsByTagName_(tags[i++]));
+      elements[push_](getElementsByTagName_(tags[i++]));
     }
     return elements;
   }
