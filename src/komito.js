@@ -757,9 +757,11 @@
     /** @type {Function} */ var slice = ARRAY_PROTO[slice_];
     /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
     /** @type {number} */ var i = 0;
+    /** @type {NodeList} */ var nodes;
 
     for (; i < tags[length_];) {
-      elements[push_](getElementsByTagName_(tags[i++]));
+      nodes = slice.call(getElementsByTagName_(tags[i++]), 0);
+      elements = elements.concat(nodes);
     }
     return elements;
   }
