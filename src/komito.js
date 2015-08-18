@@ -131,11 +131,6 @@
   var SOCIAL_ACTION_TYPE = 1;
 
   /**
-   * The shortcut for 'Array.prototype' property.
-   */
-  var ARRAY_PROTO = Array.prototype;
-
-  /**
    * Initializes extension.
    * @private
    */
@@ -638,7 +633,7 @@
    * _hmt.push(['_trackEvent', 'social:action', network, target]);
    */
   function exec_(var_args) {
-    /** @type {!Array} */ var args = ARRAY_PROTO[slice_].call(arguments, 0);
+    /** @type {!Array} */ var args = Array.prototype[slice_].call(arguments, 0);
     /** @type {Array.<Object>} */ var trackers;
     /** @type {Array} */ var argv;
 
