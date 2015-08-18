@@ -141,7 +141,7 @@
    */
   function init_() {
     /** @type {number} */ var i = 0;
-    /** @type {NodeList|HTMLCollection} */
+    /** @type {Array|HTMLCollection|NodeList} */
     var elements = getElementsByTagName_('A');
     /** @type {number} */ var length = elements[length_];
     /** @type {string} */ var key;
@@ -362,7 +362,8 @@
       };
     }
 
-    /** @type {NodeList} */ var elements = getElementsByTagName_('SCRIPT');
+    /** @type {!Array|NodeList} */
+    var elements = getElementsByTagName_('SCRIPT');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {Element} */ var element;
@@ -470,13 +471,13 @@
       'webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange'];
     /** @type {!Array} */ var elements = toArray_('AUDIO', 'VIDEO');
     /** @type {number} */ var length = elements[length_];
-    /** @type {HTMLMediaElement} */ var element;
+    /** @type {Element} */ var element;
     /** @type {string} */ var type;
     /** @type {number} */ var i;
 
     /** @param {Event} e The event */
     function listener(e) {
-      element = /** @type {HTMLMediaElement} */ (getEventTarget_(e));
+      element = /** @type {Element} */ (getEventTarget_(e));
       type = e.type;
 
       if (~type[indexOf_]('fullscreen')) {
@@ -505,9 +506,10 @@
    * @private
    */
   function trackYouTube_() {
-    /** @type {!RegExp} */
-    var re = /^(https?:)?\/\/(www\.)?youtube(\-nocookie)\.com\/(embed|watch|v)/;
-    /** @type {NodeList} */ var elements = getElementsByTagName_('IFRAME');
+    /** @type {!RegExp} */ var pattern =
+        /^(https?:)?\/\/(www\.)?youtube(\-nocookie)?\.com\/(embed|watch|v)/;
+    /** @type {!Array|NodeList} */
+    var elements = getElementsByTagName_('IFRAME');
     /** @type {number} */ var length = elements[length_];
     /** @type {number} */ var i = 0;
     /** @type {!Array} */ var iframes = [];
@@ -526,7 +528,7 @@
     for (; i < length;) {
       element = elements[i++];
       source = element.src;
-      if (re.test(source)) {
+      if (pattern.test(source)) {
         if (0 > source[indexOf_]('enablejsapi')) {
           element.src += (~source[indexOf_]('?') ? '&' : '?') + 'enablejsapi=1';
         }
@@ -754,24 +756,30 @@
    */
   function toArray_(var_args) {
     /** @type {!Array} */ var elements = [];
-    /** @type {Function} */ var slice = ARRAY_PROTO[slice_];
-    /** @type {!Array.<string>} */ var tags = slice.call(arguments, 0);
-    /** @type {number} */ var i = 0;
+    /** @type {!Arguments} */ var tags = arguments;
+    /** @type {number} */ var length = tags[length_];
+    /** @type {Array|NodeList} */ var nodes;
+    /** @type {number} */ var i;
 
-    for (; i < tags[length_];) {
-      elements = elements.concat(slice.call(getElementsByTagName_(tags[i++])));
+    for (; length;) {
+      nodes = getElementsByTagName_(tags[--length]);
+      for (i = 0; i < nodes[length_];) {
+        elements[push_](nodes[i++]);
+      }
     }
+
     return elements;
   }
 
   /**
    * The shortcut for '(HTMLDocument).getElementsByTagName' method.
    * @param {string} tagName The tag name.
-   * @return {NodeList}
+   * @return {!Array|NodeList}
    * @private
    */
   function getElementsByTagName_(tagName) {
-    return doc.getElementsByTagName(tagName);
+    return /** @type {NodeList} */ (tagName &&
+                                    doc.getElementsByTagName(tagName)) || [];
   }
 
   /**
