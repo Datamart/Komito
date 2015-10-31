@@ -751,7 +751,7 @@
    */
   function toArray_(var_args) {
     /** @type {!Array} */ var elements = [];
-    /** @type {!Arguments} */ var tags = arguments;
+    /** @type {!Array} */ var tags = /** @type {!Array} */ (arguments);
     /** @type {number} */ var length = tags[length_];
     /** @type {Array|NodeList} */ var nodes;
     /** @type {number} */ var i;
