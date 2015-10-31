@@ -1,0 +1,5 @@
+# python and sudo are required for closure linter:
+# `sudo python setup.py install`
+language: python
+sudo: required
+script: ./build/build.sh

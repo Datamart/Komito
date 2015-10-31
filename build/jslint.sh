@@ -1,72 +1,73 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#
+# Guide: https://google.github.io/styleguide/shell.xml
+# Link: https://github.com/google/closure-linter
 
-# http://code.google.com/p/closure-linter/downloads/list
-# https://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
+readonly CWD=$(cd $(dirname $0); pwd)
+readonly LIB="${CWD}/lib"
+readonly TMP="${CWD}/tmp"
 
-DOWNLOAD_URL=http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-CUSTOM_TAGS="version,example,static,namespace,requires,event"
-WGET="`which wget`"
-CURL="`which curl`"
-PYTHONPATH=$(python -c "import sys; print sys.path[-1]")
+readonly JS_LINTER_ZIP="closure-linter.zip"
+readonly JS_LINTER_URL="https://github.com/google/closure-linter/archive/v2.3.19.zip"
+readonly JS_SOURCES="${CWD}/../src"
 
-function linter::download() {
-    if [ ! -f "${PYTHONPATH}/closure_linter/fixjsstyle.py" ]; then
-        if [ "x`which gjslint`" == "x" ]; then
-            rm -rf tmp && mkdir tmp && cd tmp
+readonly WGET="`which wget`"
+readonly CURL="`which curl`"
+readonly PYTHON="`which python`"
 
-            if [ -n "$WGET" ]; then
-                $WGET --no-verbose "${DOWNLOAD_URL}"
-            else
-                $CURL "${DOWNLOAD_URL}" > ./closure_linter-latest.tar.gz
-            fi
-            tar -xvzf closure_linter-*.tar.gz -C ./
-            cd closure_linter*
-            python setup.py build && sudo python setup.py install
-            cd ../
+readonly CUSTOM_TAGS="version,example,static,namespace,requires,event"
 
-            rm -rf tmp
-        fi
+
+#
+# Downloads closure linter
+#
+function download() {
+  if [ ! -e "`which gjslint`" ]; then
+    echo "Downloading closure linter:"
+    mkdir -p "${LIB}"
+    rm -rf "${TMP}" && mkdir "${TMP}" && cd "${TMP}"
+    if [ -n "$WGET" ]; then
+      $WGET "${JS_LINTER_URL}" -O "${TMP}/${JS_LINTER_ZIP}"
+    else
+      $CURL "${JS_LINTER_URL}" > "${TMP}/${JS_LINTER_ZIP}"
     fi
+    echo -n "Extracting closure linter: "
+    unzip -q "${TMP}/${JS_LINTER_ZIP}" -d "${LIB}"
+    echo "Done"
+
+    echo "Installing closure linter:"
+    cd "${LIB}/"closure-linter-*
+    $PYTHON setup.py --quiet build && sudo $PYTHON setup.py --quiet install
+
+    cd "${CWD}" && rm -rf "${TMP}"
+  fi
 }
 
-function linter::run() {
-    local SRC_PATH
-    SRC_PATH="$1"
+#
+# Runs closure linter.
+#
+function run() {
+  echo "Running closure linter:"
+  local GJSLINT="`which gjslint`"
+  local FIXJSSTYLE="`which fixjsstyle`"
 
-    if [ -d "${SRC_PATH}" ]; then
-        if [ -n "`which fixjsstyle`" ]; then
-            fixjsstyle \
-                --strict \
-                --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -r "${SRC_PATH}"
-        else
-            python "${PYTHONPATH}/closure_linter/fixjsstyle.py" \
-                --strict \
-                --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -r "${SRC_PATH}"
-        fi
-
-
-        if [ -n "`which gjslint`" ]; then
-            gjslint \
-                --strict \
-                --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -r "${SRC_PATH}"
-        else
-            python "${PYTHONPATH}/closure_linter/gjslint.py" \
-                --strict \
-                --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-                -r "${SRC_PATH}"
-        fi
-    fi
+  $FIXJSSTYLE --strict \
+              --custom_jsdoc_tags "${CUSTOM_TAGS}" \
+              -x "${CWD}/externs.js" \
+              -r "${JS_SOURCES}"
+  $GJSLINT --strict \
+           --custom_jsdoc_tags "${CUSTOM_TAGS}" \
+           -x "${CWD}/externs.js" \
+           -r "${JS_SOURCES}"
+  echo "Done"
 }
 
 #
 # The main function.
 #
 function main() {
-    linter::download
-    linter::run "../src"
+  download
+  run
 }
 
 main "$@"

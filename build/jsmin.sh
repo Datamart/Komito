@@ -1,70 +1,79 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#
+# Guide: https://google.github.io/styleguide/shell.xml
+# Link: https://developers.google.com/closure/compiler/
 
-# https://developers.google.com/closure/compiler/
-# https://github.com/google/closure-compiler/wiki/Warnings
+readonly CWD=$(cd $(dirname $0); pwd)
+readonly LIB="${CWD}/lib"
+readonly TMP="${CWD}/tmp"
 
-CWD=$(cd $(dirname $0); pwd)
-TMP="${CWD}/tmp"
-LIB="${CWD}/lib"
+readonly JS_COMPILER_ZIP="compiler-latest.zip"
+readonly JS_COMPILER_URL="http://dl.google.com/closure-compiler/${JS_COMPILER_ZIP}"
+readonly JS_COMPILER_JAR="${LIB}/compiler.jar"
 
-JS_COMPILER_JAR="${LIB}/compiler.jar"
-JS_DOWNLOAD_URL=http://dl.google.com/closure-compiler/compiler-latest.zip
+readonly JS_COMPILED="${CWD}/../min/komito.js"
+readonly JS_SOURCES="${CWD}/../src"
 
-WGET="`which wget`"
-CURL="`which curl`"
+readonly WGET="`which wget`"
+readonly CURL="`which curl`"
+readonly PYTHON="`which python`"
+readonly JAVA="`which java`"
 
+readonly LICENSE="/* @license http://www.apache.org/licenses/LICENSE-2.0 */"
+
+# http://www.gnu.org/software/bash/manual/html_node/ANSI_002dC-Quoting.html
+readonly NEW_LINE=$'\n'
+
+
+#
+# Downloads closure compiler
+#
 function download() {
-    mkdir -p ${LIB}
-
-    if [ ! -f "${JS_COMPILER_JAR}" ]; then
-        rm -rf ${TMP} && mkdir ${TMP} && cd ${TMP}
-        if [ -n "$WGET" ]; then
-            $WGET --no-verbose "${JS_DOWNLOAD_URL}"
-        else
-            $CURL "${JS_DOWNLOAD_URL}" > ./compiler-latest.zip
-        fi
-        unzip compiler-latest.zip -d "${LIB}"
-        cd ${CWD} && rm -rf ${TMP}
+  if [ ! -f "${JS_COMPILER_JAR}" ]; then
+    echo "Downloading closure compiler:"
+    mkdir -p "${LIB}"
+    rm -rf "${TMP}" && mkdir "${TMP}" && cd "${TMP}"
+    if [ -n "$WGET" ]; then
+      $WGET "${JS_COMPILER_URL}" -O "${TMP}/${JS_COMPILER_ZIP}"
+    else
+      $CURL "${JS_COMPILER_URL}" > "${TMP}/${JS_COMPILER_ZIP}"
     fi
+
+    echo -n "Extracting closure compiler: "
+    unzip -q "${TMP}/${JS_COMPILER_ZIP}" -d "${LIB}"
+    echo "Done"
+
+    cd "${CWD}" && rm -rf "${TMP}"
+  fi
 }
 
-function minify() {
-    local SRC_PATH
-    local OUT_PATH
-    SRC_PATH=$1
-    OUT_PATH=$2
+#
+# Runs closure compiler.
+#
+function run() {
+  rm -rf "${JS_COMPILED}" && touch "${JS_COMPILED}" && chmod 0666 "${JS_COMPILED}"
 
-    if [ -d "${SRC_PATH}" ]; then
-        rm -rf "${OUT_PATH}" && touch "${OUT_PATH}" && chmod 0666 "${OUT_PATH}"
+  echo "Running closure compiler:"
+  $PYTHON -c "import sys;sys.argv.pop(0);print(' --js ' + ' --js '.join(sorted(sys.argv, cmp=lambda x,y: cmp(x.lower(), y.lower()))))" `find "${JS_SOURCES}" -name "*.js" -print` |
+      xargs $JAVA -jar "${JS_COMPILER_JAR}" \
+        --compilation_level ADVANCED_OPTIMIZATIONS \
+        --warning_level VERBOSE \
+        --charset UTF-8 \
+        --use_types_for_optimization \
+        --js_output_file "${JS_COMPILED}"
 
-        python -c "import sys;sys.argv.pop(0);print(' --js ' + ' --js '.join(sorted(sys.argv, cmp=lambda x,y: cmp(x.lower(), y.lower()))))" `find "${SRC_PATH}" -name "*.js" -print` |
-            xargs java -jar "${JS_COMPILER_JAR}" \
-                  --compilation_level ADVANCED_OPTIMIZATIONS \
-                  --warning_level VERBOSE \
-                  --charset UTF-8 \
-                  --use_types_for_optimization \
-                  --jscomp_warning accessControls \
-                  --jscomp_warning checkDebuggerStatement \
-                  --jscomp_warning checkEventfulObjectDisposal \
-                  --jscomp_warning checkRegExp \
-                  --jscomp_warning const \
-                  --jscomp_warning inferredConstCheck \
-                  --jscomp_warning missingProperties \
-                  --jscomp_warning missingReturn \
-                  --jscomp_warning newCheckTypes \
-                  --jscomp_warning strictModuleDepCheck \
-                  --jscomp_warning typeInvalidation \
-                  --jscomp_warning undefinedNames \
-                  --js_output_file "${OUT_PATH}"
-    fi
+  echo "${LICENSE}${NEW_LINE}(function(){" | cat - $JS_COMPILED > /tmp/out && mv /tmp/out $JS_COMPILED
+  echo '})();' >> $JS_COMPILED
+
+  echo "Done"
 }
 
 #
 # The main function.
 #
 function main() {
-    download
-    minify "../src" "../min/komito.js"
+  download
+  run
 }
 
 main "$@"

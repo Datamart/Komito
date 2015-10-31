@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# http://google-styleguide.googlecode.com/svn/trunk/shell.xml
+# Guide: https://google.github.io/styleguide/shell.xml
+
+readonly CWD=$(cd $(dirname $0); pwd)
 
 #
 # Prints message.
@@ -15,13 +17,13 @@ function println() {
 # The main function.
 #
 function main() {
-  println "[WEB] Running linter:"
-  chmod +x jslint.sh && ./jslint.sh
+  println "[BUILD] Running linter:"
+  chmod +x "${CWD}/jslint.sh" && "${CWD}/jslint.sh"
 
-  println "[WEB] Running compiler:"
-  chmod +x jsmin.sh && ./jsmin.sh
+  println "[BUILD] Running compiler:"
+  chmod +x "${CWD}/jsmin.sh" && "${CWD}/jsmin.sh"
 
-  println "[WEB] Done"
+  println "[BUILD] Done"
 }
 
 main "$@"
