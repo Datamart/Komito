@@ -1,13 +1,35 @@
+
+
+
 /**
- * Defines <code>komito.trackers.social.users</code> namespace.
- * @namespace
+ * Defines <code>komito.trackers.social.Users</code> constructor.
+ * @constructor
  */
-komito.trackers.social.users = {
+komito.trackers.social.Users = function() {
+
+  /**
+   * Mapping for tracking logged in users.
+   * @type {!Object.<string, string>}
+   */
+  var USERS = {
+    'Google': 'https://accounts.google.com/CheckCookie?continue=' +
+        'https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2F' +
+        'accounts_logo.png&amp;followup=https%3A%2F%2Fwww.google.com%2F' +
+        'intl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&amp;' +
+        'chtml=LoginDoneHtml&amp;checkedDomains=youtube&amp;' +
+        'checkConnection=youtube%3A291%3A1',
+    'Google+': 'https://plus.google.com/up/?continue=' +
+        'https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2F' +
+        'accounts_logo.png',
+    'Twitter': 'https://twitter.com/login?redirect_after_login=' +
+        'https%3A%2F%2Fplatform.twitter.com%2Fwidgets%2Fimages%2Fbtn.png'
+  };
+
   /**
    * Tracks pageviews by users logged in to social networks.
    * @private
    */
-  track: function() {
+  function init_() {
     /** @type {number} */ var sent = 0;
     /** @type {number} */ var attempts = 5;
     /** @type {string} */ var network;
@@ -28,7 +50,7 @@ komito.trackers.social.users = {
       dom.events.addEventListener(image, dom.events.TYPE.LOAD, function() {
         pageview(network);
       });
-      image.src = komito.trackers.social.USERS[network];
+      image.src = USERS[network];
     }
 
     /**
@@ -62,10 +84,13 @@ komito.trackers.social.users = {
       }
     }
 
-    for (network in komito.trackers.social.USERS) {
+    for (network in USERS) {
       subscribe(new Image(1, 1), network);
     }
 
     status();
   }
+
+  // Initializing Users events tracking.
+  init_();
 };

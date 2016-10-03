@@ -87,8 +87,8 @@ var komito = {
     }
 
     komito.trackers.dom.init();
-    komito.trackers.social.init();
     komito.trackers.media.init();
+    komito.trackers.social.init();
   },
 
   /**
@@ -233,4 +233,4 @@ var komito = {
   config: dom.context['_komito'] || {}
 };
 
-setTimeout(komito.init_, 1e3);
+komito.init_();

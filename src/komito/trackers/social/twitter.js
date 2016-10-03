@@ -1,19 +1,23 @@
+
+
+
 /**
- * Defines <code>komito.trackers.social.twitter</code> namespace.
- * @namespace
+ * Defines <code>komito.trackers.social.Twitter</code> constructor.
+ * @constructor
  */
-komito.trackers.social.twitter = {
+komito.trackers.social.Twitter = function() {
   /**
    * Tries to attach listener to Twitter widget object if it presents on page.
    * @see https://dev.twitter.com/docs/tfw/events
+   * @private
    */
-  track: function() {
+  function init_() {
     /** @type {!Object.<string, number>} */ var events = {};
     /** @type {string} */ var type;
     /** @type {Object.<string, *>} */ var data;
     /** @type {Array} */ var params;
 
-    if (komito.trackers.social.twitter.counter_++ < 9) {
+    if (counter_++ < 9) {
       if (dom.context['twttr'] && dom.context['twttr']['ready']) {
         if (!dom.context['__twitterIntentHandler']) {
           dom.events.addEventListener(dom.context, 'message', function(e) {
@@ -43,13 +47,16 @@ komito.trackers.social.twitter = {
           });
           dom.context['__twitterIntentHandler'] = true;
         }
-      } else setTimeout(komito.trackers.social.twitter.track, 5e3);
+      } else setTimeout(init_, 5e3);
     }
-  },
+  }
 
   /**
    * @type {number}
    * @private
    */
-  counter_: 0
+  var counter_ = 0;
+
+  // Initializing Twitter events tracking.
+  init_();
 };

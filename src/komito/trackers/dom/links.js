@@ -3,6 +3,35 @@
  * @namespace
  */
 komito.trackers.dom.links = {
+  /**
+   * Map of social networks.
+   * @type {!Object.<string, string>}
+   */
+  NETWORKS: {
+    'plus.google.com': 'Google+',
+    'plus.url.google.com': 'Google+',
+    'blogspot.com': 'Blogger',
+    'facebook.com': 'Facebook',
+    'on.fb.me': 'Facebook',
+    'fb.me': 'Facebook',
+    'fb.com': 'Facebook',
+    'twitter.com': 'Twitter',
+    't.co': 'Twitter',
+    'linkedin.com': 'LinkedIn',
+    'myspace.com': 'MySpace',
+    'vk.com': 'VKontakte',
+    'odnoklassniki.ru': 'Odnoklassniki',
+    'xing.com': 'Xing',
+    'youtube.com': 'YouTube',
+    'youtu.be': 'YouTube',
+    'twoo.com': 'Twoo',
+    'reddit.com': 'Reddit',
+    'pinterest.com': 'Pinterest',
+    'digg.com': 'Digg',
+    '4sq.com': 'Foursquare',
+    'foursquare.com': 'Foursquare',
+    'hi.baidu.com': 'Baidu Space'
+  },
 
   /**
    * Initializes links tracking.
@@ -13,7 +42,7 @@ komito.trackers.dom.links = {
     /** @type {number} */ var length = links.length;
 
     for (; length;) {
-      komito.trackers.dom.links.track(
+      komito.trackers.dom.links.addEventListeners_(
           /** @type {!HTMLAnchorElement} */ (links[--length]));
     }
   },
@@ -24,9 +53,9 @@ komito.trackers.dom.links = {
    * @param {!HTMLAnchorElement} link The link element.
    * @private
    */
-  track: function(link) {
+  addEventListeners_: function(link) {
     /** @type {boolean} */ var isHttp = /^https?:$/.test(link.protocol);
-    /** @type {string} */ var href = link.href || link.getAttribute('href');
+    /** @type {string} */ var href = komito.trackers.dom.links.getURL_(link);
     /** @type {Array} */ var match = href.match(komito.EXT_PATTERN);
     /** @type {string} */ var ext = (match || ['']).pop().toLowerCase();
 
@@ -59,10 +88,13 @@ komito.trackers.dom.links = {
 
     /** @type {string} */ var type = 'outbound';
     /** @type {string} */ var host = link.hostname;
-    /** @type {?string} */ var social = komito.trackers.social &&
-        komito.trackers.social.NETWORKS[host.replace(/^www\./, '')];
     /** @type {Array.<string>} */ var path = link.pathname.split('/');
-    /** @type {string} */ var href = link.href || link.getAttribute('href');
+    /** @type {string} */ var href = komito.trackers.dom.links.getURL_(link);
+
+    /** @type {?string} */ var social = dom.NULL;
+    try {
+      social = komito.trackers.dom.links.NETWORKS[host.replace(/^www\./, '')];
+    } catch (e) {}
 
     komito.track(komito.EVENT_ACTION_TYPE, type, host, href);
     if (social) {
@@ -84,7 +116,7 @@ komito.trackers.dom.links = {
   trackDownloadsListener_: function(e) {
     /** @type {HTMLAnchorElement} */
     var link = komito.trackers.dom.links.getLinkEventTarget_(e);
-    /** @type {string} */ var href = link.href || link.getAttribute('href');
+    /** @type {string} */ var href = komito.trackers.dom.links.getURL_(link);
     var type = (href.match(komito.EXT_PATTERN) || ['']).pop().toLowerCase();
 
     komito.track(komito.EVENT_ACTION_TYPE, 'download', type, href);
@@ -102,7 +134,7 @@ komito.trackers.dom.links = {
     /** @type {HTMLAnchorElement} */
     var link = komito.trackers.dom.links.getLinkEventTarget_(e);
     /** @type {string} */ var proto = link.protocol.slice(0, -1);
-    /** @type {string} */ var href = link.href || link.getAttribute('href');
+    /** @type {string} */ var href = komito.trackers.dom.links.getURL_(link);
     // 'tel:1234567890'.slice('tel'.length + 1) == '1234567890';
     // 'mailto:hr@dtm.io'.slice('mailto'.length + 1) == 'hr@dtm.io';
     var type = href.slice(proto.length + 1).split('?')[0];
@@ -128,5 +160,14 @@ komito.trackers.dom.links = {
     }
 
     return /** @type {HTMLAnchorElement} */ (target);
+  },
+
+  /**
+   * @param {HTMLAnchorElement} link The link element.
+   * @return {string} Returns link URL.
+   * @private
+   */
+  getURL_: function(link) {
+    return link.href || link.getAttribute('href');
   }
 };
