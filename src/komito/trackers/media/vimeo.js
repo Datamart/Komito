@@ -7,22 +7,24 @@
  */
 
 
+
 /**
  * Tracks vimeo events on page.
- * @namespace
+ * @constructor
  */
-komito.trackers.media.vimeo = {
+komito.trackers.media.Vimeo = function() {
 
   /** @const {!RegExp} */
-  PATTERN: /^(https?:)?\/\/player\.vimeo\.com\/video\/\d+/,
+  var PATTERN = /^(https?:)?\/\/player\.vimeo\.com\/video\/\d+/;
 
   /** @const {string} */
-  PLAYERJS: 'https://player.vimeo.com/api/player.js',
+  var PLAYERJS = 'https://player.vimeo.com/api/player.js';
 
   /**
    * Initializes vimeo media tracking.
+   * @private
    */
-  init: function() {
+  function init_() {
     /** @type {NodeList} */
     var elements = dom.getElementsByTagName(dom.document, 'IFRAME');
     /** @type {number} */ var length = elements.length;
@@ -31,22 +33,22 @@ komito.trackers.media.vimeo = {
 
     for (; length;) {
       element = elements[--length];
-      if (komito.trackers.media.vimeo.PATTERN.test(element.src))
+      if (PATTERN.test(element.src))
         iframes.push(element);
     }
 
     if (iframes.length) {
       if (dom.context['Vimeo'] && dom.context['Vimeo']['Player']) {
-        komito.trackers.media.vimeo.initListeners_(iframes);
+        initListeners_(iframes);
       } else {
-        dom.scripts.load(komito.trackers.media.vimeo.PLAYERJS, function() {
-          komito.trackers.media.vimeo.initListeners_(iframes);
+        dom.scripts.load(PLAYERJS, function() {
+          initListeners_(iframes);
         });
       }
     }
-  },
+  }
 
-  initListeners_: function(iframes) {
+  function initListeners_(iframes) {
     var Player = dom.context['Vimeo'] && dom.context['Vimeo']['Player'];
 
     if (Player) {
@@ -55,13 +57,12 @@ komito.trackers.media.vimeo = {
 
       for (; length;) {
         element = iframes[--length];
-        komito.trackers.media.vimeo.addListeners_(
-            new Player(element), element.src.split('?')[0]);
+        addListeners_(new Player(element), element.src.split('?')[0]);
       }
     }
-  },
+  }
 
-  addListeners_: function(player, video) {
+  function addListeners_(player, video) {
     player['on']('ended', function() {
       komito.track(komito.EVENT_ACTION_TYPE, 'video:vimeo', 'ended', video);
     });
@@ -72,4 +73,7 @@ komito.trackers.media.vimeo = {
       komito.track(komito.EVENT_ACTION_TYPE, 'video:vimeo', 'pause', video);
     });
   }
+
+  // Initializing vimeo video events tracking.
+  init_();
 };

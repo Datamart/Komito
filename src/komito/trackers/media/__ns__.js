@@ -5,9 +5,9 @@
 komito.trackers.media = {
   init: function() {
     if (komito.config['trackMedia']) {
-      komito.trackers.media.html5 && komito.trackers.media.html5.init();
-      komito.trackers.media.youtube && komito.trackers.media.youtube.init();
-      komito.trackers.media.vimeo && komito.trackers.media.vimeo.init();
+      komito.trackers.media.HTML5 && new komito.trackers.media.HTML5;
+      komito.trackers.media.Vimeo && new komito.trackers.media.Vimeo;
+      komito.trackers.media.YouTube && new komito.trackers.media.YouTube;
     }
   }
 };

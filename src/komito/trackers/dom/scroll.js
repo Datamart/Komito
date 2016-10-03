@@ -1,13 +1,17 @@
+
+
+
 /**
- * Defines <code>komito.trackers.dom.scroll</code> namespace.
- * @namespace
+ * Defines <code>komito.trackers.dom.scroll</code> constructor.
+ * @constructor
  */
-komito.trackers.dom.scroll = {
+komito.trackers.dom.Scroll = function() {
 
   /**
    * Initializes scroll tracking.
+   * @private
    */
-  init: function() {
+  function init_() {
     if (komito.config['trackScroll']) {
       /** @type {Object} */ var map = {25: 0, 50: 0, 75: 0, 100: 0};
       /** @type {Element} */ var root = dom.document.documentElement;
@@ -27,4 +31,7 @@ komito.trackers.dom.scroll = {
           });
     }
   }
+
+  // Initializing print events tracking.
+  init_();
 };

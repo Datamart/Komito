@@ -4,9 +4,9 @@
  */
 komito.trackers.dom = {
   init: function() {
-    komito.trackers.dom.forms && komito.trackers.dom.forms.init();
-    komito.trackers.dom.links && komito.trackers.dom.links.init();
-    komito.trackers.dom.print && komito.trackers.dom.print.init();
-    komito.trackers.dom.scroll && komito.trackers.dom.scroll.init();
+    komito.trackers.dom.Forms && new komito.trackers.dom.Forms;
+    komito.trackers.dom.Links && new komito.trackers.dom.Links;
+    komito.trackers.dom.Print && new komito.trackers.dom.Print;
+    komito.trackers.dom.Scroll && new komito.trackers.dom.Scroll;
   }
 };

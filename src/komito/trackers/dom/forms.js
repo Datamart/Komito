@@ -1,30 +1,33 @@
+
+
+
 /**
- * Defines <code>komito.trackers.dom.forms</code> namespace.
- * @namespace
+ * Defines <code>komito.trackers.dom.forms</code> constructor.
+ * @constructor
  */
-komito.trackers.dom.forms = {
+komito.trackers.dom.Forms = function() {
 
   /**
    * Initializes forms tracking.
+   * @private
    */
-  init: function() {
+  function init_() {
     if (komito.config['trackForms']) {
       /** @type {HTMLCollection} */ var forms = dom.document.forms;
       /** @type {number} */ var length = forms.length;
 
       for (; length;) {
         dom.events.addEventListener(
-            forms[--length], dom.events.TYPE.SUBMIT,
-            komito.trackers.dom.forms.trackFormListener_);
+            forms[--length], dom.events.TYPE.SUBMIT, listener_);
       }
     }
-  },
+  }
 
   /**
    * @param {Event} e The form submit event.
    * @private
    */
-  trackFormListener_: function(e) {
+  function listener_(e) {
     /** @type {HTMLFormElement} */
     var form = /** @type {HTMLFormElement} */ (dom.events.getEventTarget(e));
 
@@ -41,8 +44,9 @@ komito.trackers.dom.forms = {
           element.name + ':' + (element.type || element.tagName));
     }
 
-    dom.events.removeEventListener(
-        form, dom.events.TYPE.SUBMIT,
-        komito.trackers.dom.forms.trackFormListener_);
+    dom.events.removeEventListener(form, dom.events.TYPE.SUBMIT, listener_);
   }
+
+  // Initializing forms events tracking.
+  init_();
 };
