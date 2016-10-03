@@ -47,12 +47,12 @@ var komito = {
    * List of file extensions treated as downloadable.
    * @const {string}
    */
-  DOWNLOADS: ',mp3,mp4,wma,mov,avi,wmv,mkv' +       // Media
-      ',eot,woff,ttf' +                      // Fonts
-      ',txt,csv,tsv' +                       // Text
-      ',pdf,doc,docx,xls,xlsx,ppt,pptx' +    // Docs
-      ',zip,tar,tgz,bz2,gz,rar,dmg,pkg,7z' + // Archives
-      ',ida,exe,sh,bat,',                    // Other
+  DOWNLOADS: ',mp3,mp4,wma,mov,avi,wmv,mkv' + // Media
+      ',eot,woff,ttf' +                       // Fonts
+      ',txt,csv,tsv' +                        // Text
+      ',pdf,doc,docx,xls,xlsx,ppt,pptx' +     // Docs
+      ',zip,tar,tgz,bz2,gz,rar,dmg,pkg,7z' +  // Archives
+      ',ida,exe,sh,bat,',                     // Other
 
   /**
    * File extension pattern.
@@ -111,14 +111,14 @@ var komito = {
     /** @type {!Array} */ var args = util.Array.toArray(arguments);
     /** @type {Array.<Object>} */ var trackers;
     /** @type {Array} */ var argv;
-
     args[0] = args[0] ? 'social' : 'event';
-    // args[0] = ['event', 'social', 'ecom', 'campaign'][args[0]];
 
     if ('function' === typeof dom.context[komito.GA_KEY]) {
       trackers = dom.context[komito.GA_KEY]['getAll'] &&
                  dom.context[komito.GA_KEY]['getAll']();
-      trackers && komito.send_(trackers, 'send', args);
+      var data = args[1].indexOf('video') ?
+          args : args.concat([{'nonInteraction': 1}]);
+      trackers && komito.send_(trackers, 'send', data);
     }
 
     komito.sendTagLoader_(args);
@@ -168,11 +168,13 @@ var komito = {
       var trackers = dom.context['_gat'] &&
                      dom.context['_gat']['_getTrackers'] &&
                      dom.context['_gat']['_getTrackers']();
-      args[0] = ({'social': '_trackSocial', 'event': '_trackEvent'})[args[0]];
+      var data = args[1].indexOf('video') ? args : args.concat([1]);
+      data[0] = ({'social': '_trackSocial', 'event': '_trackEvent'})[data[0]];
+
       if (trackers) {
-        komito.send_(trackers, args[0], args.slice(1));
+        komito.send_(trackers, data[0], data.slice(1));
       } else if (dom.context['_gaq']) {
-        komito.send_([dom.context['_gaq']], 'push', [args]);
+        komito.send_([dom.context['_gaq']], 'push', [data]);
       }
     }
   },
