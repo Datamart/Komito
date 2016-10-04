@@ -157,7 +157,7 @@ komito.trackers.dom.Links = function() {
    * @private
    */
   function getURL_(link) {
-    return link.href || link.getAttribute('href');
+    return link.href || link.getAttribute('href') || '';
   }
 
   // Initializing links events tracking.
