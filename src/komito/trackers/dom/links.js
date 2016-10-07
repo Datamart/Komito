@@ -36,6 +36,9 @@ komito.trackers.dom.Links = function() {
     'hi.baidu.com': 'Baidu Space'
   };
 
+  /** @type {!RegExp} */
+  var HTTP_PATTERN = /^(https?:)?\/\//;
+
   /**
    * Initializes links tracking.
    * @private
@@ -57,8 +60,8 @@ komito.trackers.dom.Links = function() {
    * @private
    */
   function addEventListeners_(link) {
-    /** @type {boolean} */ var isHttp = /^https?:$/.test(link.protocol);
     /** @type {string} */ var href = getURL_(link);
+    /** @type {boolean} */ var isHttp = HTTP_PATTERN.test(href);
     /** @type {Array} */ var match = href.match(komito.EXT_PATTERN);
     /** @type {string} */ var ext = (match || ['']).pop().toLowerCase();
 
@@ -125,14 +128,18 @@ komito.trackers.dom.Links = function() {
     /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
     /** @type {string} */ var proto = link.protocol.slice(0, -1);
     /** @type {string} */ var href = getURL_(link);
-    // 'tel:1234567890'.slice('tel'.length + 1) == '1234567890';
-    // 'mailto:hr@dtm.io'.slice('mailto'.length + 1) == 'hr@dtm.io';
-    var type = href.slice(proto.length + 1).split('?')[0];
 
-    komito.track(komito.EVENT_ACTION_TYPE, 'cta:' + proto, type, href);
+    if (!HTTP_PATTERN.test(href)) {
+      // 'tel:1234567890'.slice('tel'.length + 1) == '1234567890';
+      // 'mailto:hr@dtm.io'.slice('mailto'.length + 1) == 'hr@dtm.io';
+      // var type = href.slice(proto.length + 1).split('?')[0];
+      komito.track(
+          komito.EVENT_ACTION_TYPE, 'cta:' + proto,
+          href.slice(proto.length + 1).split('?')[0], href);
 
-    dom.events.removeEventListener(
-        link, dom.events.TYPE.MOUSEDOWN, trackActionsListener_);
+      dom.events.removeEventListener(
+          link, dom.events.TYPE.MOUSEDOWN, trackActionsListener_);
+    }
   }
 
   /**
