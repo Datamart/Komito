@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope
+      itemtype="http://schema.org/WebPage">
+<head>
+<title itemprop="name">Komito Analytics Integration Instructions</title>
+<meta name="og:title" content="Komito Analytics Integration Instructions">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Komito Analytics is an enhancement for the most popular analytics software.">
+<meta name="og:description" content="Komito Analytics is an enhancement for the most popular analytics software.">
+<meta name="og:image" content="http://datamart.github.io/Komito/images/komito-logo-600x455.png">
+<meta itemprop="image" content="http://datamart.github.io/Komito/images/komito-logo-120x90.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@vpodk">
+<meta name="twitter:url" content="http://datamart.github.io/Komito/integration/">
+<meta itemprop="url" content="http://datamart.github.io/Komito/integration/">
+<link rel="canonical" href="http://datamart.github.io/Komito/integration/">
+<link href="/Komito/favicon.ico" rel="shortcut icon">
+<link href="../styles-v2.css" rel="stylesheet">
+<!--[if lte IE 8]><style type="text/css">.dtm-grid,.dtm-header,.dtm-footer{min-width: 1140px;}</style><![endif]-->
+<!--[if lte IE 7]><style type="text/css">.dtm-grid-row{overflow:hidden;}</style><![endif]-->
+<script>if('https:'==location.protocol)location.replace(location.href.replace('https:','http:'))</script>
+</head>
+<body class="kmt-integration">
+  <div class="kmt-page">
+    <div class="kmt-page-header">
+      <div class="kmt-logo">
+        <a href="/Komito/" title="Komito Homepage">
+          <img src="../images/komito-logo.svg" alt="Komito Analytics">
+        </a>
+      </div>
+      <div class="hamburger">
+        <div class="hamburger-box"><div class="hamburger-inner"></div></div>
+      </div>
+      <div class="kmt-navigation">
+        <ul>
+          <li>
+            <a href="../v2.html" title="Komito Analytics overview page.">Overview</a>
+          </li>
+          <li>
+            <a href="../integration/v2.html" class="kmt-current-page" title="Step-by-step Komito Analytics integration instructions.">Integration</a>
+          </li>
+          <li><a href="../demo/v2.html" title="Komito Analytics demo page.">Demo</a></li>
+          <li>
+            <a href="//github.com/Datamart/Komito/tree/master"
+               target="_blank"
+               title="Get Komito Analytics Source Code.">Get source code</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="kmt-page-content">
+      <div class="kmt-section">
+        <h2>Integration of Komito Analytics</h2>
+        <p>Step-by-step Komito Analytics integration instructions.</p>
+        <p>
+          <b>1. </b>Adding <b>Komito Analytics</b> to your website is easy – just place this code below,
+          ideally right before the closing <code>&lt;/body&gt;</code> tag:</p>
+        <code><pre><span class="tag">&lt;script</span> <span class="atn">src</span>="<a href="//datamart.github.io/Komito/komito.js" target="_blank">//datamart.github.io/Komito/komito.js</a>"<span class="tag">&gt;&lt;/script&gt;<span></pre><i title="Copy code to clipboard">Copy to clipboard</i></code>
+        <p><b>2. Default Komito Analytics configuration:</b></p>
+          <code><pre>
+  <span class="tag">&lt;script&gt;</span>
+    <span class="kwd">var</span> _komito = _komito || {
+      <span class="str">'trackTwitter'</span>: 1,   <span class="com">// Tracks Twitter events if widget is presented on page.</span>
+      <span class="str">'trackFacebook'</span>: 1,  <span class="com">// Tracks Facebook events if widget is presented on page.</span>
+      <span class="str">'trackLinkedIn'</span>: 1,  <span class="com">// Tracks LinkedIn events if plugin is presented on page.</span>
+      <span class="str">'trackDownloads'</span>: 1, <span class="com">// Tracks files download links.</span>
+      <span class="str">'trackOutbound'</span>: 1,  <span class="com">// Tracks outbound links.</span>
+      <span class="str">'trackForms'</span>: 1,     <span class="com">// Tracks forms submissions.</span>
+      <span class="str">'trackUsers'</span>: 1,     <span class="com">// Tracks pageviews by users logged in to social networks.</span>
+      <span class="str">'trackActions</span>': 1,   <span class="com">// Tracks 'mailto', 'tel', 'sms' and 'skype' actions.</span>
+      <span class="str">'trackPrint'</span>: 1,     <span class="com">// Tracks page print actions.</span>
+      <span class="str">'trackMedia'</span>: 1,     <span class="com">// Tracks HTML5 video, audio and YouTube players events.</span>
+      <span class="str">'trackScroll'</span>: 1,    <span class="com">// Tracks scroll depth.</span>
+      <span class="str">'debugMode'</span>: 0       <span class="com">// Prints all requests to console.</span>
+    };
+  <span class="tag">&lt;/script&gt;</span></pre><i title="Copy code to clipboard">Copy to clipboard</i></code>
+      </div>
+      <div class="kmt-section" id="parameters">
+        <h2>Komito Analytics parameters</h2>
+        <p>List of Komito Analytics configuration parameters.</p>
+        <h4>Social Interaction:</h4>
+        <div>
+          • <samp>trackTwitter</samp> Tracks <a target="_blank" rel="nofollow"
+          href="https://dev.twitter.com/docs/tfw/events">Twitter</a>
+          events: <samp>
+          <a target="_blank" rel="nofollow"
+          href="https://dev.twitter.com/web/javascript/events#event-favorite">favorite</a>,
+          <a target="_blank" rel="nofollow"
+          href="https://dev.twitter.com/web/javascript/events#event-follow">follow</a>,
+          <a target="_blank" rel="nofollow"
+          href="https://dev.twitter.com/web/javascript/events#event-retweet">retweet</a>,
+          <a target="_blank" rel="nofollow"
+          href="https://dev.twitter.com/web/javascript/events#event-tweet">tweet</a></samp>.
+          <br>
+          • <samp>trackFacebook</samp> Tracks <a target="_blank" rel="nofollow"
+          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe">Facebook</a>
+          events: <samp><a target="_blank" rel="nofollow"
+          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">like</a>,
+          <a target="_blank" rel="nofollow"
+          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">unlike</a>,
+          <a target="_blank" rel="nofollow"
+          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#message-example">message</a></samp>.
+          <br>
+          • <samp>trackLinkedIn</samp> Tracks <a target="_blank" rel="nofollow"
+          href="https://developer.linkedin.com/plugins">LinkedIn</a>
+          events: <samp><a target="_blank" rel="nofollow"
+          href="https://developer.linkedin.com/plugins/share">share</a>,
+          <a target="_blank" rel="nofollow"
+          href="https://developer.linkedin.com/plugins/follow-company">follow</a></samp>.
+        </div>
+
+        <h4>Files Downloads:</h4>
+        <div>
+          • <samp>trackDownloads</samp> Tracks downloads by
+          <a target="_blank" rel="nofollow"
+          href="http://en.wikipedia.org/wiki/Filename_extension">filename extension</a>.
+          <br>
+          <br>• Media: <samp>mp3, mp4, wma, mov, avi, wmv, mkv</samp>
+          <br>• Fonts: <samp>eot, woff, ttf</samp>
+          <br>• Text: <samp>txt, csv, tsv</samp>
+          <br>• Docs: <samp>pdf, doc, docx, xls, xlsx, ppt, pptx</samp>
+          <br>• Archives: <samp>zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z</samp>
+          <br>• Other: <samp>ida, exe, sh, bat</samp>
+        </div>
+
+        <h4>Outbound links</h4>
+        <div>
+          • <samp>trackOutbound</samp> Tracks all outbound links.
+          <br><br>Komito Analytics recognizes outbound links to social networks
+          and lists those in the social report as well.
+          <br>
+          <i>Supported social networks:</i> Google+, Blogger, Facebook, Twitter,
+          LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
+          Reddit, Pinterest, Digg, Foursquare.
+          <br><br>
+          Also recognizes <a target="_blank" rel="nofollow"
+          href="https://dev.twitter.com/web/intents">Twitter web intents</a>
+          links.
+        </div>
+
+        <h4>Forms</h4>
+        <div>• <samp>trackForms</samp> Tracks submitted forms.</div>
+
+        <h4>Logged in Users</h4>
+        <div>
+          • <samp>trackUsers</samp> Tracks pageviews by users logged in to social networks.
+         <br><i>Supported social networks:</i> Facebook, Google+, Twitter.
+        </div>
+
+        <h4>Call to action links</h4>
+        <div>• <samp>trackActions</samp> Tracks CTA links (mailto, tel, sms, skype, etc).</div>
+
+        <h4>Print</h4>
+        <div>• <samp>trackPrint</samp> Tracks page print actions.</div>
+
+        <h4>Media</h4>
+        <div>• <samp>trackMedia</samp> Tracks HTML5 video, audio and YouTube players events.</div>
+
+        <h4>Scroll</h4>
+        <div>• <samp>trackScroll</samp> Tracks scroll depth.</div>
+
+        <h4>Debugging</h4>
+        <div>• <samp>debugMode</samp> Prints all requests to console.
+          <br><i>Note:</i> For production sites, you can enable
+          <samp>debugMode</samp> by adding <samp>debug=1</samp>
+          query parameter to current page URL.
+        </div>
+      </div>
+      <div class="kmt-section extra">
+        <p>
+          <em>Still have a questions?</em><a href="/" class="button" title="Ask Komito support team">Ask Komito support team</a>
+        </p>
+      </div>
+    </div>
+    <div class="kmt-page-footer">
+      <div class="kmt-navigation">
+        <ul>
+          <li>
+            <a href="//github.com/Datamart/Komito/tree/master"
+               target="_blank"
+               title="Get Komito Analytics Source Code.">Get source code</a>
+          </li>
+        </ul>
+      </div>
+      <p>Komito Analytics is subject to the terms and conditions of
+        <a href="http://www.apache.org/licenses/LICENSE-2.0"
+           rel="nofollow"
+           title="Apache License">Apache License 2.0</a>
+        <br>© 2016 <a href="http://dtm.io" title="Datamart Inc.">Datamart Inc.</a>
+      </p>
+    </div>
+  </div>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create','UA-5065160-14','auto');ga('require','displayfeatures');ga('send','pageview');
+  </script>
+<script src="../scripts/functions.js"></script>
+  <script src="//datamart.github.io/Komito/komito.js"></script>
+</body></html>
