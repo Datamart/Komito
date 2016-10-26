@@ -36,6 +36,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+a {
+  border: 0;
+  color: #097ad2;
+  text-decoration: none;
+}
+
 b {
   color: #333;
   font-weight: bold;
@@ -78,6 +84,10 @@ h4 {
   border-bottom: 1px dotted;
 }
 
+.kmt-page-content .gray-out a {
+  border: 0;
+}
+
 [class^='kmt-page-'] {
   padding: 0 1em;
 }
@@ -111,11 +121,6 @@ body {
 h2,
 h3 {
   color: #000;
-}
-
-a {
-  color: #097ad2;
-  text-decoration: none;
 }
 
 .kmt-page-header,
@@ -167,6 +172,12 @@ h2:after {
 
 .gray-out img {
   filter: grayscale(1);
+  opacity: .7;
+}
+
+.gray-out img:hover {
+  filter: grayscale(0);
+  opacity: 1;
 }
 
 .notes p {
@@ -428,6 +439,10 @@ code:last-child {
   z-index: 100;
 }
 
+.lock {
+  overflow: hidden;
+}
+
 .hamburger:hover {
   opacity: .7;
 }
@@ -495,7 +510,26 @@ code:last-child {
   background-color: rgba(255, 255, 255, .95);
 }
 
+.kmt-page-header .kmt-navigation.active {
+  background-color: #222;
+  display: block;
+  float: none;
+  height: 100vh;
+  left: 0;
+  overflow: hidden;
+  padding-top: 7em;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.kmt-page-header .kmt-navigation.active li {
+  display: block;
+}
 /* / Hamburger menu */
+
 @media screen and (max-width: 860px) {
   .kmt-page-header .kmt-navigation {
     display: none;

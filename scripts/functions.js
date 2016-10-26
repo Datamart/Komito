@@ -23,10 +23,12 @@ function toggleClass_(element, className) {
  * Initializes menu navigation.
  */
 function initMenu_() {
+  /** @type {Element} */ var body = doc.querySelector('body');
   /** @type {Element} */ var hamburger = doc.querySelector('.hamburger');
   /** @type {Element} */ var nav = doc.querySelector('.kmt-page-header .kmt-navigation');
   if (hamburger && nav) {
     hamburger.addEventListener('click', function() {
+      toggleClass_(body, 'lock');
       toggleClass_(hamburger, 'active');
       toggleClass_(nav, 'active');
     }, false);
