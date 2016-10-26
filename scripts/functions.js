@@ -25,7 +25,7 @@ function toggleClass_(element, className) {
 function initMenu_() {
   /** @type {Element} */ var body = doc.querySelector('body');
   /** @type {Element} */ var hamburger = doc.querySelector('.hamburger');
-  /** @type {Element} */ var nav = doc.querySelector('.kmt-page-header .kmt-navigation');
+  /** @type {Element} */ var nav = doc.querySelector('.kmt-navigation');
   if (hamburger && nav) {
     hamburger.addEventListener('click', function() {
       toggleClass_(body, 'lock');

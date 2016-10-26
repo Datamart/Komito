@@ -93,7 +93,7 @@ h4 {
 }
 
 .kmt-section {
-  padding: 2em 10% 3em;
+  padding: 2em 10%;
 }
 
 .kmt-page-hero .kmt-section {
@@ -232,8 +232,7 @@ button,
 /* Header and main navigation */
 .kmt-page-header {
   display: table;
-  height: 5.3125em;
-  padding-bottom: 1.25em;
+  height: 5em;
   padding-top: 1em;
   position: relative;
   width: 100%;
@@ -247,11 +246,23 @@ button,
 
 .kmt-logo {
   float: left;
+  font-size: 1.6em;
 }
 
-.kmt-logo img {
-  height: auto;
-  width: 15em;
+.kmt-logo *,
+.dtm-logo * {
+  color: #fff;
+  display: inline-block;
+  font-style: normal;
+  vertical-align: middle;
+}
+
+.kmt-logo span {
+  margin-left: .3em;
+}
+
+.kmt-logo b {
+  margin-right: .2em;
 }
 
 .kmt-navigation {
@@ -420,10 +431,19 @@ code:last-child {
 
 .kmt-page-footer p {
   font-size: 84%;
-  overflow: hidden;
-  padding-top: 2em;
+  float: right;
   text-align: right;
-  width: 100%;
+}
+
+.dtm-logo span {
+  margin-left: .4em;
+}
+
+.dtm-logo i {
+  display: block;
+  position: relative;
+  font-size: .7em;
+  top: .3em;
 }
 /* / Komito footer */
 
@@ -550,6 +570,10 @@ code:last-child {
   h2 {
     font-size: 2em;
     line-height: 1.3;
+  }
+
+  .kmt-logo {
+    font-size: 1.4em;
   }
 
   .kmt-page-hero p {
