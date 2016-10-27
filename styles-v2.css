@@ -534,7 +534,7 @@ code:last-child {
   background-color: rgba(255, 255, 255, .95);
 }
 
-.kmt-page-header .kmt-navigation.active {
+.kmt-navigation.active {
   background-color: #222;
   display: block;
   float: none;
@@ -549,13 +549,13 @@ code:last-child {
   z-index: -1;
 }
 
-.kmt-page-header .kmt-navigation.active li {
+.kmt-navigation.active li {
   display: block;
 }
 /* / Hamburger menu */
 
 @media screen and (max-width: 860px) {
-  .kmt-page-header .kmt-navigation {
+  .kmt-navigation {
     display: none;
   }
 
@@ -596,14 +596,13 @@ code:last-child {
     padding: 1.5em 10%;
   }
 
-  .kmt-page-footer .kmt-navigation {
+  body .kmt-page-footer > * {
     float: none;
   }
 
-  .kmt-navigation.active {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  .dtm-logo {
+    display: block;
+    margin-bottom: 1em;
   }
 
   .kmt-page-footer,
@@ -611,9 +610,29 @@ code:last-child {
     text-align: center;
   }
 
- .kmt-metrics li {
+  body .kmt-page-content li {
     min-height: auto;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
     width: 100%;
+  }
+
+  .kmt-homepage .kmt-section.gray-out img {
+    max-height: 2.5em;
+    width: auto;
+  }
+
+  .extra p .button:first-child {
+    margin-bottom: .5em;
+  }
+
+  .extra p .button:last-child {
+    margin-top: .5em;s
+  }
+
+  body h2 + p {
+    margin-bottom: 1.8em;
   }
 
 }
