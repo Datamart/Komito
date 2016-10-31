@@ -158,6 +158,36 @@ h2:after {
   background-color: #f58f00;
 }
 
+.kmt-demo h2:after {
+  display: none;
+}
+
+.info {
+  background-color: InfoBackground;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 1em;
+  position: relative;
+}
+
+.info:before {
+  bottom: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.kmt-demo h2 + p:before {
+  border-color: white;
+  border-bottom-color: InfoBackground;
+  border-width: 1em;
+  margin-left: -1em;
+}
+
 .gray-out h2 {
   color: #888;
 }
