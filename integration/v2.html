@@ -77,97 +77,183 @@
       <div class="kmt-section" id="parameters">
         <h2>Komito Analytics parameters</h2>
         <p>List of Komito Analytics configuration parameters.</p>
-        <h4>Social Interaction:</h4>
-        <div>
-          • <samp>trackTwitter</samp> Tracks <a target="_blank" rel="nofollow"
-          href="https://dev.twitter.com/docs/tfw/events">Twitter</a>
-          events: <samp>
-          <a target="_blank" rel="nofollow"
-          href="https://dev.twitter.com/web/javascript/events#event-favorite">favorite</a>,
-          <a target="_blank" rel="nofollow"
-          href="https://dev.twitter.com/web/javascript/events#event-follow">follow</a>,
-          <a target="_blank" rel="nofollow"
-          href="https://dev.twitter.com/web/javascript/events#event-retweet">retweet</a>,
-          <a target="_blank" rel="nofollow"
-          href="https://dev.twitter.com/web/javascript/events#event-tweet">tweet</a></samp>.
-          <br>
-          • <samp>trackFacebook</samp> Tracks <a target="_blank" rel="nofollow"
-          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe">Facebook</a>
-          events: <samp><a target="_blank" rel="nofollow"
-          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">like</a>,
-          <a target="_blank" rel="nofollow"
-          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">unlike</a>,
-          <a target="_blank" rel="nofollow"
-          href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#message-example">message</a></samp>.
-          <br>
-          • <samp>trackLinkedIn</samp> Tracks <a target="_blank" rel="nofollow"
-          href="https://developer.linkedin.com/plugins">LinkedIn</a>
-          events: <samp><a target="_blank" rel="nofollow"
-          href="https://developer.linkedin.com/plugins/share">share</a>,
-          <a target="_blank" rel="nofollow"
-          href="https://developer.linkedin.com/plugins/follow-company">follow</a></samp>.
+
+        <div class="kmt-parameter">
+          <h4>Social Interaction</h4>
+          <table>
+            <tr>
+              <th><samp>trackTwitter</samp></th>
+              <td>Tracks
+                <a target="_blank" rel="nofollow"
+                   href="https://dev.twitter.com/docs/tfw/events">Twitter</a>
+                events:
+                  <samp>
+                    <a target="_blank" rel="nofollow"
+                       href="https://dev.twitter.com/web/javascript/events#event-favorite">favorite</a>,
+                    <a target="_blank" rel="nofollow"
+                       href="https://dev.twitter.com/web/javascript/events#event-follow">follow</a>,
+                    <a target="_blank" rel="nofollow"
+                       href="https://dev.twitter.com/web/javascript/events#event-retweet">retweet</a>,
+                    <a target="_blank" rel="nofollow"
+                       href="https://dev.twitter.com/web/javascript/events#event-tweet">tweet</a>
+                  </samp>.
+              </td>
+            </tr>
+            <tr>
+              <th><samp>trackFacebook</samp></th>
+              <td>
+                Tracks <a target="_blank" rel="nofollow"
+                href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe">Facebook</a>
+                events:
+                <samp>
+                  <a target="_blank" rel="nofollow"
+                     href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">like</a>,
+                  <a target="_blank" rel="nofollow"
+                     href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">unlike</a>,
+                  <a target="_blank" rel="nofollow"
+                     href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#message-example">message</a>
+                </samp>.
+              </td>
+            </tr>
+            <tr>
+              <th><samp>trackLinkedIn</samp></th>
+              <td>
+                Tracks <a target="_blank" rel="nofollow"
+                href="https://developer.linkedin.com/plugins">LinkedIn</a>
+                events:
+                <samp>
+                  <a target="_blank" rel="nofollow"
+                     href="https://developer.linkedin.com/plugins/share">share</a>,
+                  <a target="_blank" rel="nofollow"
+                     href="https://developer.linkedin.com/plugins/follow-company">follow</a>
+                </samp>.
+              </td>
+            </tr>
+          </table>
         </div>
 
-        <h4>Files Downloads:</h4>
-        <div>
-          • <samp>trackDownloads</samp> Tracks downloads by
-          <a target="_blank" rel="nofollow"
-          href="http://en.wikipedia.org/wiki/Filename_extension">filename extension</a>.
-          <br>
-          <br>• Media: <samp>mp3, mp4, wma, mov, avi, wmv, mkv</samp>
-          <br>• Fonts: <samp>eot, woff, ttf</samp>
-          <br>• Text: <samp>txt, csv, tsv</samp>
-          <br>• Docs: <samp>pdf, doc, docx, xls, xlsx, ppt, pptx</samp>
-          <br>• Archives: <samp>zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z</samp>
-          <br>• Other: <samp>ida, exe, sh, bat</samp>
+
+        <div class="kmt-parameter">
+          <h4>Files Downloads</h4>
+          <table>
+            <tr>
+              <th><samp>trackDownloads</samp></th>
+              <td>
+                Tracks downloads by
+                <a target="_blank" rel="nofollow"
+                   href="http://en.wikipedia.org/wiki/Filename_extension">filename extension</a>.
+              </td>
+            </tr>
+          </table>
+          <em>Supported filenames:</em>
+          <ul>
+            <li>Media: <samp>mp3, mp4, wma, mov, avi, wmv, mkv</samp></li>
+            <li>Fonts: <samp>eot, woff, ttf</samp></li>
+            <li>Text: <samp>txt, csv, tsv</samp></li>
+            <li>Docs: <samp>pdf, doc, docx, xls, xlsx, ppt, pptx</samp></li>
+            <li>Archives: <samp>zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z</samp></li>
+            <li>Other: <samp>ida, exe, sh, bat</samp></li>
+          </ul>
         </div>
 
-        <h4>Outbound links</h4>
-        <div>
-          • <samp>trackOutbound</samp> Tracks all outbound links.
-          <br><br>Komito Analytics recognizes outbound links to social networks
-          and lists those in the social report as well.
-          <br>
-          <i>Supported social networks:</i> Google+, Blogger, Facebook, Twitter,
-          LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
-          Reddit, Pinterest, Digg, Foursquare.
-          <br><br>
+        <div class="kmt-parameter">
+          <h4>Outbound links</h4>
+          <table>
+            <tr>
+              <th><samp>trackOutbound</samp></th>
+              <td>Tracks all outbound links.</td>
+            </tr>
+          </table>
+          <p>Komito Analytics recognizes outbound links to social networks and lists those in the social report as well.<br>
+          <em>Supported social networks:</em> Google+, Blogger, Facebook, Twitter,
+            LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
+            Reddit, Pinterest, Digg, Foursquare.<br>
           Also recognizes <a target="_blank" rel="nofollow"
-          href="https://dev.twitter.com/web/intents">Twitter web intents</a>
-          links.
+            href="https://dev.twitter.com/web/intents">Twitter web intents</a>
+            links.</p>
         </div>
 
-        <h4>Forms</h4>
-        <div>• <samp>trackForms</samp> Tracks submitted forms.</div>
-
-        <h4>Logged in Users</h4>
-        <div>
-          • <samp>trackUsers</samp> Tracks pageviews by users logged in to social networks.
-         <br><i>Supported social networks:</i> Facebook, Google+, Twitter.
+        <div class="kmt-parameter">
+          <h4>Forms</h4>
+          <table>
+            <tr>
+              <th><samp>trackForms</samp></th>
+              <td>Tracks submitted forms.</td>
+            </tr>
+          </table>
         </div>
 
-        <h4>Call to action links</h4>
-        <div>• <samp>trackActions</samp> Tracks CTA links (mailto, tel, sms, skype, etc).</div>
-
-        <h4>Print</h4>
-        <div>• <samp>trackPrint</samp> Tracks page print actions.</div>
-
-        <h4>Media</h4>
-        <div>• <samp>trackMedia</samp> Tracks HTML5 video, audio and YouTube players events.</div>
-
-        <h4>Scroll</h4>
-        <div>• <samp>trackScroll</samp> Tracks scroll depth.</div>
-
-        <h4>Debugging</h4>
-        <div>• <samp>debugMode</samp> Prints all requests to console.
-          <br><i>Note:</i> For production sites, you can enable
-          <samp>debugMode</samp> by adding <samp>debug=1</samp>
-          query parameter to current page URL.
+        <div class="kmt-parameter">
+          <h4>Logged in Users</h4>
+          <table>
+            <tr>
+              <th><samp>trackUsers</samp></th>
+              <td>Tracks pageviews by users logged in to social networks.</td>
+            </tr>
+          </table>
+          <em>Supported social networks:</em>
+          <p>Facebook, Google+, Twitter</p>
+          </ul>
         </div>
+
+        <div class="kmt-parameter">
+          <h4>Call to action links</h4>
+          <table>
+            <tr>
+              <th><samp>trackActions</samp></th>
+              <td>Tracks CTA links (mailto, tel, sms, skype, etc).</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Print</h4>
+          <table>
+            <th><samp>trackPrint</samp></th>
+            <td>Tracks page print actions.</td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Media</h4>
+          <table>
+            <tr>
+              <th><samp>trackMedia</samp></th>
+              <td>Tracks HTML5 video, audio and YouTube players events.</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Scroll</h4>
+          <table>
+            <tr>
+              <th><samp>trackScroll</samp></th>
+              <td>Tracks scroll depth.</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Debugging</h4>
+          <table>
+            <tr>
+              <th><samp>debugMode</samp></th>
+              <td>Prints all requests to console.</td>
+            </tr>
+          </table>
+          <p><em>Note:</em> For production sites, you can enable
+            <samp>debugMode</samp> by adding <samp>debug=1</samp>
+            query parameter to current page URL.</p>
+        </div>
+
       </div>
       <div class="kmt-section extra">
         <p>
-          <em>Still have a questions?</em><a href="/" class="button" title="Ask Komito support team">Ask Komito support team</a>
+          <!-- <em>Still have a questions?</em> -->
+          <a href="/" class="button" title="Ask Komito support team">Ask Komito support team</a>
+          - OR -
+          <a href="demo/v2.html" class="button gray-out" title="See Komito Analytics demo page">See Demo</a>
         </p>
       </div>
     </div>

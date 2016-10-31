@@ -54,9 +54,42 @@
       <div class="kmt-section">
         <h2>Komito Analytics demo page</h2>
         <p>For more info please open default dev console view. (Keys, depends on OS, Browser)</p>
-        <div class="console"><span>Your wedev console should looks like this:</span><img src="../images/chrome-webdev-console.png">&nbsp;</div>
-        <!-- <p>Your wedev console should looks like this:</p> -->
-        <p>Demo widgets coming soon</p>
+        <div class="console">
+          <span>Your wedev console should looks like this:</span><img src="../images/chrome-webdev-console.png">
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Print</h4>
+          <table>
+            <th>Clicking on links "Print" event will be dispatched.</th>
+            <td>
+              <ul>
+                <li><a href="javascript:window.print()">Print</a></li>
+                <li>Ctrl+P / Cmd+P</li>
+              </ul>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Scroll</h4>
+          <table>
+            <th>Scrolling page "Scroll" event will be dispatched.</th>
+            <td>
+              <ul>
+                <li><a href="javascript:window.scrollTo(0, document.documentElement.scrollHeight * 0.25);">Scroll 25%</a></li>
+                <li><a href="javascript:window.scrollTo(0, document.documentElement.scrollHeight * 0.5);">Scroll 50%</a></li>
+                <li><a href="javascript:window.scrollTo(0, document.documentElement.scrollHeight * 0.75);">Scroll 75%</a></li>
+                <li><a href="javascript:window.scrollTo(0, document.documentElement.scrollHeight);">Scroll 100%</a></li>
+              </ul>
+            </td>
+          </table>
+        </div>
+
+      </div>
+      <div class="kmt-section extra">
+        <p><em>Still have a questions?</em>
+        <a href="/" class="button" title="Ask Komito support team">Ask Komito support team</a></p>
       </div>
     </div>
     <div class="kmt-page-footer">
