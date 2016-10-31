@@ -164,28 +164,23 @@ h2:after {
 
 .info {
   background-color: InfoBackground;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2em;
+  margin-right: 2em;
   padding: 1em;
   position: relative;
 }
 
 .info:before {
   bottom: 100%;
-  left: 50%;
-  border: solid transparent;
-  content: " ";
+  border: 1em solid transparent;
+  border-bottom-color: InfoBackground;
+  content: ' ';
   height: 0;
+  left: 50%;
+  margin-left: -1em;
   width: 0;
   position: absolute;
-  pointer-events: none;
-}
-
-.kmt-demo h2 + p:before {
-  border-color: white;
-  border-bottom-color: InfoBackground;
-  border-width: 1em;
-  margin-left: -1em;
+  width: 0;
 }
 
 .gray-out h2 {
