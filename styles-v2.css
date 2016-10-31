@@ -445,19 +445,6 @@ code {
   position: relative;
 }
 
-code i {
-  cursor: pointer;
-  font-size: .8em;
-  font-style: normal;
-  position: absolute;
-  right: .8em;
-  top: .5em;
-}
-
-code i:hover {
-  color: #000;
-}
-
 p > code {
   display: inline-block;
   margin: 0;
@@ -493,12 +480,9 @@ code:last-child {
   margin-bottom: 0;
 }
 
-.console {
-  text-align: center;
-}
-
-.console > span {
-  display: block;
+.gray-out li:nth-child(2) {
+  position: relative;
+  top: -.5em;
 }
 /* / Komito content section */
 
