@@ -365,6 +365,7 @@ li i {
 .kmt-parameter em {
   display: block;
   font-weight: bold;
+  margin: .5em 0 .3em;
 }
 
 .kmt-parameter table {
@@ -374,31 +375,60 @@ li i {
 }
 
 .kmt-parameter ul {
-  padding: .5em;
+  padding: 0 .5em;
 }
 
 .kmt-parameter li {
   display: block;
-  list-style-type: disc;
-  padding: 0;;
+  padding: 0;
 }
 
 .kmt-parameter tr th {
   color: black;
   text-align: left;
-  width: 25%;
-}
-
-.kmt-demo .kmt-parameter tr th {
-  width: 40%;
+  width: 20%;
 }
 
 .kmt-parameter th,
 .kmt-parameter td {
   border-bottom: 1px solid white;
   border-right: 1px solid white;
-  padding: .5em;
+  padding: 1em;
   vertical-align: middle;
+}
+
+.kmt-demo .kmt-parameter th {
+  width: 45%;
+}
+
+.kmt-demo .kmt-parameter td,
+.kmt-demo .kmt-parameter th {
+  vertical-align: top;
+}
+
+.kmt-demo td li {
+  padding-bottom: .3em;
+}
+
+.kmt-demo td ul li:last-child {
+  padding-bottom: 0;
+}
+
+.form-item {
+  display: block;
+}
+
+.form-item label {
+  display: block;
+}
+
+.form-item input,
+.form-item select,
+.form-item textarea {
+  border: 1px solid #ddd;
+  font-size: 1em;
+  padding: .3em;
+  width: 40%;
 }
 
 pre {
@@ -492,6 +522,7 @@ code:last-child {
   display: block;
   position: relative;
   font-size: .7em;
+  text-align: left;
   top: .3em;
 }
 /* / Komito footer */
@@ -688,7 +719,7 @@ code:last-child {
   body .kmt-parameter th,
   body .kmt-parameter td {
     display:block;
-    width: 100%;
+    width: 100% !important;
   }
 
 }

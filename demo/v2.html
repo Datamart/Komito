@@ -64,8 +64,7 @@
             <th>Clicking on links "Print" event will be dispatched.</th>
             <td>
               <ul>
-                <li><a href="javascript:window.print()">Print</a></li>
-                <li>Ctrl+P / Cmd+P</li>
+                <li><a href="javascript:window.print()">Print</a> (Ctrl+P / Cmd+P)</li>
               </ul>
             </td>
           </table>
@@ -82,6 +81,125 @@
                 <li><a href="javascript:window.scrollTo(0, document.documentElement.scrollHeight * 0.75);">Scroll 75%</a></li>
                 <li><a href="javascript:window.scrollTo(0, document.documentElement.scrollHeight);">Scroll 100%</a></li>
               </ul>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Outbound Links</h4>
+          <table>
+            <th>Clicking on links "Outbound" event will be dispatched.<br>
+              If link is a Social Network, "Social" event will be dispatched too.</th>
+            <td>
+              <ul>
+                <li><a target="_blank" href="http://dtm.io/">Datamart</a></li>
+                <li><a target="_blank" href="//www.linkedin.com/company/datamartinc">LinkedIn</a></li>
+                <li><a target="_blank" href="//www.facebook.com/datamartinc">Facebook</a></li>
+                <li><a target="_blank" href="//plus.google.com/+ValentinP">Google+</a></li>
+                <li><a target="_blank" href="//twitter.com/vpodk">Twitter</a></li>
+                <li><a target="_blank" href="//analytics.blogspot.com/">Blogger</a></li>
+              </ul>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Download Links</h4>
+          <table>
+            <th>Clicking on links "Download" event will be dispatched.<br>
+              If link is in other domain, "Outbound" event will be dispatched too.</th>
+            <td>
+              <ul>
+                <li>
+                  <a target="_blank"
+                     href="http://dtm.io/case-studies/files/Datamart-WebAnalytics-CaseStudy.pdf">Datamart-WebAnalytics-CaseStudy.pdf</a>
+                </li>
+                <li>
+                  <a target="_blank"
+                     href="http://dl.google.com/closure-compiler/compiler-latest.zip">Google-Closure-Compiler.zip</a>
+                      (Other domain)
+                </li>
+              </ul>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Call To Action Links</h4>
+          <table>
+            <th>Clicking on links "CTA" event will be dispatched.</th>
+            <td>
+              <ul>
+                <li><a href="mailto:komito-support@dtm.io">mailto:komito-support@dtm.io</a></li>
+                <li><a href="mailto:hr@dtm.io?subject=Resume">mailto:hr@dtm.io?subject=Resume</a></li>
+                <li><a href="tel:+14157997500">tel:+14157997500</a></li>
+                <li><a href="sms:+14157997500">sms:+14157997500</a></li>
+                <li><a href="skype:datamart.company?call">skype:datamart.company?call</a></li>
+              </ul>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Forms</h4>
+          <table>
+            <th>Clicking on button "Form" event will be dispatched.</th>
+            <td>
+              <form name="registration-form" onsubmit="return false">
+                <div class="form-item">
+                  <label>Name:</label>
+                  <input name="name" value="name" type="text">
+                </div>
+                <div class="form-item">
+                  <label>Age:</label>
+                  <select name="age"><option value="20">20</option></select>
+                </div>
+                <div class="form-item">
+                  <label>Text:</label>
+                  <textarea name="comment">comment</textarea>
+                </div>
+                <div class="dtm-form-item">
+                  <button type="submit"
+                          style="padding:9px 15px 10px"
+                          class="dtm-button clr-red">Submit</button>
+                </div>
+              </form>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Media</h4>
+          <table>
+            <th>"Media" event will be dispatched.</th>
+            <td>
+              <em>HTML5</em>
+              <video width="460" height="260" controls>
+                <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
+                        type="video/mp4">
+                <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.webm"
+                        type="video/webm">
+                <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv"
+                        type="video/ogg">
+              </video>
+              <em>Youtube</em>
+              <iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+                      width="460" height="260" frameborder="0"
+                      webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              <em>Vimeo</em>
+              <iframe src="https://player.vimeo.com/video/1084537"
+                      width="460" height="260" frameborder="0"
+                      webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </td>
+          </table>
+        </div>
+
+        <div class="kmt-parameter">
+          <h4>Social Buttons</h4>
+          <table>
+            <th>Clicking on links "Social" event will be dispatched.</th>
+            <td>
+
             </td>
           </table>
         </div>
