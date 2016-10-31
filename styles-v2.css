@@ -52,7 +52,7 @@ b {
 .kmt-section,
 h2 {
   position: relative;
-  z-index: 998;
+  z-index: 10;
 }
 
 h1 {
