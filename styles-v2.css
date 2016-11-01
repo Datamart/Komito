@@ -438,12 +438,13 @@ li i {
   padding-bottom: 0;
 }
 
-.form-item {
+.form-item,
+.form-item label {
   display: block;
 }
 
-.form-item label {
-  display: block;
+.form-item {
+  margin-bottom: .5em;
 }
 
 .form-item input,
@@ -491,6 +492,12 @@ p > code {
 
 .com {
   color: gray;
+}
+
+.or {
+  display: inline-block;
+  font-style: normal;
+  padding: .5em;
 }
 
 samp {
@@ -686,7 +693,6 @@ code:last-child {
   }
 
   .dtm-logo {
-    display: block;
     margin-bottom: 1em;
   }
 
@@ -716,18 +722,29 @@ code:last-child {
     margin-bottom: .5em;
   }
 
-  .extra p .button:last-child {
-    margin-top: .5em;s
-  }
-
   body h2 + p {
     margin-bottom: 1.8em;
   }
 
   body .kmt-parameter th,
-  body .kmt-parameter td {
-    display:block;
+  body .kmt-parameter td,
+  .form-item input,
+  .form-item select,
+  .form-item textarea {
     width: 100% !important;
+  }
+
+  .or,
+  .dtm-logo,
+  body .kmt-parameter th,
+  body .kmt-parameter td {
+    display: block;
+  }
+
+  table video,
+  table iframe {
+    height: auto;
+    width: 255px;
   }
 
 }
