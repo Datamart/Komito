@@ -532,7 +532,7 @@ code:last-child {
 }
 
 .social-buttons li:nth-child(2) {
-  padding-bottom: .1em;
+  padding-bottom: 0;
 }
 
 /* / Komito content section */
