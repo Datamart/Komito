@@ -711,6 +711,11 @@ code:last-child {
     float: none;
   }
 
+  .info {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .dtm-logo {
     margin-bottom: 1em;
   }
