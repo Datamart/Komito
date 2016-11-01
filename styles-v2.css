@@ -756,14 +756,20 @@ code:last-child {
   .or,
   .dtm-logo,
   body .kmt-parameter th,
-  body .kmt-parameter td {
+  body .kmt-parameter td,
+  .social-buttons li > b {
     display: block;
+  }
+
+  body .kmt-parameter th,
+  body .kmt-parameter td {
+    padding: .5em;
   }
 
   table video,
   table iframe {
     height: auto;
-    width: 255px;
+    width: 100%;
   }
 
 }
