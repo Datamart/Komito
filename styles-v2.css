@@ -243,6 +243,7 @@ button,
 .button {
   background-color: #097ad2;
   border-radius: 2px;
+  border: 0 !important;
   color: #fff;
 }
 
@@ -530,6 +531,9 @@ code:last-child {
   vertical-align: middle !important;
 }
 
+.social-buttons li:nth-child(2) {
+  padding-bottom: .1em;
+}
 
 /* / Komito content section */
 
