@@ -776,9 +776,10 @@ code:last-child {
     display: inline-block;
   }
 
-  .fb-share-button.fb_iframe_widget.fb_iframe_widget_fluid > span {
-    height: 12px;
-    width: 49px;
+  .fb-share-button.fb_iframe_widget.fb_iframe_widget_fluid > span,
+  .fb-share-button.fb_iframe_widget.fb_iframe_widget_fluid > span > iframe {
+    height: 13px !important;
+    width: 49px !important;
   }
 
 }
