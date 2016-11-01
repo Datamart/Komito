@@ -387,7 +387,6 @@ li i {
 }
 
 .kmt-parameter em {
-  display: block;
   font-weight: bold;
   margin: .5em 0 .3em;
 }
@@ -403,7 +402,6 @@ li i {
 }
 
 .kmt-parameter li {
-  display: block;
   padding: 0;
 }
 
@@ -436,11 +434,6 @@ li i {
 
 .kmt-demo td ul li:last-child {
   padding-bottom: 0;
-}
-
-.form-item,
-.form-item label {
-  display: block;
 }
 
 .form-item {
@@ -515,6 +508,29 @@ code:last-child {
   position: relative;
   top: -.5em;
 }
+
+.form-item,
+.form-item label,
+.dtm-logo i,
+.kmt-parameter li,
+.kmt-parameter em {
+  display: block;
+}
+
+.social-buttons li > b {
+  font-size: .85em;
+  width: 5.5em;
+}
+
+.social-buttons li > b,
+.social-buttons li > iframe,
+.social-buttons li > .IN-widget,
+.fb_iframe_widget {
+  display: inline-block;
+  vertical-align: middle !important;
+}
+
+
 /* / Komito content section */
 
 /* Komito footer */
@@ -534,7 +550,6 @@ code:last-child {
 }
 
 .dtm-logo i {
-  display: block;
   position: relative;
   font-size: .7em;
   text-align: left;
