@@ -525,7 +525,7 @@ code:last-child {
 .social-buttons li > b,
 .social-buttons li > iframe,
 .social-buttons li > .IN-widget,
-.fb_iframe_widget {
+.fb-share-button.fb_iframe_widget > span {
   display: inline-block;
   vertical-align: middle !important;
 }
