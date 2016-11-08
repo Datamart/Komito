@@ -76,11 +76,10 @@ h4 {
 }
 
 .thin-font {
-  /* display: inline-block; */
   -webkit-font-smoothing: antialiased;
   letter-spacing: -.01em;
   -moz-osx-font-smoothing: grayscale;
-  /* text-rendering: optimizeLegibility;*/
+  text-rendering: optimizeLegibility;
   transform: scale(.975, 1.15);
 }
 
