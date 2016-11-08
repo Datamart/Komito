@@ -5,6 +5,7 @@
  * @see http://developers.google.com/closure/compiler/docs/js-for-compiler
  */
 
+
 /**
  * Toggles element class name.
  * @param {Node} element The element to add or remove the class on.
@@ -23,26 +24,18 @@ function toggleClass_(element, className) {
  * Initializes menu navigation.
  */
 function initMenu_() {
-  /** @type {Element} */ var body = doc.querySelector('body');
+  /** @type {!Document} */ var doc = document;
   /** @type {Element} */ var hamburger = doc.querySelector('.hamburger');
   /** @type {Element} */ var nav = doc.querySelector('.kmt-navigation');
+
   if (hamburger && nav) {
     hamburger.addEventListener('click', function() {
-      toggleClass_(body, 'lock');
+      toggleClass_(doc.body, 'lock');
       toggleClass_(hamburger, 'active');
       toggleClass_(nav, 'active');
     }, false);
   }
 }
 
-/**
- * Initializes common behavior.
- */
-function init_() {
-  initMenu_();
-}
 
-/** @type {!Window} */ var win = window;
-/** @type {!Document} */ var doc = win.document;
-
-init_();
+initMenu_();
