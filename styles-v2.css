@@ -76,6 +76,15 @@ h4 {
   text-transform: uppercase;
 }
 
+.thin-font {
+  /* display: inline-block; */
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -.03em;
+  -moz-osx-font-smoothing: grayscale;
+  /* text-rendering: optimizeLegibility;*/
+  transform: scale(.95, 1.1);
+}
+
 .kmt-page-content a[target='_blank'] {
   border-bottom: 1px dotted;
 }
