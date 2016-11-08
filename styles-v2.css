@@ -59,15 +59,12 @@ h1 {
 }
 
 h2 {
-  font-size: 3em;
-  line-height: 2;
-  margin-bottom: .4em;
+  color: #fff;
+  font-size: 1.75em;
 }
 
 h3 {
-  font-weight: bold;
-  font-size: 1.375em;
-  line-height: 1.2;
+  font-size: 3em;
   margin-bottom: .7em;
 }
 
@@ -100,11 +97,11 @@ h4 {
 
 .kmt-homepage .kmt-section,
 h2,
-h2 + p {
+h3 + p {
   text-align: center;
 }
 
-h2 + p {
+h3 + p {
   font-size: 1.2em;
   margin-bottom: 2.8em;
 }
@@ -116,7 +113,6 @@ body {
   color: #555;
 }
 
-h2,
 h3 {
   color: #000;
 }
@@ -140,7 +136,7 @@ h3 {
   border-radius: 2px;
 }
 
-h2:after {
+h3:after {
   background-color: #097ad2;
   bottom: 0;
   content: '';
@@ -152,7 +148,7 @@ h2:after {
   z-index: 100;
 }
 
-.kmt-homepage h2:after {
+.kmt-homepage h3:after {
   background-color: #f58f00;
 }
 
@@ -302,8 +298,8 @@ button,
 /* Komito hero section */
 .kmt-page-hero {
   background: url(images/komito-hero-background.png) no-repeat top right/cover fixed;
-  min-height: 25.75em;
-  margin-top: -5.3125em;
+  min-height: 25em;
+  margin-top: -5em;
   overflow: hidden;
   padding-top: 8em;
   z-index: 1;
@@ -698,7 +694,7 @@ code:last-child {
     padding: 1em;
   }
 
-  h2:after {
+  h3:after {
     display: none;
   }
 
@@ -745,7 +741,7 @@ code:last-child {
     margin-bottom: .5em;
   }
 
-  body h2 + p {
+  body h3 + p {
     margin-bottom: 1.8em;
   }
 
