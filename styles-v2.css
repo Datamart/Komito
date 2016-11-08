@@ -724,6 +724,10 @@ code:last-child {
     text-align: center;
   }
 
+  .kmt-page-footer p span {
+    line-height: 2em;
+  }
+
   body .kmt-page-content li {
     min-height: auto;
     padding-left: 0;
