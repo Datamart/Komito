@@ -678,8 +678,12 @@ code:last-child {
   }
 
   h2 {
-    font-size: 2em;
+    font-size: 1.2em;
     line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 2em;
   }
 
   .kmt-logo {
