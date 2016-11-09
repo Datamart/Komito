@@ -295,7 +295,7 @@ h3:after {
   content: '';
   height: 100%;
   left: 0;
-  opacity: .5;
+  opacity: .75;
   position: absolute;
   top: 0;
   width: 100%;
