@@ -162,8 +162,7 @@ h3:after {
 
 .info {
   background-color: InfoBackground;
-  margin-left: 2em;
-  margin-right: 2em;
+  margin: 1.5em 10%;
   padding: 1em;
   position: relative;
 }
@@ -174,7 +173,7 @@ h3:after {
   border-bottom-color: InfoBackground;
   content: ' ';
   height: 0;
-  left: 50%;
+  left: 97%;
   margin-left: -1em;
   width: 0;
   position: absolute;
@@ -205,25 +204,14 @@ h3:after {
   opacity: 1;
 }
 
-.notes p {
-  font-size: 1.4em;
-}
-
-.extra p {
-  clear: both;
+.extra {
+  margin: 1em 10%;
   padding: 3em 0;
-  text-align: center;
-}
-
-.extra em {
-  display: block;
-  font-size: 1.4em;
-  padding-bottom: 1em;
 }
 
 /*.kmt-page-header,*/
 .kmt-homepage .kmt-page-content .kmt-section:first-child,
-.extra p,
+.extra,
 .kmt-parameter table {
   background-color: rgba(200,200,200,.2);
 }
@@ -684,10 +672,6 @@ code:last-child {
     font-size: 1.1em;
   }
 
-  .extra p {
-    padding: 1em;
-  }
-
   h3:after {
     display: none;
   }
@@ -700,9 +684,14 @@ code:last-child {
     float: none;
   }
 
-  .info {
-    margin-left: 0;
-    margin-right: 0;
+  .gray-out img,
+  .gray-out svg {
+    filter: none;
+    opacity: 1;
+  }
+
+  .info:before {
+    left: 93%;
   }
 
   .dtm-logo {
@@ -733,10 +722,6 @@ code:last-child {
   .kmt-homepage .kmt-section.gray-out img {
     max-height: 2.5em;
     width: auto;
-  }
-
-  .extra p .button:first-child {
-    margin-bottom: .5em;
   }
 
   body h3 + p {
