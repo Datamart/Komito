@@ -80,7 +80,7 @@ h4 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  transform: scale(.99, 1.15);
+  transform: scale(1, 1.15);
 }
 
 .kmt-page-content a[target='_blank'] {
