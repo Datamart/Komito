@@ -194,12 +194,14 @@ h3:after {
   background-color: #666;
 }
 
-.gray-out img {
+.gray-out img,
+.gray-out svg {
   filter: grayscale(1);
   opacity: .7;
 }
 
-.gray-out img:hover {
+.gray-out img:hover,
+.gray-out svg:hover {
   filter: grayscale(0);
   opacity: 1;
 }
@@ -337,7 +339,8 @@ button,
 }
 
 .kmt-page-content li {
-  padding: 1.6em;
+  padding: 1em;
+  position: relative;
 }
 
 li i {
@@ -505,9 +508,20 @@ code:last-child {
   margin-bottom: 0;
 }
 
-.gray-out li:nth-child(2) {
-  position: relative;
+.adobe-analytics {
+  top: -.1em;
+}
+
+.baidu-analytics {
+  top: -.4em;
+}
+
+.clicktale {
   top: -.5em;
+}
+
+.urchin {
+  top: .35em;
 }
 
 .form-item,
