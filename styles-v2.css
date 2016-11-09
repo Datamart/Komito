@@ -291,7 +291,7 @@ h3:after {
 
 .kmt-page-hero:after {
   background: url(images/komito-hero-background.jpg) no-repeat top right fixed;
-  background-size: cover;
+  background-size: 100%;
   content: '';
   height: 100%;
   left: 0;
