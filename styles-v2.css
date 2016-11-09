@@ -38,7 +38,7 @@ body {
 
 a {
   border: 0;
-  color: #097ad2;
+  color: #07d;
   text-decoration: none;
 }
 
@@ -141,7 +141,7 @@ body {
 }
 
 h3:after {
-  background-color: #097ad2;
+  background-color: #07d;
   bottom: -.2em;
   content: '';
   height: 4px;
@@ -153,7 +153,7 @@ h3:after {
 }
 
 .kmt-homepage h3:after {
-  background-color: #f58f00;
+  background-color: #f80;
 }
 
 .kmt-demo h2:after {
@@ -161,7 +161,7 @@ h3:after {
 }
 
 .info {
-  background-color: InfoBackground;
+  background-color: #ffc;
   margin: 1.5em 10%;
   padding: 1em;
   position: relative;
@@ -170,7 +170,7 @@ h3:after {
 .info:before {
   bottom: 100%;
   border: 1em solid transparent;
-  border-bottom-color: InfoBackground;
+  border-bottom-color: #ffc;
   content: ' ';
   height: 0;
   left: 97%;
@@ -178,14 +178,6 @@ h3:after {
   width: 0;
   position: absolute;
   width: 0;
-}
-
-.gray-out h2 {
-  color: #888;
-}
-
-.gray-out h2:after {
-  background-color: #aaa;
 }
 
 .gray-out.button {
@@ -220,17 +212,15 @@ h3:after {
   background-color: transparent;
 }
 
-button,
 .button,
 .kmt-navigation ul li a {
   display: inline-block;
-  padding: 1em 1em .8em 1em;
+  padding: 1em 1em .8em;
   text-transform: uppercase;
 }
 
-button,
 .button {
-  background-color: #097ad2;
+  background-color: #07d;
   border-radius: 2px;
   border: 0 !important;
   color: #fff;
@@ -285,7 +275,7 @@ button,
 }
 
 .kmt-page-header .kmt-current-page {
-  color: #097ad2;
+  color: #07d;
 }
 /* / Header and main navigation */
 
@@ -308,11 +298,6 @@ button,
   top: 0;
   width: 100%;
   z-index: -1;
-}
-
-.kmt-page-hero p {
-  font-size: 1.625em;
-  line-height: 1.5;
 }
 /* / Komito hero section */
 
@@ -666,10 +651,6 @@ code:last-child {
 
   .kmt-logo {
     font-size: 1.4em;
-  }
-
-  .kmt-page-hero p {
-    font-size: 1.1em;
   }
 
   h3:after {
