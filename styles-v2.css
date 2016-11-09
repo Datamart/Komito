@@ -290,7 +290,8 @@ h3:after {
 }
 
 .kmt-page-hero:after {
-  background: url(images/komito-hero-background.jpg) no-repeat center/cover fixed;
+  background: url(images/komito-hero-background.jpg) no-repeat center center fixed;
+  background-size: cover;
   content: '';
   height: 100%;
   left: 0;
