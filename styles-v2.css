@@ -87,7 +87,7 @@ h4 {
   border-bottom: 1px dotted;
 }
 
-.kmt-page-content .gray-out a {
+.kmt-page-content .grayscale a {
   border: 0;
 }
 
@@ -180,16 +180,16 @@ h3:after {
   width: 0;
 }
 
-.gray-out.button {
+.grayscale.button {
   background-color: #666;
 }
 
-.gray-out svg {
+.grayscale svg {
   filter: grayscale(1);
   opacity: .7;
 }
 
-.gray-out svg:hover {
+.grayscale svg:hover {
   filter: grayscale(0);
   opacity: 1;
 }
@@ -660,7 +660,7 @@ code:last-child {
     float: none;
   }
 
-  .gray-out svg {
+  .grayscale svg {
     filter: none;
     opacity: 1;
   }
