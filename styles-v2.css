@@ -162,7 +162,7 @@ h3:after {
 
 .info {
   background-color: #ffc;
-  margin: 1.5em 10%;
+  margin: 1.5em 7%;
   padding: 1em;
   position: relative;
 }
@@ -184,21 +184,14 @@ h3:after {
   background-color: #666;
 }
 
-.gray-out img,
 .gray-out svg {
   filter: grayscale(1);
   opacity: .7;
 }
 
-.gray-out img:hover,
 .gray-out svg:hover {
   filter: grayscale(0);
   opacity: 1;
-}
-
-.extra {
-  margin: 1em 10%;
-  padding: 3em 0;
 }
 
 /*.kmt-page-header,*/
@@ -667,7 +660,6 @@ code:last-child {
     float: none;
   }
 
-  .gray-out img,
   .gray-out svg {
     filter: none;
     opacity: 1;
@@ -700,11 +692,6 @@ code:last-child {
 
   body .kmt-parameter li {
     text-align: left;
-  }
-
-  .kmt-homepage .kmt-section.gray-out img {
-    max-height: 2.5em;
-    width: auto;
   }
 
   body h3 + p {
