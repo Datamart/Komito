@@ -281,7 +281,7 @@ h3:after {
 
 /* Komito hero section */
 .kmt-page-hero {
-  background: url(images/komito-hero-background.png) no-repeat top right/cover fixed;
+  background: url(images/komito-hero-background.jpg) no-repeat top right/cover fixed;
   min-height: 25em;
   margin-top: -5em;
   overflow: hidden;
