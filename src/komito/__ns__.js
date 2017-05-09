@@ -233,4 +233,4 @@ var komito = {
   config: dom.context['_komito'] || {}
 };
 
-komito.init_();
+setTimeout(komito.init_, 1E3);
