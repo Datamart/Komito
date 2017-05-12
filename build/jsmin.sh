@@ -46,10 +46,10 @@ function download() {
 
     echo -n "Extracting closure compiler: "
     $UNZIP -q "${TMP}/${JS_COMPILER_ZIP}" -d "${LIB}"
+    if [[ ! -f "${JS_COMPILER_JAR}" ]]; then
+      mv "${LIB}"/*compiler*.jar "${JS_COMPILER_JAR}"
+    fi
     echo "Done"
-
-    mv "${LIB}/"closure-compiler-* "${JS_COMPILER_JAR}"
-    rm -f "${LIB}/"README* "${LIB}/COPYING"
 
     cd "${CWD}" && rm -rf "${TMP}"
   fi
@@ -93,4 +93,3 @@ function main() {
 }
 
 main "$@"
-
