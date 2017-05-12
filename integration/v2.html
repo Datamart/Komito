@@ -25,7 +25,13 @@
   <div class="kmt-page">
     <div class="kmt-page-header">
       <div class="kmt-logo">
-        <a href="/Komito/" title="Komito Homepage"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45px" height="45px" viewBox="0 0 45 45"><polygon fill="#d02c00" points="0,0 0,20.1 19.8,0  "/><polygon fill="#fb8600" points="0,32 0,45 20.9,45 8.3,24.6   "/><polygon fill="#097AD2" points="33.6,45 45,45 45,0 32.3,0 14.6,18  "/></svg><span><b>Komito</b><i>Analytics</i></span></a>
+        <a href="/Komito/" title="Komito Analytics"><svg version="1.1"
+           xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45px"
+           height="45px" viewBox="0 0 45 45"><polygon fill="#d20"
+           points="0,0 0,20.1 19.8,0"/><polygon fill="#f80"
+           points="0,32 0,45 20.9,45 8.3,24.6"/><polygon fill="#07d"
+           points="33.6,45 45,45 45,0 32.3,0 14.6,18"/></svg><span
+           class="thin-font"><b>Komito</b><i>Analytics</i></span></a>
       </div>
       <div class="hamburger">
         <div class="hamburger-box"><div class="hamburger-inner"></div></div>
@@ -33,12 +39,12 @@
       <div class="kmt-navigation">
         <ul>
           <li>
-            <a href="../v2.html" title="Komito Analytics overview page.">Overview</a>
+            <a href="./" title="Komito Analytics overview page.">Overview</a>
           </li>
           <li>
-            <a href="../integration/v2.html" class="kmt-current-page" title="Step-by-step Komito Analytics integration instructions.">Integration</a>
+            <a href="./integration/" class="kmt-current-page" title="Step-by-step Komito Analytics integration instructions.">Integration</a>
           </li>
-          <li><a href="../demo/v2.html" title="Komito Analytics demo page.">Demo</a></li>
+          <li><a href="./demo/" title="Komito Analytics demo page.">Demo</a></li>
           <li>
             <a href="//github.com/Datamart/Komito/tree/master"
                target="_blank"
@@ -49,7 +55,7 @@
     </div>
     <div class="kmt-page-content">
       <div class="kmt-section">
-        <h2>Integration of Komito Analytics</h2>
+        <h3>Integration of Komito Analytics</h3>
         <p>Step-by-step Komito Analytics integration instructions.</p>
         <p>
           <b>1. </b>Adding <b>Komito Analytics</b> to your website is easy – just place this code below,
@@ -74,12 +80,29 @@
     };
   <span class="tag">&lt;/script&gt;</span></pre></code>
       </div>
+      <div class="kmt-section extra">
+        <h3>Event Tracking with Google Tag Manager</h3>
+        <p>Learn how to use Google Tag Manager to track custom events occurring on your website</p>
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/zrI0FlNSSA0"></iframe>
+      </div>
       <div class="kmt-section" id="parameters">
-        <h2>Komito Analytics parameters</h2>
+        <h3>Komito Analytics parameters</h3>
         <p>List of Komito Analytics configuration parameters.</p>
-
+        <ul>
+          <li><a href="#social-interaction">Social Interaction</a></li>
+          <li><a href="#files-downloads">Files Downloads</a></li>
+          <li><a href="#outbound-links">Outbound links</a></li>
+          <li><a href="#forms">Forms</a></li>
+          <li><a href="#logged-in-users">Logged in Users</a></li>
+          <li><a href="#media">Media</a></li>
+          <li><a href="#print">Print</a></li>
+          <li><a href="#CTA">Call to Actions links</a></li>
+          <li><a href="#scroll">Scroll</a></li>
+          <li><a href="#debug">Debug</a></li>
+        </ul>
+      <div class="parameters-list">
         <div class="kmt-parameter">
-          <h4>Social Interaction</h4>
+          <h4 id="social-interaction">Social Interaction</h4>
           <table>
             <tr>
               <th><samp>trackTwitter</samp></th>
@@ -129,9 +152,8 @@
           </table>
         </div>
 
-
         <div class="kmt-parameter">
-          <h4>Files Downloads</h4>
+          <h4 id="files-downloads">Files Downloads</h4>
           <table>
             <tr>
               <th><samp>trackDownloads</samp></th>
@@ -141,37 +163,45 @@
                    href="http://en.wikipedia.org/wiki/Filename_extension">filename extension</a>.
               </td>
             </tr>
+            <tr>
+              <td colspan="2">
+                <em>Supported filenames:</em>
+                <ul>
+                  <li>Media: <samp>mp3, mp4, wma, mov, avi, wmv, mkv</samp></li>
+                  <li>Fonts: <samp>eot, woff, ttf</samp></li>
+                  <li>Text: <samp>txt, csv, tsv</samp></li>
+                  <li>Docs: <samp>pdf, doc, docx, xls, xlsx, ppt, pptx</samp></li>
+                  <li>Archives: <samp>zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z</samp></li>
+                  <li>Other: <samp>ida, exe, sh, bat</samp></li>
+                </ul>
+              </td>
+            </tr>
           </table>
-          <em>Supported filenames:</em>
-          <ul>
-            <li>Media: <samp>mp3, mp4, wma, mov, avi, wmv, mkv</samp></li>
-            <li>Fonts: <samp>eot, woff, ttf</samp></li>
-            <li>Text: <samp>txt, csv, tsv</samp></li>
-            <li>Docs: <samp>pdf, doc, docx, xls, xlsx, ppt, pptx</samp></li>
-            <li>Archives: <samp>zip, tar, tgz, bz2, gz, rar, dmg, pkg, 7z</samp></li>
-            <li>Other: <samp>ida, exe, sh, bat</samp></li>
-          </ul>
         </div>
 
         <div class="kmt-parameter">
-          <h4>Outbound links</h4>
+          <h4 id="outbound-links">Outbound links</h4>
           <table>
             <tr>
               <th><samp>trackOutbound</samp></th>
               <td>Tracks all outbound links.</td>
             </tr>
+            <tr>
+              <td colspan="2">
+                <p>Komito Analytics recognizes outbound links to social networks and lists those in the social report as well.<br>
+                <em>Supported social networks:</em> Google+, Blogger, Facebook, Twitter,
+                  LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
+                  Reddit, Pinterest, Digg, Foursquare.<br>
+                Also recognizes <a target="_blank" rel="nofollow"
+                  href="https://dev.twitter.com/web/intents">Twitter web intents</a>
+                  links.</p>
+              </td>
+            </tr>
           </table>
-          <p>Komito Analytics recognizes outbound links to social networks and lists those in the social report as well.<br>
-          <em>Supported social networks:</em> Google+, Blogger, Facebook, Twitter,
-            LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
-            Reddit, Pinterest, Digg, Foursquare.<br>
-          Also recognizes <a target="_blank" rel="nofollow"
-            href="https://dev.twitter.com/web/intents">Twitter web intents</a>
-            links.</p>
         </div>
 
         <div class="kmt-parameter">
-          <h4>Forms</h4>
+          <h4 id="forms">Forms</h4>
           <table>
             <tr>
               <th><samp>trackForms</samp></th>
@@ -181,19 +211,23 @@
         </div>
 
         <div class="kmt-parameter">
-          <h4>Logged in Users</h4>
+          <h4 id="logged-in-users">Logged in Users</h4>
           <table>
             <tr>
               <th><samp>trackUsers</samp></th>
               <td>Tracks pageviews by users logged in to social networks.</td>
             </tr>
+            <tr>
+              <td colspan="2">
+                <em>Supported social networks:</em>
+                <p>Facebook, Google+, Twitter</p>
+              </td>
+            </tr>
           </table>
-          <em>Supported social networks:</em>
-          <p>Facebook, Google+, Twitter</p>
         </div>
 
         <div class="kmt-parameter">
-          <h4>Call to action links</h4>
+          <h4 id="CTA">Call to action links</h4>
           <table>
             <tr>
               <th><samp>trackActions</samp></th>
@@ -203,7 +237,7 @@
         </div>
 
         <div class="kmt-parameter">
-          <h4>Print</h4>
+          <h4 id="print">Print</h4>
           <table>
             <th><samp>trackPrint</samp></th>
             <td>Tracks page print actions.</td>
@@ -211,7 +245,7 @@
         </div>
 
         <div class="kmt-parameter">
-          <h4>Media</h4>
+          <h4 id="media">Media</h4>
           <table>
             <tr>
               <th><samp>trackMedia</samp></th>
@@ -227,7 +261,7 @@
         </div>
 
         <div class="kmt-parameter">
-          <h4>Scroll</h4>
+          <h4 id="scroll">Scroll</h4>
           <table>
             <tr>
               <th><samp>trackScroll</samp></th>
@@ -237,7 +271,7 @@
         </div>
 
         <div class="kmt-parameter">
-          <h4>Debugging</h4>
+          <h4 id="debug">Debugging</h4>
           <table>
             <tr>
               <th><samp>debugMode</samp></th>
@@ -248,7 +282,7 @@
             <samp>debugMode</samp> by adding <samp>debug=1</samp>
             query parameter to current page URL.</p>
         </div>
-
+      </div>
       </div>
       <div class="kmt-section extra">
         <p>
