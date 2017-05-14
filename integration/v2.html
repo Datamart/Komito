@@ -2,23 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" itemscope
       itemtype="http://schema.org/WebPage">
 <head>
-<script>if('http:'==location.protocol)location.replace(location.href.replace('http:','https:'))</script>
-<title itemprop="name">Komito Analytics Integration Instructions</title>
-<meta name="og:title" content="Komito Analytics Integration Instructions">
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-<meta name="description" content="Komito Analytics is an enhancement for the most popular analytics software.">
+
+<title>Komito Analytics Integration Instructions</title>
+<link rel="canonical" href="http://datamart.github.io/Komito/integration/">
+<link rel="publisher" href="https://plus.google.com/103753969968292534269" title="Google+">
+<meta name="description" content="Komito Analytics is an enhancement for the most popular web analytics software.">
+
+<meta itemprop="name" content="Komito Analytics Integration Instructions">
+<meta itemprop="url" content="http://datamart.github.io/Komito/integration/">
+<meta itemprop="description" content="Komito Analytics is an enhancement for the most popular web analytics software.">
+<meta itemprop="image" content="https://datamart.github.io/Komito/images/komito-logo-600x455.jpg">
+
+<meta name="og:title" content="Komito Analytics Integration Instructions">
 <meta name="og:description" content="Komito Analytics is an enhancement for the most popular analytics software.">
 <meta name="og:image" content="http://datamart.github.io/Komito/images/komito-logo-600x455.png">
-<meta itemprop="image" content="http://datamart.github.io/Komito/images/komito-logo-120x90.png">
+
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@vpodk">
 <meta name="twitter:url" content="http://datamart.github.io/Komito/integration/">
-<meta itemprop="url" content="http://datamart.github.io/Komito/integration/">
-<link rel="canonical" href="http://datamart.github.io/Komito/integration/">
+
 <link href="/Komito/favicon.ico" rel="shortcut icon">
 <link href="../styles-v2.css" rel="stylesheet">
-<script>if('https:'==location.protocol)location.replace(location.href.replace('https:','http:'))</script>
 </head>
 <body class="kmt-integration">
   <div class="kmt-page">
@@ -79,29 +86,11 @@
     };
   <span class="tag">&lt;/script&gt;</span></pre></code>
       </div>
-      <div class="kmt-section extra">
-        <h3>Event Tracking with Google Tag Manager</h3>
-        <p>Learn how to use Google Tag Manager to track custom events occurring on your website</p>
-        <iframe width="420" height="315" src="https://www.youtube.com/embed/zrI0FlNSSA0"></iframe>
-      </div>
       <div class="kmt-section" id="parameters">
         <h3>Komito Analytics parameters</h3>
         <p>List of Komito Analytics configuration parameters.</p>
-        <ul>
-          <li><a href="#social-interaction">Social Interaction</a></li>
-          <li><a href="#files-downloads">Files Downloads</a></li>
-          <li><a href="#outbound-links">Outbound links</a></li>
-          <li><a href="#forms">Forms</a></li>
-          <li><a href="#logged-in-users">Logged in Users</a></li>
-          <li><a href="#media">Media</a></li>
-          <li><a href="#print">Print</a></li>
-          <li><a href="#CTA">Call to Actions links</a></li>
-          <li><a href="#scroll">Scroll</a></li>
-          <li><a href="#debug">Debug</a></li>
-        </ul>
-      <div class="parameters-list">
         <div class="kmt-parameter">
-          <h4 id="social-interaction">Social Interaction</h4>
+          <h4>Social Interaction</h4>
           <table>
             <tr>
               <th><samp>trackTwitter</samp></th>
@@ -150,9 +139,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="files-downloads">Files Downloads</h4>
+          <h4>Files Downloads</h4>
           <table>
             <tr>
               <th><samp>trackDownloads</samp></th>
@@ -177,9 +165,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="outbound-links">Outbound links</h4>
+          <h4>Outbound links</h4>
           <table>
             <tr>
               <th><samp>trackOutbound</samp></th>
@@ -198,9 +185,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="forms">Forms</h4>
+          <h4>Forms</h4>
           <table>
             <tr>
               <th><samp>trackForms</samp></th>
@@ -208,9 +194,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="logged-in-users">Logged in Users</h4>
+          <h4>Logged in Users</h4>
           <table>
             <tr>
               <th><samp>trackUsers</samp></th>
@@ -224,9 +209,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="CTA">Call to action links</h4>
+          <h4>Call to action links</h4>
           <table>
             <tr>
               <th><samp>trackActions</samp></th>
@@ -234,17 +218,15 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="print">Print</h4>
+          <h4>Print</h4>
           <table>
             <th><samp>trackPrint</samp></th>
             <td>Tracks page print actions.</td>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="media">Media</h4>
+          <h4>Media</h4>
           <table>
             <tr>
               <th><samp>trackMedia</samp></th>
@@ -258,9 +240,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="scroll">Scroll</h4>
+          <h4>Scroll</h4>
           <table>
             <tr>
               <th><samp>trackScroll</samp></th>
@@ -268,9 +249,8 @@
             </tr>
           </table>
         </div>
-
         <div class="kmt-parameter">
-          <h4 id="debug">Debugging</h4>
+          <h4>Debugging</h4>
           <table>
             <tr>
               <th><samp>debugMode</samp></th>
@@ -282,6 +262,10 @@
             query parameter to current page URL.</p>
         </div>
       </div>
+      <div class="kmt-section extra">
+        <h3>Komito with Google Tag Manager</h3>
+        <p>Learn how to use Komito and Google Tag Manager to track custom events occurring on your website</p>
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/zrI0FlNSSA0"></iframe>
       </div>
       <div class="kmt-section extra">
         <p>
