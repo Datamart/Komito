@@ -75,22 +75,6 @@ var komito = {
   SOCIAL_ACTION_TYPE: 1,
 
   /**
-   * Initializes extension.
-   * @private
-   */
-  init_: function() {
-    for (/** @type {string} */ var key in komito.DEFAULTS) {
-      if (!(key in komito.config)) {
-        komito.config[key] = komito.DEFAULTS[key];
-      }
-    }
-
-    komito.trackers.dom.init();
-    komito.trackers.media.init();
-    komito.trackers.social.init();
-  },
-
-  /**
    * Performs trackers function execution.
    * @param {...*} var_args
    *
@@ -127,6 +111,29 @@ var komito = {
     dom.context['_hmt'] && komito.send_(
         [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
     komito.sendClassicGA_(args);
+  },
+
+  /**
+   * Initializes extension.
+   * @private
+   */
+  init_: function() {
+    /** @type {string} */ var key = dom.document.readyState;
+
+    function ready() {
+      for (key in komito.DEFAULTS) {
+        if (!(key in komito.config)) {
+          komito.config[key] = komito.DEFAULTS[key];
+        }
+      }
+
+      komito.trackers.dom.init();
+      komito.trackers.media.init();
+      komito.trackers.social.init();
+    }
+
+    'interactive' == key || 'complete' == key ? ready() :
+        dom.events.addEventListener(dom.context, 'DOMContentLoaded', ready);
   },
 
   /**
@@ -232,4 +239,4 @@ var komito = {
   config: dom.context['_komito'] || {}
 };
 
-setTimeout(komito.init_, 1E3);
+komito.init_();
