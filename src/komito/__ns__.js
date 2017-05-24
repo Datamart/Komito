@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Komito Analytics is an enhancement for the most popular
  * analytics software. It unlocks power of digital analytics with additional

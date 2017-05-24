@@ -1,10 +1,23 @@
+/**
+ * @fileoverview Komito Analytics tracker for YouTube player.
+ *
+ * Searches for IFRAMEs in DOM loaded from '*.youtube.com' domain.
+ * Loads YouTube Iframe API script if needed.
+ * Adds event listeners to YouTube videos found on webpage.
+ * Supported event types: 'play', 'pause' and 'ended'.
+ * Sends 'video:youtube' as event category name.
+ *
+ * @link https://developers.google.com/youtube/iframe_api_reference
+ *
+ * @link http://google.github.io/styleguide/javascriptguide.xml
+ * @link http://developers.google.com/closure/compiler/docs/js-for-compiler
+ */
 
 
 
 /**
  * Defines <code>komito.trackers.media.youtube</code> constructor.
  * Tracks youtube events on page.
- * @see https://developers.google.com/youtube/iframe_api_reference
  * @constructor
  */
 komito.trackers.media.YouTube = function() {
@@ -15,7 +28,7 @@ komito.trackers.media.YouTube = function() {
   var PLAYERJS = 'https://www.youtube.com/iframe_api';
 
   /**
-   * Initializes youtube media tracking.
+   * Initializes YouTube media tracking.
    * @private
    */
   function init_() {
@@ -53,6 +66,7 @@ komito.trackers.media.YouTube = function() {
   }
 
   /**
+   * The 'onStateChange' event listener attached to YouTube player.
    * @param {Event} e The event
    * @private
    */
@@ -64,6 +78,6 @@ komito.trackers.media.YouTube = function() {
         type, e.target['getVideoUrl']());
   }
 
-  // Initializing youtube video events tracking.
+  // Initializing YouTube video events tracking.
   init_();
 };

@@ -1,3 +1,16 @@
+/**
+ * @fileoverview Komito Analytics tracker for HTML5 media elements.
+ *
+ * Adds DOM event listeners to <audio> and <video> elements found on webpage.
+ * Supported event types: 'play', 'pause', 'ended' and 'fullscreenchange'.
+ * Sends 'audio:html5' and 'video:html5' as event category name.
+ *
+ * @link http://html.spec.whatwg.org/multipage/embedded-content.html#mediaevents
+ * @link http://developer.mozilla.org/en-US/docs/Web/Events/fullscreenchange
+ *
+ * @link http://google.github.io/styleguide/javascriptguide.xml
+ * @link http://developers.google.com/closure/compiler/docs/js-for-compiler
+ */
 
 
 
@@ -9,7 +22,7 @@
 komito.trackers.media.HTML5 = function() {
 
   /**
-   * Initializes html5 media tracking.
+   * Initializes HTML5 media tracking.
    * @private
    */
   function init_() {
@@ -47,6 +60,7 @@ komito.trackers.media.HTML5 = function() {
   }
 
   /**
+   * Creates an array of element by specified tag names.
    * @param {...string} var_args The elements tag names to convert.
    * @return {!Array} Returns converted elements to array.
    * @private
@@ -67,6 +81,6 @@ komito.trackers.media.HTML5 = function() {
     return elements;
   }
 
-  // Initializing html5 media events tracking.
+  // Initializing HTML5 media events tracking.
   init_();
 };

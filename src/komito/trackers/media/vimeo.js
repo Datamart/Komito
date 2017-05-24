@@ -1,9 +1,16 @@
 /**
- * @fileoverview Vimeo video events tracker.
+ * @fileoverview Komito Analytics tracker for Vimeo player.
+ *
+ * Searches for IFRAMEs in DOM loaded from 'player.vimeo.com' domain.
+ * Loads Vimeo Player API if needed.
+ * Adds event listeners to Vimeo players for videos found on webpage.
+ * Supported event types: 'play', 'pause' and 'ended'.
+ * Sends 'video:vimeo' as event category name.
+ *
+ * @link https://github.com/vimeo/player.js
  *
  * @link http://google.github.io/styleguide/javascriptguide.xml
  * @link http://developers.google.com/closure/compiler/docs/js-for-compiler
- * @link https://github.com/vimeo/player.js
  */
 
 
@@ -21,7 +28,7 @@ komito.trackers.media.Vimeo = function() {
   var PLAYERJS = 'https://player.vimeo.com/api/player.js';
 
   /**
-   * Initializes vimeo media tracking.
+   * Initializes Vimeo player events tracking.
    * @private
    */
   function init_() {
@@ -48,6 +55,11 @@ komito.trackers.media.Vimeo = function() {
     }
   }
 
+  /**
+   * Initializes event listeners.
+   * @param {!Array.<HTMLIFrameElement>} iframes The list of found iframes.
+   * @private
+   */
   function initListeners_(iframes) {
     var Player = dom.context['Vimeo'] && dom.context['Vimeo']['Player'];
 
@@ -62,6 +74,12 @@ komito.trackers.media.Vimeo = function() {
     }
   }
 
+  /**
+   * Adds event listener for Vimeo player.
+   * @param {!Object} player The instance of 'Vimeo.Player'.
+   * @param {string} video The video source URL.
+   * @private
+   */
   function addListeners_(player, video) {
     player['on']('ended', function() {
       komito.track(komito.EVENT_ACTION_TYPE, 'video:vimeo', 'ended', video);
@@ -74,6 +92,6 @@ komito.trackers.media.Vimeo = function() {
     });
   }
 
-  // Initializing vimeo video events tracking.
+  // Initializing Vimeo player events tracking.
   init_();
 };
