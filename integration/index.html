@@ -57,9 +57,9 @@
                  href="./" class="kmt-current-page">Integration</a></li>
           <li><a title="See Komito Analytics in action!"
                  href="../demo/">Demo</a></li>
-          <li><a title="Get Komito Analytics Source Code."
-                 href="https://github.com/Datamart/Komito/tree/master"
-                 target="_blank">Get source code</a></li>
+          <li><a href="https://github.com/Datamart/Komito/tree/master"
+                 title="Get Komito Analytics Source Code."
+                 rel="nofollow">Get source code</a></li>
         </ul>
       </div>
     </div>
@@ -70,7 +70,7 @@
         <p>
           <b>1. </b>Adding <b>Komito Analytics</b> to a website is easy – just place this code below,
           ideally right before the closing <code>&lt;/body&gt;</code> tag:</p>
-        <code><pre><span class="tag">&lt;script</span> <span class="atn">src</span>="<a href="https://datamart.github.io/Komito/komito.js" target="_blank">//datamart.github.io/Komito/komito.js</a>"<span class="tag">&gt;&lt;/script&gt;<span></pre></code>
+        <code><pre><span class="tag">&lt;script</span> <span class="atn">src</span>="<a href="https://datamart.github.io/Komito/komito.js" rel="nofollow">//datamart.github.io/Komito/komito.js</a>"<span class="tag">&gt;&lt;/script&gt;<span></pre></code>
         <p>2. Default <b>Komito Analytics</b> configuration:</p>
         <code><pre><span class="tag">&lt;script&gt;</span>
   <span class="kwd">var</span> _komito = _komito || {
@@ -98,46 +98,49 @@
             <tr>
               <th><samp>trackTwitter</samp></th>
               <td>Tracks
-                <a target="_blank" rel="nofollow"
+                <a rel="nofollow"
                    href="https://dev.twitter.com/docs/tfw/events">Twitter</a>
                 events:
-                  <samp>
-                    <a target="_blank" rel="nofollow"
-                       href="https://dev.twitter.com/web/javascript/events#event-favorite">favorite</a>,
-                    <a target="_blank" rel="nofollow"
-                       href="https://dev.twitter.com/web/javascript/events#event-follow">follow</a>,
-                    <a target="_blank" rel="nofollow"
-                       href="https://dev.twitter.com/web/javascript/events#event-retweet">retweet</a>,
-                    <a target="_blank" rel="nofollow"
-                       href="https://dev.twitter.com/web/javascript/events#event-tweet">tweet</a></samp>.
+                <samp>
+                  <a href="https://dev.twitter.com/web/javascript/events#event-favorite"
+                     rel="nofollow">favorite</a>,
+                  <a href="https://dev.twitter.com/web/javascript/events#event-follow"
+                     rel="nofollow">follow</a>,
+                  <a href="https://dev.twitter.com/web/javascript/events#event-retweet"
+                     rel="nofollow">retweet</a>,
+                  <a href="https://dev.twitter.com/web/javascript/events#event-tweet"
+                     rel="nofollow">tweet</a>
+                </samp>.
               </td>
             </tr>
             <tr>
               <th><samp>trackFacebook</samp></th>
               <td>
-                Tracks <a target="_blank" rel="nofollow"
-                href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe">Facebook</a>
+                Tracks <a href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe"
+                          rel="nofollow">Facebook</a>
                 events:
                 <samp>
-                  <a target="_blank" rel="nofollow"
-                     href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">like</a>,
-                  <a target="_blank" rel="nofollow"
-                     href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example">unlike</a>,
-                  <a target="_blank" rel="nofollow"
-                     href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#message-example">message</a></samp>.
+                  <a href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example"
+                     rel="nofollow">like</a>,
+                  <a href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#like-example"
+                     rel="nofollow">unlike</a>,
+                  <a href="http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe#message-example"
+                     rel="nofollow">message</a>
+                </samp>.
               </td>
             </tr>
             <tr>
               <th><samp>trackLinkedIn</samp></th>
               <td>
-                Tracks <a target="_blank" rel="nofollow"
-                href="https://developer.linkedin.com/plugins">LinkedIn</a>
+                Tracks <a href="https://developer.linkedin.com/plugins"
+                          rel="nofollow">LinkedIn</a>
                 events:
                 <samp>
-                  <a target="_blank" rel="nofollow"
-                     href="https://developer.linkedin.com/plugins/share">share</a>,
-                  <a target="_blank" rel="nofollow"
-                     href="https://developer.linkedin.com/plugins/follow-company">follow</a></samp>.
+                  <a href="https://developer.linkedin.com/plugins/share"
+                     rel="nofollow">share</a>,
+                  <a href="https://developer.linkedin.com/plugins/follow-company"
+                     rel="nofollow">follow</a>
+                </samp>.
               </td>
             </tr>
           </table>
@@ -149,8 +152,8 @@
               <th><samp>trackDownloads</samp></th>
               <td>
                 Tracks downloads by
-                <a target="_blank" rel="nofollow"
-                   href="http://en.wikipedia.org/wiki/Filename_extension">filename extension</a>.
+                <a href="http://en.wikipedia.org/wiki/Filename_extension"
+                   rel="nofollow">filename extension</a>.
               </td>
             </tr>
             <tr>
@@ -180,7 +183,7 @@
                 <p>Komito Analytics also recognizes outbound links to social networks and lists those in the social report as well.<br>
                 <em>Supported social networks:</em> Google+, Blogger, Facebook, Twitter,
                   LinkedIn, MySpace, VKontakte, Odnoklassniki, Xing, YouTube, Twoo,
-                  Reddit, Pinterest, Digg, Foursquare and <a target="_blank" rel="nofollow"
+                  Reddit, Pinterest, Digg, Foursquare and <a rel="nofollow"
                   href="https://dev.twitter.com/web/intents">Twitter web intents</a>
                   links.</p>
               </td>
@@ -234,10 +237,10 @@
               <th><samp>trackMedia</samp></th>
               <td>
                 Tracks HTML5 video, audio,
-                <a target="_blank" rel="nofollow"
+                <a rel="nofollow"
                    href="https://github.com/vimeo/player.js">Vimeo</a> and
                 <a href="https://developers.google.com/youtube/iframe_api_reference"
-                   target="_blank" rel="nofollow">YouTube</a> players events.
+                   rel="nofollow">YouTube</a> players events.
               </td>
             </tr>
           </table>
@@ -278,7 +281,7 @@
         </p>
         <iframe width="420" height="315" src="https://www.youtube.com/embed/zrI0FlNSSA0"></iframe>
         <div>
-          Thanks <a href="https://www.lovesdata.com">Loves Data</a> for great tutorial.
+          Thanks <a href="https://www.lovesdata.com" rel="nofollow">Loves Data</a> for great tutorial.
           Watch more videos on their <a href="https://www.youtube.com/user/LovesData" rel="nofollow">YouTube channel</a>.
         </div>
       </div>
