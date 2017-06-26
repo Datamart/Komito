@@ -132,7 +132,8 @@ var komito = {
       komito.trackers.social.init();
     }
 
-    'interactive' == key || 'complete' == key ? ready() :
+    'interactive' == key || 'complete' == key ?
+        setTimeout(ready, 1E3) :
         dom.events.addEventListener(dom.context, 'DOMContentLoaded', ready);
   },
 
