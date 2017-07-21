@@ -92,25 +92,17 @@ var komito = {
    */
   track: function(var_args) {
     /** @type {!Array} */ var args = util.Array.toArray(arguments);
-    /** @type {Array.<Object>} */ var trackers;
     /** @type {Array} */ var argv;
     args[0] = args[0] ? 'social' : 'event';
 
-    if ('function' === typeof dom.context[komito.GA_KEY]) {
-      trackers = dom.context[komito.GA_KEY]['getAll'] &&
-                 dom.context[komito.GA_KEY]['getAll']();
-      var data = args[1].indexOf('video') ?
-          args : args.concat([{'nonInteraction': 1}]);
-      trackers && komito.send_(trackers, 'send', data);
-    }
-
+    komito.sendGa_(args);
     komito.sendTagLoader_(args);
     argv = komito.convert_(args);
     komito.send_([dom.context], 'ClickTaleEvent', [argv.join(':')]);
     komito.send_([dom.context], '__utmTrackEvent', argv);
     dom.context['_hmt'] && komito.send_(
         [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
-    komito.sendClassicGA_(args);
+    komito.sendClassicGa_(args);
   },
 
   /**
@@ -165,11 +157,43 @@ var komito = {
   },
 
   /**
+   * Performs Google Analytics execution.
+   * @param {Array} args The arguments to send.
+   * @private
+   */
+  sendGa_(args) {
+    if ('function' === typeof dom.context[komito.GA_KEY]) {
+      /** @type {Array.<Object>} */ var trackers =
+          dom.context[komito.GA_KEY]['getAll'] &&
+          dom.context[komito.GA_KEY]['getAll']();
+      /** @type {*} */ var trackingIds = komito.config['trackingIds'];
+
+      if (trackers && trackingIds) {
+        if (!util.Array.isArray(trackingIds)) {
+          trackingIds = ['' + trackingIds];
+        }
+
+        trackers = util.Array.filter(trackers, function(tracker) {
+          /** @type {string} */ var trackingId = tracker['get']('trackingId');
+          /** @type {boolean} */ var result = util.Array.contains(
+              /** @type {!Array} */ (trackingIds), trackingId);
+          komito.debug_(trackingId, result);
+          return result;
+        });
+      }
+
+      var data = args[1].indexOf('video') ?
+          args : args.concat([{'nonInteraction': 1}]);
+      trackers && komito.send_(trackers, 'send', data);
+    }
+  },
+
+  /**
    * Performs Classic Google Analytics execution.
    * @param {Array} args The arguments to send.
    * @private
    */
-  sendClassicGA_: function(args) {
+  sendClassicGa_: function(args) {
     if (dom.context['_gat'] || dom.context['_gaq']) {
       /** @type {Array.<Object>} */
       var trackers = dom.context['_gat'] &&
@@ -234,7 +258,7 @@ var komito = {
 
   /**
    * The configuration options.
-   * @type {!Object.<string, number>}
+   * @type {!Object.<string, number|string|Array>}
    * @see komito.DEFAULTS
    */
   config: dom.context['_komito'] || {}
