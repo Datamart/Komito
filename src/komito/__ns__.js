@@ -24,7 +24,7 @@
 var komito = {
   /**
    * Default tracking options.
-   * @type {!Object.<string, number>}
+   * @type {!Object.<string, number|string|Array>}
    * @see komito.config
    */
   DEFAULTS: {
@@ -39,6 +39,8 @@ var komito = {
     'trackPrint': 1,
     'trackMedia': 1,
     'trackScroll': 1,
+    // 'trackingIds': ['List of tracking Ids'],
+    'nonInteraction': ['form', 'print', 'scroll', 'video'],
     'debugMode': /[?&]debug=1/.test(location.search)
   },
 
@@ -158,7 +160,7 @@ var komito = {
 
   /**
    * Performs Google Analytics execution.
-   * @param {Array} args The arguments to send.
+   * @param {!Array} args The arguments to send.
    * @private
    */
   sendGa_(args) {
@@ -182,15 +184,15 @@ var komito = {
         });
       }
 
-      var data = args[1].indexOf('video') ?
-          args : args.concat([{'nonInteraction': 1}]);
+      var data = komito.isNonInteraction_(args) ?
+          args.concat([{'nonInteraction': 1}]) : args;
       trackers && komito.send_(trackers, 'send', data);
     }
   },
 
   /**
    * Performs Classic Google Analytics execution.
-   * @param {Array} args The arguments to send.
+   * @param {!Array} args The arguments to send.
    * @private
    */
   sendClassicGa_: function(args) {
@@ -199,7 +201,7 @@ var komito = {
       var trackers = dom.context['_gat'] &&
                      dom.context['_gat']['_getTrackers'] &&
                      dom.context['_gat']['_getTrackers']();
-      var data = args[1].indexOf('video') ? args : args.concat([1]);
+      var data = komito.isNonInteraction_(args) ? args.concat([1]) : args;
       data[0] = ({'social': '_trackSocial', 'event': '_trackEvent'})[data[0]];
 
       if (trackers) {
@@ -254,6 +256,17 @@ var komito = {
     /** @type {Console} */ var logger = dom.context.console;
     if (komito.config['debugMode'] && logger)
       logger.log.apply(logger, arguments);
+  },
+
+  /**
+   * @param {!Array} args The arguments to send.
+   * @return {boolean} Return 'true' if is non interaction event.
+   * @private
+   */
+  isNonInteraction_: function(args) {
+    var type = args[1].split(/\W/)[0]; // video:html5, cta:mailto, scroll.
+    var list = komito.config['nonInteraction'];
+    return util.Array.contains(/** @type {!Array} */ (list), type);
   },
 
   /**
