@@ -115,6 +115,8 @@ var komito = {
     /** @type {string} */ var key = dom.document.readyState;
 
     function ready() {
+      komito.config = dom.context['_komito'] || {};
+
       for (key in komito.DEFAULTS) {
         if (!(key in komito.config)) {
           komito.config[key] = komito.DEFAULTS[key];
@@ -273,8 +275,9 @@ var komito = {
    * The configuration options.
    * @type {!Object.<string, number|string|Array>}
    * @see komito.DEFAULTS
+   * @see komito.init_
    */
-  config: dom.context['_komito'] || {}
+  config: {}
 };
 
 komito.init_();
