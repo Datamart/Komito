@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Host: komito.com
+Sitemap: https://komito.net/sitemap.xml
+Host: komito.net
