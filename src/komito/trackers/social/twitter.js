@@ -34,7 +34,7 @@ komito.trackers.social.Twitter = function() {
                 data = e['data'][type];
                 params = data && data['params'];
                 if (params && ~data['method'].indexOf('trigger')) {
-                  type = params.join('-');
+                  type = params[0];
                   if (!events[type]) {
                     events[type] = 1;
                     komito.track(
