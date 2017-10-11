@@ -23,14 +23,18 @@ komito.trackers.social.Twitter = function() {
           dom.events.addEventListener(dom.context, 'message', function(e) {
             try {
               if ('twitter.com' === e['origin'].substr(-11) && e['data']) {
-                data = util.StringUtils.JSON.parse(e['data']);
-                params = data && data['params'];
-                if (params && 'trigger' === data['method']) {
-                  type = params[0];
-                  if ('click' === type && params[1]) {
-                    type += '-' + params[1]['region'];
+                /* e['data'] = {
+                  "twttr.button": {
+                    "jsonrpc": "2.0",
+                    "method": "twttr.private.trigger",
+                    "params": ["click", "tweet"]
                   }
-
+                } */
+                type = util.Object.keys(e['data'])[0];
+                data = e['data'][type];
+                params = data && data['params'];
+                if (params && ~data['method'].indexOf('trigger')) {
+                  type = params.join('-');
                   if (!events[type]) {
                     events[type] = 1;
                     komito.track(
