@@ -41,14 +41,16 @@ komito.trackers.social.Twitter = function() {
           var events = /** @type {!Array.<string>} */ (
               util.Array.isArray(config) ? config : EVENTS);
 
-          util.Array.forEach(events, function(e) {
-            type = e['type'];
-            if (!fired_[type]) {
-              fired_[type] = 1;
-              key = DATA_KEYS[type];
-              data = (key && e['data'] && e['data'][key]) || location.href;
-              komito.track(komito.SOCIAL_ACTION_TYPE, 'Twitter', type, data);
-            }
+          util.Array.forEach(events, function(event) {
+            twttr['events']['bind'](event, function(e) {
+              type = e['type'];
+              if (!fired_[type]) {
+                fired_[type] = 1;
+                key = DATA_KEYS[type];
+                data = (key && e['data'] && e['data'][key]) || location.href;
+                komito.track(komito.SOCIAL_ACTION_TYPE, 'Twitter', type, data);
+              }
+            });
           });
         });
       } else setTimeout(init_, 5e3);
