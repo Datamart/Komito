@@ -7,59 +7,66 @@
  */
 komito.trackers.social.Twitter = function() {
   /**
+   * List of Twitter events to track.
+   * @const {!Array.<string>}
+   * @see https://dev.twitter.com/web/javascript/events
+   */
+  var EVENTS = ['tweet', 'retweet', 'like', 'follow'];
+
+  /**
+   * Mapping of event's data keys.
+   * @const {!Object.<string, string>}
+   */
+  var DATA_KEYS = {
+    'follow': 'screen_name',
+    'retweet': 'source_tweet_id',
+    'like': 'tweet_id',
+    'tweet': 'url'
+  };
+
+  /**
    * Tries to attach listener to Twitter widget object if it presents on page.
-   * @see https://dev.twitter.com/docs/tfw/events
+   * @see https://dev.twitter.com/web/javascript/events
    * @private
    */
   function init_() {
-    /** @type {!Object.<string, number>} */ var events = {};
-    /** @type {string} */ var type;
-    /** @type {Object.<string, *>} */ var data;
-    /** @type {Array} */ var params;
-
-    if (counter_++ < 9) {
+    if (9 > counter_++) {
       if (dom.context['twttr'] && dom.context['twttr']['ready']) {
-        if (!dom.context['__twitterIntentHandler']) {
-          dom.events.addEventListener(dom.context, 'message', function(e) {
-            try {
-              if ('twitter.com' === e['origin'].substr(-11) && e['data']) {
-                /* e['data'] = {
-                  "twttr.button": {
-                    "jsonrpc": "2.0",
-                    "method": "twttr.private.trigger",
-                    "params": ["click", "tweet"]
-                  }
-                } */
-                type = util.Object.keys(e['data'])[0];
-                data = e['data'][type];
-                params = data && data['params'];
-                if (params && ~data['method'].indexOf('trigger')) {
-                  type = params[0];
-                  if (!events[type]) {
-                    events[type] = 1;
-                    komito.track(
-                        komito.SOCIAL_ACTION_TYPE, 'Twitter',
-                        type, location.href);
-                  }
-                }
-              }
-            } catch (ex) {}
-          });
+        dom.context['twttr']['ready'](function(twttr) {
+          var config = komito.config['trackTwitter'];
+          var type;
+          var data;
+          var key;
 
-          dom.context['twttr']['ready'](function(twttr) {
-            twttr['events']['bind']('message', function() {});
+          var events = /** @type {!Array.<string>} */ (
+              util.Array.isArray(config) ? config : EVENTS);
+
+          util.Array.forEach(events, function(e) {
+            type = e['type'];
+            if (!fired_[type]) {
+              fired_[type] = 1;
+              key = DATA_KEYS[type];
+              data = (key && e['data'] && e['data'][key]) || location.href;
+              komito.track(komito.SOCIAL_ACTION_TYPE, 'Twitter', type, data);
+            }
           });
-          dom.context['__twitterIntentHandler'] = true;
-        }
+        });
       } else setTimeout(init_, 5e3);
     }
   }
+
 
   /**
    * @type {number}
    * @private
    */
   var counter_ = 0;
+
+  /**
+   * @type {!Object.<string, number>}
+   * @private
+   */
+  var fired_ = {};
 
   // Initializing Twitter events tracking.
   init_();
