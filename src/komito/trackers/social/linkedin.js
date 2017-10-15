@@ -22,7 +22,8 @@ komito.trackers.social.LinkedIn = function() {
     for (; i < length;) {
       element = elements[i++];
       type = (element.getAttribute('type') || '').toLowerCase();
-      type.indexOf('in/') || subscribe_(element, type.substr(3));
+      // type: IN/Share+init, IN/FollowCompany+init
+      type.indexOf('in/') || subscribe_(element, type.substr(3).split('+')[0]);
     }
   }
 
@@ -34,13 +35,37 @@ komito.trackers.social.LinkedIn = function() {
   function subscribe_(element, action) {
     /** @type {string} */ var type = 'onsuccess';
     /** @type {string} */ var cb = ['cb', type, action, +new Date].join('_');
+    /** @type {Node} */ var widget;
+
+    function handler() {
+      if (!fired_[action]) {
+        fired_[action] = 1;
+        komito.track(
+            komito.SOCIAL_ACTION_TYPE, 'LinkedIn', action, location.href);
+        widget && dom.events.removeEventListener(
+            widget, dom.events.TYPE.CLICK, handler);
+      }
+    }
 
     element[type] = (element[type] ? element[type] + ',' : '') + cb;
-    dom.context[cb] = function() {
-      komito.track(
-          komito.SOCIAL_ACTION_TYPE, 'LinkedIn', action, location.href);
-    };
+    element.setAttribute('data-' + type, cb);
+
+    dom.context[cb] = handler;
+
+    setTimeout(function() {
+      widget = element.previousSibling;
+      if (widget && 'IN-widget' === widget.className) {
+        dom.events.addEventListener(widget, dom.events.TYPE.CLICK, handler);
+      }
+    }, 1E3);
+
   }
+
+  /**
+   * @type {!Object.<string, number>}
+   * @private
+   */
+  var fired_ = {};
 
   // Initializing LinkedIn events tracking.
   init_();
