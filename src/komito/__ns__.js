@@ -93,18 +93,20 @@ var komito = {
    * _hmt.push(['_trackEvent', 'social:action', network, target]);
    */
   track: function(var_args) {
-    /** @type {!Array} */ var args = util.Array.toArray(arguments);
-    /** @type {Array} */ var argv;
-    args[0] = args[0] ? 'social' : 'event';
+    if ('web.archive.org' !== location.hostname) {
+      /** @type {!Array} */ var args = util.Array.toArray(arguments);
+      /** @type {Array} */ var argv;
+      args[0] = args[0] ? 'social' : 'event'; // Action type: 1 or 0;
 
-    komito.sendGa_(args);
-    komito.sendTagLoader_(args);
-    argv = komito.convert_(args);
-    komito.send_([dom.context], 'ClickTaleEvent', [argv.join(':')]);
-    komito.send_([dom.context], '__utmTrackEvent', argv);
-    dom.context['_hmt'] && komito.send_(
-        [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
-    komito.sendClassicGa_(args);
+      komito.sendGa_(args);
+      komito.sendTagLoader_(args);
+      argv = komito.convert_(args);
+      komito.send_([dom.context], 'ClickTaleEvent', [argv.join(':')]);
+      komito.send_([dom.context], '__utmTrackEvent', argv);
+      dom.context['_hmt'] && komito.send_(
+          [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
+      komito.sendClassicGa_(args);
+    }
   },
 
   /**
