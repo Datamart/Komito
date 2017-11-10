@@ -34,18 +34,32 @@ komito.trackers.dom.Forms = function() {
     /** @type {HTMLCollection} */ var elements = form.elements;
     /** @type {number} */ var length = elements.length;
     /** @type {number} */ var i = 0;
+
+    /** @type {string} */ var action = form.getAttribute('action');
+    /** @type {string} */ var identifier = form.getAttribute('name') ||
+        form.getAttribute('id') ||
+        form.className.replace(/\W+/g, '-') ||
+        (action && util.StringUtils.hash(action)) ||
+        ('form-' + ++index_);
+
     /** @type {Element} */ var element;
 
     for (; i < length;) {
       element = elements[i++];
       element.name && komito.track(
-          komito.EVENT_ACTION_TYPE, 'form',
-          form.getAttribute('name') || form.getAttribute('id') || 'form',
+          komito.EVENT_ACTION_TYPE, 'form', identifier,
           element.name + ':' + (element.type || element.tagName));
     }
 
     dom.events.removeEventListener(form, dom.events.TYPE.SUBMIT, listener_);
   }
+
+  /**
+   * The last submitted form index.
+   * @type {number}
+   * @private
+   */
+  var index_ = 0;
 
   // Initializing forms events tracking.
   init_();
