@@ -39,8 +39,9 @@ var komito = {
     'trackPrint': 1,
     'trackMedia': 1,
     'trackScroll': 1,
+    'trackOrientation': 1,
     // 'trackingIds': ['List of tracking Ids'],
-    'nonInteraction': ['form', 'print', 'scroll', 'video'],
+    'nonInteraction': ['form', 'print', 'scroll', 'video', 'orientation'],
     'debugMode': /[?&]debug=1/.test(location.search)
   },
 
