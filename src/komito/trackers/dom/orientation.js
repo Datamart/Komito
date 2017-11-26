@@ -21,7 +21,9 @@ komito.trackers.dom.Orientation = function() {
    * @private
    */
   function init_() {
-    if (komito.config['trackOrientation']) {
+    var mobile = dom.device.maxTouchPoints || 'ontouchstart' in dom.document;
+
+    if (mobile && komito.config['trackOrientation']) {
       /** @type {function(string):MediaQueryList} */
       var matchMedia = dom.context['matchMedia'];
       mql_ = matchMedia && matchMedia(QUERY);
@@ -43,11 +45,11 @@ komito.trackers.dom.Orientation = function() {
     komito.track(
         komito.EVENT_ACTION_TYPE, 'orientation', 'change', getType_(e));
 
-    mql_ ?
-        mql_['removeListener'](listener_) :
-        dom.events.removeEventListener(dom.context, EVENT, listener_);
+    // mql_ ?
+    //     mql_['removeListener'](listener_) :
+    //     dom.events.removeEventListener(dom.context, EVENT, listener_);
 
-    mql_ = listener_ = dom.NULL;
+    // mql_ = listener_ = dom.NULL;
   }
 
   /**
