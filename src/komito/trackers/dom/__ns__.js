@@ -9,5 +9,6 @@ komito.trackers.dom = {
     komito.trackers.dom.Print && new komito.trackers.dom.Print;
     komito.trackers.dom.Scroll && new komito.trackers.dom.Scroll;
     komito.trackers.dom.Orientation && new komito.trackers.dom.Orientation;
+    komito.trackers.dom.AdBlock && new komito.trackers.dom.AdBlock;
   }
 };

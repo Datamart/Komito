@@ -40,8 +40,10 @@ var komito = {
     'trackMedia': 1,
     'trackScroll': 1,
     'trackOrientation': 1,
+    'trackAdblock': 0, // Experimental feature.
     // 'trackingIds': ['List of tracking Ids'],
-    'nonInteraction': ['form', 'print', 'scroll', 'video', 'orientation'],
+    'nonInteraction': [
+      'form', 'print', 'scroll', 'video', 'orientation', 'adblock'],
     'debugMode': /[?&]debug=1/.test(location.search)
   },
 
