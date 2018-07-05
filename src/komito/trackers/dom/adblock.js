@@ -25,7 +25,7 @@ komito.trackers.dom.AdBlock = function() {
       setTimeout(function() {
         node.offsetHeight < 5 && komito.track(
             komito.EVENT_ACTION_TYPE, 'adblock', 'pageview', location.href);
-        node.parentNode.removeChild(node);
+        dom.removeNode(node);
       }, 1E3);
     }
   }

@@ -553,7 +553,7 @@ dom.scripts.load = function(src, opt_callback) {
       loaded = true;
       // Handle memory leak in IE.
       script['onload'] = script['onreadystatechange'] = dom.NULL;
-      script.parentNode.removeChild(script);
+      dom.removeNode(script);
       opt_callback && opt_callback();
     }
   };

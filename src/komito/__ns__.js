@@ -174,6 +174,7 @@ var komito = {
           dom.context[komito.GA_KEY]['getAll'] &&
           dom.context[komito.GA_KEY]['getAll']();
       /** @type {*} */ var trackingIds = komito.config['trackingIds'];
+      /** @type {!Object.<string, boolean>} */ var uniques = {};
 
       if (trackers && trackingIds) {
         if (!util.Array.isArray(trackingIds)) {
@@ -184,10 +185,16 @@ var komito = {
           /** @type {string} */ var trackingId = tracker['get']('trackingId');
           /** @type {boolean} */ var result = util.Array.contains(
               /** @type {!Array} */ (trackingIds), trackingId);
-          komito.debug_(trackingId, result);
           return result;
         });
       }
+
+      trackers = util.Array.filter(trackers, function(tracker) {
+        /** @type {string} */ var trackingId = tracker['get']('trackingId');
+        /** @type {boolean} */ var result = !uniques[trackingId];
+        uniques[trackingId] = true;
+        return result;
+      });
 
       var data = komito.isNonInteraction_(args) ?
           args.concat([{'nonInteraction': 1}]) : args;

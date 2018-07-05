@@ -43,7 +43,7 @@ komito.trackers.social.Users = function() {
     }
 
     /**
-     * @param {Image} image The image object.
+     * @param {HTMLImageElement|Image} image The image object.
      * @param {string} network The social network name.
      */
     function subscribe(image, network) {
@@ -85,7 +85,14 @@ komito.trackers.social.Users = function() {
     }
 
     for (network in USERS) {
-      subscribe(new Image(1, 1), network);
+      /** @type {HTMLImageElement|Image} */ var image = new Image(1, 1);
+      // if ('Twitter' == network) {
+      //   // https://www.w3.org/TR/referrer-policy/
+      //   image = /** @type {HTMLImageElement} */ (dom.createElement('IMG'));
+      //   image.setAttribute('referrerpolicy', 'no-referrer');
+      //   image.setAttribute('crossorigin', 'anonymous');
+      // }
+      subscribe(image, network);
     }
 
     status();
