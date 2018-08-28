@@ -17,12 +17,7 @@ komito.trackers.social.Users = function() {
         'accounts_logo.png&amp;followup=https%3A%2F%2Fwww.google.com%2F' +
         'intl%2Fen%2Fimages%2Flogos%2Faccounts_logo.png&amp;' +
         'chtml=LoginDoneHtml&amp;checkedDomains=youtube&amp;' +
-        'checkConnection=youtube%3A291%3A1',
-    'Google+': 'https://plus.google.com/up/?continue=' +
-        'https%3A%2F%2Fwww.google.com%2Fintl%2Fen%2Fimages%2Flogos%2F' +
-        'accounts_logo.png',
-    'Twitter': 'https://twitter.com/login?redirect_after_login=' +
-        'https%3A%2F%2Fplatform.twitter.com%2Fwidgets%2Fimages%2Fbtn.png'
+        'checkConnection=youtube%3A291%3A1'
   };
 
   /**
@@ -86,12 +81,6 @@ komito.trackers.social.Users = function() {
 
     for (network in USERS) {
       /** @type {HTMLImageElement|Image} */ var image = new Image(1, 1);
-      // if ('Twitter' == network) {
-      //   // https://www.w3.org/TR/referrer-policy/
-      //   image = /** @type {HTMLImageElement} */ (dom.createElement('IMG'));
-      //   image.setAttribute('referrerpolicy', 'no-referrer');
-      //   image.setAttribute('crossorigin', 'anonymous');
-      // }
       subscribe(image, network);
     }
 
