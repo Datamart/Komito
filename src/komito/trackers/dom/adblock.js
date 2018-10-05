@@ -16,9 +16,13 @@ komito.trackers.dom.AdBlock = function() {
    */
   function init_() {
     if (komito.config['trackAdblock']) {
-      var node = dom.appendChild(dom.document.body, dom.createElement('DIV'));
+      var node = dom.appendChild(dom.document.body, dom.createElement('ins'));
       node.id = 'ad-container';
+      node.className = 'Adsense';
       node.style.position = 'absolute';
+      node.style.display = 'block';
+      node.style.top = '-1px';
+      node.style.height = '1px';
       node.innerHTML = '<img src="data:image/svg+xml,%3Csvg/%3E" id="ad" ' +
                        'class=“banner” height="5" width="5">';
 
