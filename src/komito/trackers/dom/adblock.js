@@ -20,7 +20,7 @@ komito.trackers.dom.AdBlock = function() {
       node.id = 'ad-container';
       node.style.position = 'absolute';
       node.innerHTML = '<img src="data:image/svg+xml,%3Csvg/%3E" id="ad" ' +
-                       'class=“banner” height="5" width="5">';
+                       'class="banner" height="5" width="5">';
 
       setTimeout(function() {
         node.offsetHeight < 5 && komito.track(
