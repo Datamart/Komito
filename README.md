@@ -2,3 +2,5 @@
 Komito Analytics is an enhancement for the most popular analytics software.<br>
 It unlocks power of digital analytics with additional insights about visitor's behavior.<br>
 For more information please visit [Komito Analytics project page](https://komito.net).
+
+![Analytics](https://www.google-analytics.com/collect?v=1&tid=UA-5065160-14&cid=12345.67890&t=pageview&dh=github.com&dp=/Datamart/Komito&dt=Komito%20GitHub%20README)
