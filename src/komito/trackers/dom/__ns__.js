@@ -12,6 +12,7 @@ komito.trackers.dom = {
     komito.trackers.dom.AdBlock && new komito.trackers.dom.AdBlock;
 
     komito.trackers.dom.trackHeartBeat_(+komito.config['sendHeartbeat']);
+    komito.trackers.dom.trackErrorPages_();
   },
 
   /**
@@ -32,6 +33,22 @@ komito.trackers.dom = {
           }, 1E3 * interval);
         } else {
           timer && clearInterval(timer);
+        }
+      });
+    }
+  },
+
+  /**
+   * Tracks error pages.
+   * @private
+   */
+  trackErrorPages_: function() {
+    var page = komito.config['trackErrorPages'] && location.href;
+
+    if (page) {
+      (new net.HttpRequest).doHead(/** @type {string} */(page), function(req) {
+        if (399 < req.status) {
+          komito.track(komito.EVENT_ACTION_TYPE, 'errors', req.status, page);
         }
       });
     }
