@@ -41,9 +41,11 @@ var komito = {
     'trackScroll': 1,
     'trackOrientation': 1,
     'trackAdblock': 0, // Experimental feature.
+    'trackHeartBeat': 0, // Experimental feature.
     // 'trackingIds': ['List of tracking Ids'],
     'nonInteraction': [
-      'form', 'print', 'scroll', 'video', 'orientation', 'adblock'],
+      'form', 'print', 'scroll', 'video', 'orientation',
+      'adblock', 'heartbeat'],
     'debugMode': /[?&]debug=1/.test(location.search)
   },
 
@@ -108,6 +110,7 @@ var komito = {
     dom.context['_hmt'] && komito.send_(
         [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
     komito.sendClassicGa_(args);
+    komito.sendYm_(args);
   },
 
   /**
@@ -131,7 +134,7 @@ var komito = {
       komito.trackers.social.init();
     }
 
-    'interactive' == key || 'complete' == key ?
+    'interactive' === key || 'complete' === key ?
         setTimeout(ready, 1E3) :
         dom.events.addEventListener(dom.context, 'DOMContentLoaded', ready);
   },
@@ -225,6 +228,37 @@ var komito = {
   },
 
   /**
+   * Performs Yandex Metrica execution.
+   * @param {!Array} args The arguments to send.
+   * @see https://yandex.com/support/metrica/objects/_method-reference.html
+   * @see https://yandex.com/support/metrica/objects/extlink.html
+   * @see https://yandex.com/support/metrica/objects/file.html
+   * @private
+   */
+  sendYm_: function(args) {
+    /** @type {!Array.<Object>} */ var trackers = [];
+    /** @type {string} */ var func = 'params';
+    /** @type {string} */ var key;
+
+    for (key in dom.context) {
+      if (0 == key.indexOf('yaCounter')) {
+        trackers.push(dom.context[key]);
+      }
+    }
+
+    key = args[1];
+    if ('outbound' === key) {
+      func = 'extLink';
+      args = [args.pop()]; // Outbound link URL.
+    } else if ('download' === key) {
+      func = 'file';
+      args = [args.pop()]; // URL of downloaded file.
+    }
+
+    komito.send_(trackers, func, args);
+  },
+
+  /**
    * @param {!Array} trackers The list of trackers.
    * @param {string} func The function name.
    * @param {!Array} args The func arguments.
@@ -251,7 +285,7 @@ var komito = {
   convert_: function(args) {
     /** @type {!Array} */ var argv = [].concat(args);
 
-    if ('social' == argv[0]) {
+    if ('social' === argv[0]) {
       // from: ['social', 'network', 'action', 'target']
       // to: ['social', 'social:action', 'network', 'target']
       argv[1] = 'social' + ':' + argv.splice(2, 1, argv[1])[0];

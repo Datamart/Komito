@@ -4,3 +4,4 @@
 *.so
 .DS_Store
 build/lib
+min/komito.js
