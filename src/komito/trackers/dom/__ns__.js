@@ -11,7 +11,7 @@ komito.trackers.dom = {
     komito.trackers.dom.Orientation && new komito.trackers.dom.Orientation;
     komito.trackers.dom.AdBlock && new komito.trackers.dom.AdBlock;
 
-    komito.trackers.dom.trackHeartBeat_(+komito.config['trackHeartBeat']);
+    komito.trackers.dom.trackHeartBeat_(+komito.config['sendHeartbeat']);
   },
 
   /**

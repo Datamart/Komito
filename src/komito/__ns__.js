@@ -41,7 +41,7 @@ var komito = {
     'trackScroll': 1,
     'trackOrientation': 1,
     'trackAdblock': 0, // Experimental feature.
-    'trackHeartBeat': 0, // Experimental feature.
+    'sendHeartbeat': 0, // Experimental feature.
     // 'trackingIds': ['List of tracking Ids'],
     'nonInteraction': [
       'form', 'print', 'scroll', 'video', 'orientation',
