@@ -119,25 +119,28 @@ var komito = {
    * @private
    */
   init_: function() {
-    /** @type {string} */ var key = dom.document.readyState;
+    if (!komito.initialized_) {
+      komito.initialized_ = 1; // Initialize Komito Analytics only once.
+      /** @type {string} */ var key = dom.document.readyState;
 
-    function ready() {
-      komito.config = dom.context['_komito'] || {};
+      function ready() {
+        komito.config = dom.context['_komito'] || {};
 
-      for (key in komito.DEFAULTS) {
-        if (!(key in komito.config)) {
-          komito.config[key] = komito.DEFAULTS[key];
+        for (key in komito.DEFAULTS) {
+          if (!(key in komito.config)) {
+            komito.config[key] = komito.DEFAULTS[key];
+          }
         }
+
+        komito.trackers.dom.init();
+        komito.trackers.media.init();
+        komito.trackers.social.init();
       }
 
-      komito.trackers.dom.init();
-      komito.trackers.media.init();
-      komito.trackers.social.init();
+      'interactive' === key || 'complete' === key ?
+          setTimeout(ready, 1E3) :
+          dom.events.addEventListener(dom.context, 'DOMContentLoaded', ready);
     }
-
-    'interactive' === key || 'complete' === key ?
-        setTimeout(ready, 1E3) :
-        dom.events.addEventListener(dom.context, 'DOMContentLoaded', ready);
   },
 
   /**
