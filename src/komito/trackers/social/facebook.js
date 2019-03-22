@@ -8,22 +8,25 @@
 komito.trackers.social.Facebook = function() {
   /**
    * Tries to attach listener to Facebook widget object if it presents on page.
-   * http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe
+   * @see http://developers.facebook.com/docs/reference/javascript/FB.Event.subscribe
+   * @see https://developers.facebook.com/blog/post/2017/11/07/changes-developer-offerings/
    * @private
    */
   function init_() {
-    if (counter_++ < 9) {
-      /** @type {Object} */ var fb = dom.context['FB'];
-      /** @type {!function(string, Function)} */
-      var subscribe = fb && fb['Event'] && fb['Event']['subscribe'];
-      if (subscribe) {
-        try {
-          subscribe('edge.create', function() { listener_('like'); });
-          subscribe('edge.remove', function() { listener_('unlike'); });
-          subscribe('message.send', function() { listener_('message'); });
-        } catch (e) {}
-      } else setTimeout(init_, 5e3);
-    }
+    dom.events.addEventListener(dom.context, dom.events.TYPE.BLUR, function() {
+      var iframe = dom.document.activeElement;
+      if (iframe && iframe.tagName == 'IFRAME') {
+        if (iframe.src.indexOf('https://www.facebook.com/' == 0)) {
+          // "fb:like Facebook Social Plugin"
+          // "fb:share_button Facebook Social Plugin"
+          var action = iframe.title.split(' ')[0];
+          if (action.indexOf('fb:') == 0) {
+            action = action.slice(3).split('_')[0];
+            listener_(action);
+          }
+        }
+      }
+    });
   }
 
   /**
@@ -91,17 +94,21 @@ komito.trackers.social.Facebook.getAppId_ = function() {
 komito.trackers.social.Facebook.init = function(callback) {
   /** @type {string} */ var appId;
 
-  if (!dom.context['FB']) {
-    appId = komito.trackers.social.Facebook.getAppId_();
-    if (appId) {
-      /** @type {Element} */ var script = dom.createElement('SCRIPT');
-      script.async = 1;
-      script.id = 'facebook-jssdk';
-      script.src = 'https://connect.facebook.net/en_US/sdk.js#' +
-                   'xfbml=1&version=v3.2' +
-                   '&appId=' + appId + '&status=1&cookie=1';
-      dom.appendChild(dom.document.body, script);
-      setTimeout(callback, 3E3);
+  if (!komito.trackers.social.Facebook.initialized_) {
+    komito.trackers.social.Facebook.initialized_ = 1;
+
+    if (!dom.context['FB']) {
+      appId = komito.trackers.social.Facebook.getAppId_();
+      if (appId) {
+        /** @type {Element} */ var script = dom.createElement('SCRIPT');
+        script.async = 1;
+        script.id = 'facebook-jssdk';
+        script.src = 'https://connect.facebook.net/en_US/sdk.js#' +
+                     'xfbml=1&version=v3.2&status=1&cookie=1&'
+                     'appId=' + appId;
+        dom.appendChild(dom.document.body, script);
+        setTimeout(callback, 3E3);
+      }
     }
   }
 
