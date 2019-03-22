@@ -49,17 +49,18 @@ komito.trackers.social.Users = function() {
     }
 
     /**
-     * @param {function(function(Object))} fn Facebook getLoginStatus function.
+     * @param {function(function(Object), boolean=)} fn Facebook getLoginStatus function.
+     * @see https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
      */
     function getStatus(fn) {
       fn(function(response) {
         if (response && 'unknown' !== response['status'] && !sent++)
           pageview('Facebook');
-      });
+      }, true);
     }
 
     function status() {
-      /** @type {function(function(Object))} */
+      /** @type {function(function(Object), boolean=)} */
       var fn = dom.context['FB'] && dom.context['FB']['getLoginStatus'];
       if (fn) {
         getStatus(fn);

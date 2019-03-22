@@ -104,7 +104,7 @@ komito.trackers.social.Facebook.init = function(callback) {
         script.async = 1;
         script.id = 'facebook-jssdk';
         script.src = 'https://connect.facebook.net/en_US/sdk.js#' +
-                     'xfbml=1&version=v3.2&status=1&cookie=1&'
+                     'xfbml=1&version=v3.2&status=1&cookie=1&' +
                      'appId=' + appId;
         dom.appendChild(dom.document.body, script);
         setTimeout(callback, 3E3);
