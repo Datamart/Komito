@@ -84,7 +84,7 @@ komito.trackers.social.Users = function() {
       subscribe(image, network);
     }
 
-    status();
+    komito.trackers.social.Facebook.init(status);
   }
 
   // Initializing Users events tracking.

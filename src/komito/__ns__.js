@@ -29,7 +29,7 @@ var komito = {
    */
   DEFAULTS: {
     'trackTwitter': 1,
-    'trackFacebook': 0,
+    'trackFacebook': 1,
     'trackLinkedIn': 1,
     'trackDownloads': 1,
     'trackOutbound': 1,
