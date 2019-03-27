@@ -149,7 +149,8 @@ var komito = {
    * @private
    */
   sendTagLoader_: function(args) {
-    /** @type {Function} */ var loader = dom.context['TagLoader'];
+    /** @type {Function} */ var loader = dom.context['TagLoader'] ||
+                                         dom.context['AppMeasurement'];
     /** @type {Object} */ var tracker = dom.context['s'];
     /** @type {!Array} */ var vars = [];
     /** @type {number} */ var i = 1;
