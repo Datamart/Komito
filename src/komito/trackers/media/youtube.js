@@ -39,9 +39,11 @@ komito.trackers.media.YouTube = function() {
     /** @type {!Array} */ var iframes = [];
     /** @type {HTMLIFrameElement} */ var element;
     /** @type {string} */ var source;
+    /** @type {Object} */ var player;
+    /** @type {Function} */ var listener;
 
-    for (; i < length;) {
-      element = elements[i++];
+    for (; length--;) {
+      element = elements[length];
       source = element.src;
       if (PATTERN.test(source)) {
         if (0 > source.indexOf('enablejsapi')) {
@@ -54,13 +56,14 @@ komito.trackers.media.YouTube = function() {
     length = iframes.length;
     if (length) {
       // Save the reference to the YouTube event listener if it exists.
-      var listener = dom.context['onYouTubeIframeAPIReady'];
+      listener = dom.context['onYouTubeIframeAPIReady'];
       dom.context['onYouTubeIframeAPIReady'] = function() {
         listener && listener();
-        for (i = 0; i < length;) {
-          dom.events.addEventListener(
-              new dom.context['YT']['Player'](iframes[i++]),
-              'onStateChange', listener_);
+        for (; length--;) {
+          element = iframes[length];
+          player = dom.context['YT']['get'](element.id) ||
+                   new dom.context['YT']['Player'](element);
+          dom.events.addEventListener(player, 'onStateChange', listener_);
         }
       };
 
