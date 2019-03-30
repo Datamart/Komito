@@ -77,8 +77,22 @@ komito.trackers.media.YouTube = function() {
     /** @type {string} */ var type = ['ended', 'play', 'pause'][e['data']];
 
     type && komito.track(
-        komito.EVENT_ACTION_TYPE, 'video:youtube',
-        type, e.target['getVideoUrl']());
+        komito.EVENT_ACTION_TYPE, 'video:youtube', type, getVideoUrl_(e));
+  }
+
+  /**
+   * Gets the YouTube.com URL for the currently loaded/playing video.
+   * @param {Event} e The event
+   * @return {string} Returns the video URL.
+   * @see https://developers.google.com/youtube/iframe_api_reference
+   * @private
+   */
+  function getVideoUrl_(e) {
+    var player = e.target;
+
+    return player['getVideoUrl'] ?
+        player['getVideoUrl']() :
+        player['getIframe']()['src'].split('?')[0];
   }
 
   // Initializing YouTube video events tracking.
