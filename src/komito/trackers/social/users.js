@@ -49,7 +49,7 @@ komito.trackers.social.Users = function() {
     }
 
     /**
-     * @param {function(function(Object), boolean=)} fn Facebook getLoginStatus function.
+     * @param {function(function(Object), boolean=)} fn getLoginStatus function.
      * @see https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
      */
     function getStatus(fn) {

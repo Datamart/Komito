@@ -53,7 +53,10 @@ komito.trackers.media.YouTube = function() {
 
     length = iframes.length;
     if (length) {
+      // Save the reference to the YouTube event listener if it exists.
+      var listener = dom.context['onYouTubeIframeAPIReady'];
       dom.context['onYouTubeIframeAPIReady'] = function() {
+        listener && listener();
         for (i = 0; i < length;) {
           dom.events.addEventListener(
               new dom.context['YT']['Player'](iframes[i++]),
