@@ -16,7 +16,7 @@ komito.trackers.social.Facebook = function() {
     dom.events.addEventListener(dom.context, dom.events.TYPE.BLUR, function() {
       var iframe = dom.document.activeElement;
       if (iframe && iframe.tagName == 'IFRAME') {
-        if (iframe.src.indexOf('https://www.facebook.com/' == 0)) {
+        if (iframe.src.indexOf('https://www.facebook.com/') == 0) {
           // "fb:like Facebook Social Plugin"
           // "fb:share_button Facebook Social Plugin"
           var action = iframe.title.split(' ')[0];
