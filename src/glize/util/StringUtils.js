@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Miscellaneous String utility methods.
  *
@@ -13,30 +12,6 @@
  */
 util.StringUtils = {
   /**
-   * Trims leading and trailing whitespace from the given String.
-   * @param {string} str The String to check.
-   * @return {string} Returns the trimmed String.
-   * @deprecated Use {@link util.String.trim} instead.
-   */
-  trim: util.String.trim,
-
-  /**
-   * Trims leading whitespace from the given String.
-   * @param {string} str The String to check.
-   * @return {string} Returns the trimmed String.
-   * @deprecated Use {@link util.String.trimLeft} instead.
-   */
-  trimLeft: util.String.trimLeft,
-
-  /**
-   * Trims trailing whitespace from the given String.
-   * @param {string} str The String to check.
-   * @return {string} Returns the trimmed String.
-   * @deprecated Use {@link util.String.trimRight} instead.
-   */
-  trimRight: util.String.trimRight,
-
-  /**
    * Converts HTML to plain text.
    * @param {string} str The input string.
    * @return {string} Converted string.
@@ -50,7 +25,7 @@ util.StringUtils = {
 
   /**
    * Converts <code>obj</code> to query string.
-   * @param {Object} obj The key-value pairs object.
+   * @param {!Object} obj The key-value pairs object.
    * @param {string=} opt_prefix Optional query prefix.
    * @return {string} Returns query string or empty string if no parameters
    *     given.
@@ -58,10 +33,13 @@ util.StringUtils = {
    */
   toQueryString: function(obj, opt_prefix) {
     /** @type {string} */ var result = opt_prefix || '?';
-    for (/** @type {string} */ var key in obj) {
+    /** @type {string} */ var key;
+
+    for (key in obj) {
       result += util.StringUtils.URI.encode(key) + '=' +
           util.StringUtils.URI.encode(obj[key]) + '&';
     }
+
     return result.slice(0, -1);
   },
 
@@ -97,6 +75,7 @@ util.StringUtils = {
       j += 8;
       j %= 24;
     }
+
     return result.toString(36).toUpperCase();
   },
 
@@ -149,72 +128,6 @@ util.StringUtils = {
 
 
 /**
- * Trims leading and trailing whitespace from the given String.
- * @param {string} str The String to check.
- * @return {string} Returns the trimmed String.
- * @deprecated Use {@link util.String.trim} instead.
- * @static
- */
-util.StringUtils.trimWhitespace = util.String.trim;
-
-
-/**
- * Trims leading whitespace from the given String.
- * @param {string} str The String to check.
- * @return {string} Returns the trimmed String.
- * @deprecated Use {@link util.String.trimLeft} instead.
- * @static
- */
-util.StringUtils.trimLeadingWhitespace = util.String.trimLeft;
-
-
-/**
- * Trims trailing whitespace from the given String.
- * @param {string} str The String to check.
- * @return {string} Returns the trimmed String.
- * @deprecated Use {@link util.String.trimRight} instead.
- * @static
- */
-util.StringUtils.trimTrailingWhitespace = util.String.trimRight;
-
-
-/**
- * @type {string}
- * @const
- * @deprecated Use {@link util.Base64.BASE64_CHARACTER_TABLE} instead.
- */
-util.StringUtils.BASE64_CHARACTER_TABLE =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-
-/**
- * Base64 utils.
- * @type {!Object.<string, function(string):string>}
- * @deprecated Use {@link util.Base64} instead.
- * @requires util.Base64
- * @namespace
- */
-util.StringUtils.Base64 = {
-
-  /**
-   * Encodes string to base64.
-   * @param {string} str String to encode.
-   * @return {string} Returns encoded string.
-   * @deprecated Use {@link util.Base64.encode} instead.
-   */
-  encode: util.Base64.encode,
-
-  /**
-   * Decodes base64-encoded string.
-   * @param {string} str Encoded string.
-   * @return {string} Returns decoded string.
-   * @deprecated Use {@link util.Base64.decode} instead.
-   */
-  decode: util.Base64.decode
-};
-
-
-/**
  * Simple implementation of JSON methods.
  * @type {!Object.<string, function(string):string>}
  * @namespace
@@ -223,10 +136,10 @@ util.StringUtils.JSON = {
   /**
    * This method parses a JSON text to produce an object or array.
    * @param {string} value String to parse.
-   * @return {Object} Returns parsed object from string.
+   * @return {?Object} Returns parsed object from string.
    */
   parse: function(value) {
-    return /** @type {Object} */ ((dom.context.JSON ?
+    return /** @type {?Object} */ ((dom.context.JSON ?
         JSON.parse(value) : eval('(' + value + ')')) || dom.NULL);
   },
 
@@ -237,11 +150,11 @@ util.StringUtils.JSON = {
    */
   stringify: dom.context.JSON ? JSON.stringify : function(obj) {
     /** @type {string} */ var type = typeof obj;
-    /** @type {Array.<string>} */ var buffer = [];
+    /** @type {!Array.<string>} */ var buffer = [];
     /** @type {boolean} */ var isArray;
     /** @type {string} */ var result;
     /** @type {string} */ var key;
-    /** @type {string|Object} */ var value;
+    /** @type {string|?Object} */ var value;
 
     if ('object' !== type || dom.NULL === obj) {
       result = 'string' === type ? '"' + obj + '"' : '' + obj;
@@ -253,13 +166,14 @@ util.StringUtils.JSON = {
         if ('string' === type) {
           value = '"' + value + '"';
         } else if ('object' === type && dom.NULL !== value) {
-          value = util.StringUtils.JSON.stringify(/** @type {Object}*/ (value));
+          value = util.StringUtils.JSON.stringify(/** @type {!Object}*/ (value));
         }
         buffer.push((isArray ? '' : '"' + key + '":') + value);
       }
 
       result = (isArray ? '[' : '{') + buffer + (isArray ? ']' : '}');
     }
+
     return result;
   }
 };
@@ -272,8 +186,11 @@ util.StringUtils.JSON = {
  */
 util.StringUtils.toByteArray = function(str) {
   /** @type {!Array.<number>} */ var result = [];
-  for (/** @type {number} */ var i = 0; i < str.length; i++) {
-    /** @type {number} */ var code = str.charCodeAt(i);
+  /** @type {number} */ var i = 0;
+  /** @type {number} */ var length = str.length;
+
+  for (; i < length;) {
+    /** @type {number} */ var code = str.charCodeAt(i++);
     if (128 > code) {
       result.push(code);
     } else if (2048 > code) {
@@ -291,30 +208,4 @@ util.StringUtils.toByteArray = function(str) {
     }
   }
   return result;
-};
-
-
-/**
- * LZW compression utility.
- * @see http://en.wikipedia.org/wiki/Lempel–Ziv–Welch
- * @deprecated Use {@link compressors.LZW} instead.
- * @requires compressors.LZW
- * @namespace
- */
-util.StringUtils.LZW = {
-  /**
-   * Encodes string using LZW algorithm.
-   * @param {string} str The input string.
-   * @return {string} Returns compressed string using LZW algorithm.
-   * @deprecated Use {@link compressors.LZW.compress} instead.
-   */
-  encode: compressors.LZW.compress,
-
-  /**
-   * Decodes string encoded with LZW algorithm.
-   * @param {string} str The input string encoded with LZW algorithm.
-   * @return {string} Returns decoded string.
-   * @deprecated Use {@link compressors.LZW.decompress} instead.
-   */
-  decode: compressors.LZW.decompress
 };

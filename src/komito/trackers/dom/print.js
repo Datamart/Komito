@@ -13,7 +13,7 @@ komito.trackers.dom.Print = function() {
    */
   function init_() {
     if (komito.config['trackPrint']) {
-      /** @type {function(string):MediaQueryList} */
+      /** @type {function(string): ?MediaQueryList} */
       var matchMedia = dom.context['matchMedia'];
       mql_ = matchMedia && matchMedia('print');
 
@@ -24,7 +24,7 @@ komito.trackers.dom.Print = function() {
   }
 
   /**
-   * @param {Event} e The print event.
+   * @param {?Event} e The print event.
    * @private
    */
   function listener_(e) {
@@ -38,7 +38,7 @@ komito.trackers.dom.Print = function() {
   }
 
   /**
-   * @type {MediaQueryList}
+   * @type {?MediaQueryList}
    * @private
    */
   var mql_;

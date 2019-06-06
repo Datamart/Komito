@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview String utility methods.
  *
@@ -62,7 +61,7 @@ util.String = {
    */
   endsWith: function(str, suffix) {
     /** @type {number} */ var index = str.lastIndexOf(suffix);
-    return index >= 0 && index === str.length - suffix.length;
+    return 0 <= index && index === str.length - suffix.length;
   },
 
   /**
@@ -82,6 +81,7 @@ util.String = {
       word = words[i];
       words[i] = word.charAt(0).toUpperCase() + word.slice(1);
     }
+
     return words.join(' ');
   }
 };

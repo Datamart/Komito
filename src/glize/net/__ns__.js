@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Defines <code>net</code> namespace.
  *

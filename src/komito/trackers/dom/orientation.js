@@ -24,7 +24,7 @@ komito.trackers.dom.Orientation = function() {
     var mobile = dom.device.maxTouchPoints || 'ontouchstart' in dom.document;
 
     if (mobile && komito.config['trackOrientation']) {
-      /** @type {function(string):MediaQueryList} */
+      /** @type {function(string): ?MediaQueryList} */
       var matchMedia = dom.context['matchMedia'];
       mql_ = matchMedia && matchMedia(QUERY);
 
@@ -38,7 +38,7 @@ komito.trackers.dom.Orientation = function() {
   }
 
   /**
-   * @param {Event} e The orientation change event.
+   * @param {?Event} e The orientation change event.
    * @private
    */
   function listener_(e) {
@@ -53,13 +53,13 @@ komito.trackers.dom.Orientation = function() {
   }
 
   /**
-   * @param {Event|MediaQueryList} e The orientation event.
+   * @param {?Event|?MediaQueryList} e The orientation event.
    * @return {string} Return current orientation type.
    * @see http://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation/type
    * @private
    */
   function getType_(e) {
-    /** @type {ScreenOrientation} */ var orientation = screen['orientation'] ||
+    /** @type {?ScreenOrientation} */ var orientation = screen['orientation'] ||
         screen['mozOrientation'] ||
         screen['msOrientation'];
     /** @type {string} */ var type = orientation ? orientation['type'] :
@@ -69,7 +69,7 @@ komito.trackers.dom.Orientation = function() {
   }
 
   /**
-   * @type {MediaQueryList}
+   * @type {?MediaQueryList}
    * @private
    */
   var mql_;

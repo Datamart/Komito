@@ -32,11 +32,11 @@ komito.trackers.media.Vimeo = function() {
    * @private
    */
   function init_() {
-    /** @type {NodeList} */
+    /** @type {?NodeList} */
     var elements = dom.getElementsByTagName(dom.document, 'IFRAME');
     /** @type {number} */ var length = elements.length;
-    /** @type {!Array.<HTMLIFrameElement>} */ var iframes = [];
-    /** @type {HTMLIFrameElement} */ var element;
+    /** @type {!Array.<!HTMLIFrameElement>} */ var iframes = [];
+    /** @type {!HTMLIFrameElement} */ var element;
 
     for (; length;) {
       element = elements[--length];
@@ -57,7 +57,7 @@ komito.trackers.media.Vimeo = function() {
 
   /**
    * Initializes event listeners.
-   * @param {!Array.<HTMLIFrameElement>} iframes The list of found iframes.
+   * @param {!Array.<!HTMLIFrameElement>} iframes The list of found iframes.
    * @private
    */
   function initListeners_(iframes) {
@@ -65,7 +65,7 @@ komito.trackers.media.Vimeo = function() {
 
     if (Player) {
       /** @type {number} */ var length = iframes.length;
-      /** @type {HTMLIFrameElement} */ var element;
+      /** @type {!HTMLIFrameElement} */ var element;
 
       for (; length;) {
         element = iframes[--length];

@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Array utility methods.
  *
@@ -15,14 +14,14 @@ util.Array = {
   /**
    * Reference to <code>Array.prototype.slice</code>.
    * Used to reduce size after compilation.
-   * @type {!function(number=, number=): !Array}
+   * @type {function(number=, number=): !Array}
    * @see http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.10
    */
   slice: Array.prototype.slice,
 
   /**
    * Searches the array for the specified element, and returns its position.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
    * @param {*} element The element to locate in the array.
    * @param {number=} opt_fromIndex The optional index to start the search at.
    * @return {number} Returns the first index at which a given element can be
@@ -34,7 +33,7 @@ util.Array = {
 
     /** @type {!Array} */ var list = util.Array.toArray(obj);
     /** @type {number} */ var length = list.length;
-    /** @type {function(*, number=):number} */ var fn = list.indexOf;
+    /** @type {function(*, number=): number} */ var fn = list.indexOf;
     /** @type {number} */ var result = fn ?
         fn.call(list, element, opt_fromIndex) : -1;
 
@@ -64,9 +63,9 @@ util.Array = {
   /**
    * Creates a new array with all elements that pass the test implemented
    * by the provided function.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
-   * @param {!function(*, number, Array):boolean} callback The callback function
-   * @param {Object=} opt_context The optional context object.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
+   * @param {function(*, number, !Array):boolean} callback The callback function
+   * @param {?Object=} opt_context The optional context object.
    * @return {!Array} Returns filtered array.
    * @see http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.20
    */
@@ -75,7 +74,7 @@ util.Array = {
     /** @type {number} */ var length = list.length;
     /** @type {number} */ var i = 0;
     /** @type {number} */ var j = 0;
-    /** @type {function(Function, Object=):!Array} */ var fn = list.filter;
+    /** @type {function(!Function, ?Object=): !Array} */ var fn = list.filter;
     /** @type {!Array} */ var result = fn ?
         fn.call(list, callback, opt_context) : [];
     /** @type {*} */ var element;
@@ -95,9 +94,9 @@ util.Array = {
   /**
    * Creates a new array with the results of calling a provided function on
    * every element in this array.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
-   * @param {!function(*, number, Array):*} callback The callback function.
-   * @param {Object=} opt_context The optional context object.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
+   * @param {function(*, number, !Array):*} callback The callback function.
+   * @param {?Object=} opt_context The optional context object.
    * @return {!Array} Returns filtered array.
    * @see http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.19
    */
@@ -105,7 +104,7 @@ util.Array = {
     /** @type {!Array} */ var list = util.Array.toArray(obj);
     /** @type {number} */ var length = list.length;
     /** @type {number} */ var i = 0;
-    /** @type {function(Function, Object=):!Array} */ var fn = list.map;
+    /** @type {function(!Function, ?Object=): !Array} */ var fn = list.map;
     /** @type {!Array} */ var result = fn ?
         fn.call(list, callback, opt_context) : new Array(length);
 
@@ -120,16 +119,16 @@ util.Array = {
 
   /**
    * Executes a provided function once per array element.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
-   * @param {!function(*, number, Array):*} callback The callback function.
-   * @param {Object=} opt_context The optional context object.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
+   * @param {function(*, number, !Array): *} callback The callback function.
+   * @param {?Object=} opt_context The optional context object.
    * @see http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.18
    */
   forEach: function(obj, callback, opt_context) {
     /** @type {!Array} */ var list = util.Array.toArray(obj);
     /** @type {number} */ var length = list.length;
     /** @type {number} */ var i = 0;
-    /** @type {function(Function, Object=)} */ var fn = list.forEach;
+    /** @type {function(!Function, ?Object=)} */ var fn = list.forEach;
 
     if (fn) {
       fn.call(list, callback, opt_context);
@@ -143,8 +142,8 @@ util.Array = {
   /**
    * Calls the specified <code>callback</code> function for all the elements
    * in an array-like object <code>obj</code>.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
-   * @param {!function(*, *, number, Array):*} callback The callback function.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
+   * @param {function(*, *, number, !Array): *} callback The callback function.
    * @param {*=} opt_initial The initial value to use as the first argument
    *     to the first call of the <code>callback</code>.
    * @return {*} Returns accumulated result from the last call to
@@ -155,7 +154,7 @@ util.Array = {
     /** @type {!Array} */ var list = util.Array.toArray(obj);
     /** @type {number} */ var length = list.length;
     /** @type {number} */ var i = arguments.length > 2 ? 0 : 1;
-    /** @type {function(Function, *=):*} */ var fn = list.reduce;
+    /** @type {function(!Function, *=): *} */ var fn = list.reduce;
 
     if (fn) {
       opt_initial = fn.call(list, callback, opt_initial);
@@ -165,6 +164,7 @@ util.Array = {
         opt_initial = callback(opt_initial, list[i], i++, list);
       }
     }
+
     return opt_initial;
   },
 
@@ -180,7 +180,7 @@ util.Array = {
 
   /**
    * Gets random element from array.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
    * @return {*} Returns random element from array <code>obj</code>.
    */
   random: function(obj) {
@@ -190,7 +190,7 @@ util.Array = {
 
   /**
    * Converts object <code>obj</code> to <code>Array</code>.
-   * @param {!Arguments|Array|NodeList|string} obj The array-like object.
+   * @param {!Arguments|!Array|!NodeList|string} obj The array-like object.
    * @return {!Array} Returns <code>obj</code> converted to <code>Array</code>.
    */
   toArray: function(obj) {

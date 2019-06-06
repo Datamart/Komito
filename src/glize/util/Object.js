@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Object utility methods.
  *
@@ -24,18 +23,18 @@ util.Object = {
   /**
    * Copies the values of all enumerable own properties from one or more source
    * objects to a target object.
-   * @param {Object} target The target object.
-   * @param {...Object} var_args The source object(s).
-   * @return {Object} Returns the target object.
+   * @param {!Object} target The target object.
+   * @param {...!Object} var_args The source object(s).
+   * @return {?Object} Returns the target object.
    * @see http://www.ecma-international.org/ecma-262/6.0/#sec-object.assign
    */
   assign: function(target, var_args) {
-    /** @type {Function} */ var fn = Object.assign;
+    /** @type {?Function} */ var fn = Object.assign;
     /** @type {number} */ var i = 1;
-    /** @type {Object} */ var source;
+    /** @type {!Object} */ var source;
     /** @type {string} */ var key;
 
-    target = fn && fn.apply(null, arguments);
+    target = fn ? fn.apply(null, arguments) : target;
 
     if (!fn) {
       for (; i < arguments.length;) {
@@ -60,7 +59,7 @@ util.Object = {
    * @see http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.3.14
    */
   keys: function(obj) {
-    /** @type {Function} */ var fn = Object.keys;
+    /** @type {?Function} */ var fn = Object.keys;
     /** @type {!Array.<string>} */ var keys = fn ? fn(obj) : [];
     /** @type {string|number} */ var key;
 
@@ -76,12 +75,12 @@ util.Object = {
   /**
    * Extends <code>target</code> with another object's properties.
    * @param {!Object} target The target object.
-   * @param {...Object} var_args The sources which properties will be copied.
+   * @param {...?Object} var_args The sources which properties will be copied.
    * @return {!Object} Returns reference to updated <code>target</code> object.
    */
   extend: function(target, var_args) {
     /** @type {number} */ var i = 1;
-    /** @type {Object} */ var source;
+    /** @type {!Object} */ var source;
     /** @type {string} */ var key;
     /** @type {*} */ var value;
 
@@ -100,13 +99,14 @@ util.Object = {
         }
       }
     }
+
     return /** @type {!Object} */ (target);
   },
 
   /**
    * Filters object.
    * @param {!Object} obj The target object.
-   * @param {!function(*): boolean} func The filter function.
+   * @param {function(*): boolean} func The filter function.
    * @return {!Object} Returns filtered object.
    */
   filter: function(obj, func) {
@@ -118,6 +118,7 @@ util.Object = {
         result[key] = obj[key];
       }
     }
+
     return result;
   },
 
@@ -154,7 +155,7 @@ util.Object = {
   },
 
   isObject: function(obj) {
-    return '[object Object]' == util.Object.PROTO.toString.call(obj);
+    return '[object Object]' === util.Object.PROTO.toString.call(obj);
   },
 
   /**

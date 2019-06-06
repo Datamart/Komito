@@ -13,7 +13,7 @@ komito.trackers.dom.Forms = function() {
    */
   function init_() {
     if (komito.config['trackForms']) {
-      /** @type {HTMLCollection} */ var forms = dom.document.forms;
+      /** @type {?HTMLCollection} */ var forms = dom.document.forms;
       /** @type {number} */ var length = forms.length;
 
       for (; length;) {
@@ -24,14 +24,14 @@ komito.trackers.dom.Forms = function() {
   }
 
   /**
-   * @param {Event} e The form submit event.
+   * @param {?Event} e The form submit event.
    * @private
    */
   function listener_(e) {
-    /** @type {HTMLFormElement} */
-    var form = /** @type {HTMLFormElement} */ (dom.events.getEventTarget(e));
+    /** @type {!HTMLFormElement} */
+    var form = /** @type {!HTMLFormElement} */ (dom.events.getEventTarget(e));
 
-    /** @type {HTMLCollection} */ var elements = form.elements;
+    /** @type {!HTMLCollection} */ var elements = form.elements;
     /** @type {number} */ var length = elements.length;
     /** @type {number} */ var i = 0;
 
@@ -42,7 +42,7 @@ komito.trackers.dom.Forms = function() {
         (action && util.StringUtils.hash(action)) ||
         ('form-' + ++index_);
 
-    /** @type {Element} */ var element;
+    /** @type {!Element} */ var element;
 
     for (; i < length;) {
       element = elements[i++];

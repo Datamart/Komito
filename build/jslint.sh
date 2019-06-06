@@ -63,10 +63,10 @@ function run() {
                 --custom_jsdoc_tags "${CUSTOM_TAGS}" \
                 -x "${CWD}/externs.js" \
                 -r "${JS_SOURCES}"
-    $GJSLINT --strict \
-             --custom_jsdoc_tags "${CUSTOM_TAGS}" \
-             -x "${CWD}/externs.js" \
-             -r "${JS_SOURCES}"
+    # $GJSLINT --strict \
+    #          --custom_jsdoc_tags "${CUSTOM_TAGS}" \
+    #          -x "${CWD}/externs.js" \
+    #          -r "${JS_SOURCES}"
   fi
   echo "Done"
 }

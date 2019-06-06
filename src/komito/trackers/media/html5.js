@@ -29,16 +29,16 @@ komito.trackers.media.HTML5 = function() {
     /** @type {!Array.<string>} */ var events = [
       'ended', 'pause', 'play',
       'webkitfullscreenchange', 'mozfullscreenchange', 'fullscreenchange'];
-    /** @type {!Array} */ var elements = toArray_('AUDIO', 'VIDEO');
+    /** @type {!Array.<!Element>} */ var elements = toArray_('AUDIO', 'VIDEO');
 
     /** @type {number} */ var length = elements.length;
-    /** @type {Element} */ var element;
+    /** @type {!Element} */ var element;
     /** @type {string} */ var type;
     /** @type {number} */ var i;
 
-    /** @param {Event} e The event */
+    /** @param {?Event} e The event */
     function listener(e) {
-      element = /** @type {Element} */ (dom.events.getEventTarget(e));
+      element = /** @type {!Element} */ (dom.events.getEventTarget(e));
       type = e.type;
 
       if (~type.indexOf('fullscreen')) {
@@ -62,13 +62,13 @@ komito.trackers.media.HTML5 = function() {
   /**
    * Creates an array of element by specified tag names.
    * @param {...string} var_args The elements tag names to convert.
-   * @return {!Array} Returns converted elements to array.
+   * @return {!Array.<!Element>} Returns converted elements to array.
    * @private
    */
   function toArray_(var_args) {
-    /** @type {!Array} */ var elements = [];
+    /** @type {!Array.<!Element>} */ var elements = [];
     /** @type {number} */ var length = arguments.length;
-    /** @type {Array|NodeList} */ var nodes;
+    /** @type {?NodeList} */ var nodes;
     /** @type {number} */ var i;
 
     for (; length;) {

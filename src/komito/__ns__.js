@@ -24,7 +24,7 @@
 var komito = {
   /**
    * Default tracking options.
-   * @type {!Object.<string, number|string|Array>}
+   * @type {!Object.<string, number|string|!Array>}
    * @see komito.config
    */
   DEFAULTS: {
@@ -100,7 +100,7 @@ var komito = {
    */
   track: function(var_args) {
     /** @type {!Array} */ var args = util.Array.toArray(arguments);
-    /** @type {Array} */ var argv;
+    /** @type {!Array} */ var argv;
     args[0] = args[0] ? 'social' : 'event'; // Action type: 1 or 0;
 
     komito.sendGa_(args);
@@ -145,13 +145,13 @@ var komito = {
 
   /**
    * Performs Adobe Tag Loader execution.
-   * @param {Array} args The arguments to send.
+   * @param {!Array} args The arguments to send.
    * @private
    */
   sendTagLoader_: function(args) {
-    /** @type {Function} */ var loader = dom.context['TagLoader'] ||
-                                         dom.context['AppMeasurement'];
-    /** @type {Object} */ var tracker = dom.context['s'];
+    /** @type {?Function} */ var loader = dom.context['TagLoader'] ||
+                                          dom.context['AppMeasurement'];
+    /** @type {?Object} */ var tracker = dom.context['s'];
     /** @type {!Array} */ var vars = [];
     /** @type {number} */ var i = 1;
     /** @type {string} */ var key;
@@ -176,9 +176,9 @@ var komito = {
    * @param {!Array} args The arguments to send.
    * @private
    */
-  sendGa_(args) {
+  sendGa_: function(args) {
     if ('function' === typeof dom.context[komito.GA_KEY]) {
-      /** @type {Array.<Object>} */ var trackers =
+      /** @type {?Array.<!Object>} */ var trackers =
           dom.context[komito.GA_KEY]['getAll'] &&
           dom.context[komito.GA_KEY]['getAll']();
       /** @type {*} */ var trackingIds = komito.config['trackingIds'];
@@ -189,20 +189,24 @@ var komito = {
           trackingIds = ['' + trackingIds];
         }
 
-        trackers = util.Array.filter(trackers, function(tracker) {
-          /** @type {string} */ var trackingId = tracker['get']('trackingId');
-          /** @type {boolean} */ var result = util.Array.contains(
-              /** @type {!Array} */ (trackingIds), trackingId);
-          return result;
-        });
+        trackers = util.Array.filter(
+            /** @type {!Array.<!Object>} */ (trackers), function(tracker) {
+              /** @type {string} */
+              var trackingId = tracker['get']('trackingId');
+              /** @type {boolean} */ var result = util.Array.contains(
+                  /** @type {!Array} */ (trackingIds), trackingId);
+
+              return result;
+            });
       }
 
-      trackers = util.Array.filter(trackers, function(tracker) {
-        /** @type {string} */ var trackingId = tracker['get']('trackingId');
-        /** @type {boolean} */ var result = !uniques[trackingId];
-        uniques[trackingId] = true;
-        return result;
-      });
+      trackers = util.Array.filter(
+          /** @type {!Array.<!Object>} */ (trackers), function(tracker) {
+            /** @type {string} */ var trackingId = tracker['get']('trackingId');
+            /** @type {boolean} */ var result = !uniques[trackingId];
+            uniques[trackingId] = true;
+            return result;
+          });
 
       var data = komito.isNonInteraction_(args) ?
           args.concat([{'nonInteraction': 1}]) : args;
@@ -217,7 +221,7 @@ var komito = {
    */
   sendClassicGa_: function(args) {
     if (dom.context['_gat'] || dom.context['_gaq']) {
-      /** @type {Array.<Object>} */
+      /** @type {?Array.<!Object>} */
       var trackers = dom.context['_gat'] &&
                      dom.context['_gat']['_getTrackers'] &&
                      dom.context['_gat']['_getTrackers']();
@@ -241,7 +245,7 @@ var komito = {
    * @private
    */
   sendYm_: function(args) {
-    /** @type {!Array.<Object>} */ var trackers = [];
+    /** @type {!Array.<!Object>} */ var trackers = [];
     /** @type {string} */ var func = 'params';
     /** @type {string} */ var key;
 
@@ -271,7 +275,7 @@ var komito = {
    */
   send_: function(trackers, func, args) {
     /** @type {number} */ var length = trackers.length;
-    /** @type {Object} */ var tracker;
+    /** @type {?Object} */ var tracker;
 
     komito.debug_(func, args);
     for (; length;) {
@@ -304,7 +308,7 @@ var komito = {
    * @private
    */
   debug_: function(var_args) {
-    /** @type {Console} */ var logger = dom.context.console;
+    /** @type {?Console} */ var logger = dom.context.console;
     if (komito.config['debugMode'] && logger)
       logger.log.apply(logger, arguments);
   },
@@ -322,7 +326,7 @@ var komito = {
 
   /**
    * The configuration options.
-   * @type {!Object.<string, number|string|Array>}
+   * @type {!Object.<string, number|string|!Array>}
    * @see komito.DEFAULTS
    * @see komito.init_
    */

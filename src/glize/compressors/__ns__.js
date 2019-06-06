@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Defines compressors utility methods.
  *
@@ -26,6 +25,7 @@ var compressors = {
     if (compressors.TYPE.LZW === opt_type) {
       result = compressors.LZW.compress(data);
     }
+
     return result;
   },
 
@@ -42,6 +42,7 @@ var compressors = {
     if (compressors.TYPE.LZW === opt_type) {
       result = compressors.LZW.decompress(data);
     }
+
     return result;
   }
 };

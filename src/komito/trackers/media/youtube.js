@@ -32,15 +32,15 @@ komito.trackers.media.YouTube = function() {
    * @private
    */
   function init_() {
-    /** @type {!Array|NodeList} */
+    /** @type {!Array|?NodeList} */
     var elements = dom.getElementsByTagName(dom.document, 'IFRAME');
     /** @type {number} */ var length = elements.length;
     /** @type {number} */ var i = 0;
     /** @type {!Array} */ var iframes = [];
-    /** @type {HTMLIFrameElement} */ var element;
+    /** @type {!HTMLIFrameElement} */ var element;
     /** @type {string} */ var source;
-    /** @type {Object} */ var player;
-    /** @type {Function} */ var listener;
+    /** @type {?Object} */ var player;
+    /** @type {?Function} */ var listener;
 
     for (; length--;) {
       element = elements[length];
@@ -73,7 +73,7 @@ komito.trackers.media.YouTube = function() {
 
   /**
    * The 'onStateChange' event listener attached to YouTube player.
-   * @param {Event} e The event
+   * @param {?Event} e The event
    * @private
    */
   function listener_(e) {
@@ -85,7 +85,7 @@ komito.trackers.media.YouTube = function() {
 
   /**
    * Gets the YouTube.com URL for the currently loaded/playing video.
-   * @param {Event} e The event
+   * @param {?Event} e The event
    * @return {string} Returns the video URL.
    * @see https://developers.google.com/youtube/iframe_api_reference
    * @private

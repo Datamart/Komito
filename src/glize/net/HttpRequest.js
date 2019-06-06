@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Simple implementation of HttpRequest.
  *
@@ -16,7 +15,7 @@ net.HttpRequest = function() {
   /**
    * Performs DELETE request.
    * @param {string} url The URL to which to send the request.
-   * @param {function(XMLHttpRequest)} callback A JavaScript function object
+   * @param {function(!XMLHttpRequest)} callback A JavaScript function object
    *     that is called whenever the <code>readyState</code> attribute equals
    *     to 4 (DONE).
    * @return {!XMLHttpRequest} Returns instance of XMLHttpRequest.
@@ -28,7 +27,7 @@ net.HttpRequest = function() {
   /**
    * Performs GET request.
    * @param {string} url The URL to which to send the request.
-   * @param {function(XMLHttpRequest)} callback A JavaScript function object
+   * @param {function(!XMLHttpRequest)} callback A JavaScript function object
    *     that is called whenever the <code>readyState</code> attribute equals
    *     to 4 (DONE).
    * @param {boolean=} opt_skipRFC Optional, skips RFC 2616 checking.
@@ -40,13 +39,14 @@ net.HttpRequest = function() {
       /** @type {!Array} */ var parts = url.split('?');
       return self_.doPost(parts[0], callback, parts[1]);
     }
+
     return doRequest_('GET', url, callback);
   };
 
   /**
    * Performs HEAD request.
    * @param {string} url The URL to which to send the request.
-   * @param {function(XMLHttpRequest)} callback A JavaScript function object
+   * @param {function(!XMLHttpRequest)} callback A JavaScript function object
    *     that is called whenever the <code>readyState</code> attribute equals
    *     to 4 (DONE).
    * @return {!XMLHttpRequest} Returns instance of XMLHttpRequest.
@@ -58,10 +58,10 @@ net.HttpRequest = function() {
   /**
    * Performs POST request.
    * @param {string} url The URL to which to send the request.
-   * @param {function(XMLHttpRequest)} callback A JavaScript function object
+   * @param {function(!XMLHttpRequest)} callback A JavaScript function object
    *     that is called whenever the <code>readyState</code> attribute equals
    *     to 4 (DONE).
-   * @param {Object|string} data Provides the request entity body.
+   * @param {?Object|string} data Provides the request entity body.
    * @return {!XMLHttpRequest} Returns instance of XMLHttpRequest.
    */
   this.doPost = function(url, callback, data) {
@@ -71,10 +71,10 @@ net.HttpRequest = function() {
   /**
    * Performs PUT request.
    * @param {string} url The URL to which to send the request.
-   * @param {function(XMLHttpRequest)} callback A JavaScript function object
+   * @param {function(!XMLHttpRequest)} callback A JavaScript function object
    *     that is called whenever the <code>readyState</code> attribute equals
    *     to 4 (DONE).
-   * @param {Object|string} data Provides the request entity body.
+   * @param {?Object|string} data Provides the request entity body.
    * @return {!XMLHttpRequest} Returns instance of XMLHttpRequest.
    */
   this.doPut = function(url, callback, data) {
@@ -94,10 +94,10 @@ net.HttpRequest = function() {
    * @param {string} method The HTTP method to use, such as "GET", "POST",
    *     "PUT", "DELETE", etc. Ignored for non-HTTP(S) URLs.
    * @param {string} url The URL to which to send the request.
-   * @param {function(XMLHttpRequest)} callback A JavaScript function object
+   * @param {function(!XMLHttpRequest)} callback A JavaScript function object
    *     that is called whenever the <code>readyState</code> attribute equals
    *     to 4 (DONE).
-   * @param {string|Object=} opt_data Provides the request entity body.
+   * @param {string|?Object=} opt_data Provides the request entity body.
    *     If opt_data is Object, request will be sent as application/json.
    * @return {!XMLHttpRequest} Returns instance of XMLHttpRequest.
    * @private
@@ -118,6 +118,7 @@ net.HttpRequest = function() {
     };
     req.open(method, url, true);
     req.send(prepare_(req, method, opt_data));
+
     return req;
   }
 
@@ -127,7 +128,7 @@ net.HttpRequest = function() {
    * @param {!XMLHttpRequest} request The instance of XMLHttpRequest.
    * @param {string} method The HTTP method to use, such as "GET", "POST",
    *     "PUT", "DELETE", etc. Ignored for non-HTTP(S) URLs.
-   * @param {string|Object=} opt_data Provides the request entity body.
+   * @param {string|?Object=} opt_data Provides the request entity body.
    *     If opt_data is Object, request will be sent as application/json.
    * @return {string} Returns modified <code>opt_data</code>.
    * @private

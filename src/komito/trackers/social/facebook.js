@@ -64,7 +64,7 @@ komito.trackers.social.Facebook.getAppId_ = function() {
       appId = '' + appId;
       if (appId.length < 9) {
         var nodes = dom.getElementsByTagName(dom.document, 'META');
-        var array = util.Array.toArray(nodes);
+        var array = util.Array.toArray(/** @type {!NodeList} */ (nodes));
         var length = array.length;
         var node;
         for (; length--;) {
@@ -100,7 +100,7 @@ komito.trackers.social.Facebook.init = function(callback) {
     if (!dom.context['FB']) {
       appId = komito.trackers.social.Facebook.getAppId_();
       if (appId) {
-        /** @type {Element} */ var script = dom.createElement('SCRIPT');
+        /** @type {?Element} */ var script = dom.createElement('SCRIPT');
         script.async = 1;
         script.id = 'facebook-jssdk';
         script.src = 'https://connect.facebook.net/en_US/sdk.js#' +

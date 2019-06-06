@@ -14,8 +14,8 @@ komito.trackers.dom.Scroll = function() {
   function init_() {
     if (komito.config['trackScroll']) {
       /** @type {!Object} */ var map = {25: 0, 50: 0, 75: 0, 100: 0};
-      /** @type {Element} */ var root = dom.document.documentElement;
-      /** @type {Element} */ var body = dom.document.body;
+      /** @type {?Element} */ var root = dom.document.documentElement;
+      /** @type {?Element} */ var body = dom.document.body;
       /** @type {number} */ var depth;
 
       dom.events.addEventListener(

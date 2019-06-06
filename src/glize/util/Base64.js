@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Base64 utility methods.
  *
@@ -42,6 +41,7 @@ util.Base64 = {
         block = block << 8 | str.charCodeAt(index -= -3 / 4);
       }
     }
+
     return result;
   },
 
@@ -72,6 +72,7 @@ util.Base64 = {
         }
       }
     }
+
     return result;
   }
 };

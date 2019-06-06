@@ -44,8 +44,7 @@ komito.trackers.dom.Links = function() {
    * @private
    */
   function init_() {
-    /** @type {Array|HTMLCollection|NodeList} */
-    var links = dom.getElementsByTagName(dom.document, 'A');
+    /** @type {?NodeList} */ var links = dom.getElementsByTagName(dom.document, 'A');
     /** @type {number} */ var length = links.length;
 
     for (; length;) {
@@ -62,7 +61,7 @@ komito.trackers.dom.Links = function() {
   function addEventListeners_(link) {
     /** @type {string} */ var href = getURL_(link);
     /** @type {boolean} */ var isHttp = HTTP_PATTERN.test(href);
-    /** @type {Array} */ var match = href.match(komito.EXT_PATTERN);
+    /** @type {?Array} */ var match = href.match(komito.EXT_PATTERN);
     /** @type {string} */ var ext = (match || ['']).pop().toLowerCase();
 
     if (komito.config['trackOutbound'] &&
@@ -82,14 +81,14 @@ komito.trackers.dom.Links = function() {
   }
 
   /**
-   * @param {Event} e The mousedown event.
+   * @param {?Event} e The mousedown event.
    * @private
    */
   function trackOutboundListener_(e) {
-    /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
+    /** @type {!HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
     /** @type {string} */ var type = 'outbound';
     /** @type {string} */ var host = link.hostname;
-    /** @type {Array.<string>} */ var path = link.pathname.split('/');
+    /** @type {!Array.<string>} */ var path = link.pathname.split('/');
     /** @type {string} */ var href = getURL_(link);
     /** @type {string} */ var social = NETWORKS[host.replace(/^www\./, '')];
 
@@ -106,11 +105,11 @@ komito.trackers.dom.Links = function() {
   }
 
   /**
-   * @param {Event} e The mousedown event.
+   * @param {?Event} e The mousedown event.
    * @private
    */
   function trackDownloadsListener_(e) {
-    /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
+    /** @type {!HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
     /** @type {string} */ var href = getURL_(link);
     var type = (href.match(komito.EXT_PATTERN) || ['']).pop().toLowerCase();
 
@@ -121,11 +120,11 @@ komito.trackers.dom.Links = function() {
   }
 
   /**
-   * @param {Event} e The mousedown event.
+   * @param {?Event} e The mousedown event.
    * @private
    */
   function trackActionsListener_(e) {
-    /** @type {HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
+    /** @type {!HTMLAnchorElement} */ var link = getLinkEventTarget_(e);
     /** @type {string} */ var proto = link.protocol.slice(0, -1);
     /** @type {string} */ var href = getURL_(link);
 
@@ -143,23 +142,23 @@ komito.trackers.dom.Links = function() {
   }
 
   /**
-   * @param {Event} e The mousedown event.
-   * @return {HTMLAnchorElement}
+   * @param {?Event} e The mousedown event.
+   * @return {!HTMLAnchorElement}
    * @private
    */
   function getLinkEventTarget_(e) {
-    /** @type {Node} */
-    var target = /** @type {Node} */ (dom.events.getEventTarget(e));
+    /** @type {?Node} */
+    var target = /** @type {?Node} */ (dom.events.getEventTarget(e));
 
     while (target && 'A' !== target.tagName) {
       target = target.parentNode;
     }
 
-    return /** @type {HTMLAnchorElement} */ (target);
+    return /** @type {!HTMLAnchorElement} */ (target);
   }
 
   /**
-   * @param {HTMLAnchorElement} link The link element.
+   * @param {!HTMLAnchorElement} link The link element.
    * @return {string} Returns link URL.
    * @private
    */

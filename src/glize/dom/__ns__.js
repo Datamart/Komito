@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Defines <code>dom</code> namespace.
  *
@@ -54,7 +53,7 @@ dom.context = window;
 /**
  * Reference to the <code>navigator</code> object.
  * Used to reduce size after compilation.
- * @type {Navigator}
+ * @type {!Navigator}
  */
 dom.device = navigator;
 
@@ -79,7 +78,7 @@ dom.NULL = null;
  * Alias of W3C <code>document.createElement</code>.
  * Used to reduce size after compilation.
  * @param {string} tagName Tag name.
- * @return {Element} Returns created element.
+ * @return {?Element} Returns created element.
  * @static
  */
 dom.createElement = function(tagName) {
@@ -92,7 +91,7 @@ dom.createElement = function(tagName) {
  * Used to reduce size after compilation.
  * @param {string} id A case-sensitive string representing the unique ID of the
  *     element being sought.
- * @return {Element} Returns reference to an Element object, or null if an
+ * @return {?Element} Returns reference to an Element object, or null if an
  *     element with the specified ID is not in the document.
  * @static
  */
@@ -104,9 +103,9 @@ dom.getElementById = function(id) {
 /**
  * Alias of W3C <code>element.getElementsByTagName</code>.
  * Used to reduce size after compilation.
- * @param {!Element|Node} element Element to search tags.
+ * @param {!Element|!Node} element Element to search tags.
  * @param {string} tagName Tag name.
- * @return {NodeList} Returns list of found elements in the
+ * @return {?NodeList} Returns list of found elements in the
  *     order they appear in the tree.
  * @static
  */
@@ -118,9 +117,9 @@ dom.getElementsByTagName = function(element, tagName) {
 /**
  * Alias of W3C <code>element.getElementsByClassName</code>.
  * Used to reduce size after compilation.
- * @param {!Element|Node} element Element to start searching.
+ * @param {!Element|!Node} element Element to start searching.
  * @param {string} className Class name to match.
- * @return {!Array.<Node>|NodeList} Array of found elements.
+ * @return {!Array.<!Node>|?NodeList} Array of found elements.
  * @static
  */
 dom.getElementsByClassName = function(element, className) {
@@ -132,15 +131,17 @@ dom.getElementsByClassName = function(element, className) {
     return element.querySelectorAll('.' + className);
   }
 
-  /** @type {!RegExp} */
-  var re = new RegExp('(?:^|\\s)' + className + '(?!\\S)');
-  /** @type {!Array.<Node>} */ var result = [];
-  /** @type {NodeList} */ var nodes = dom.getElementsByTagName(element, '*');
-  for (/** @type {number} */ var i = 0; i < nodes.length; i++) {
+  /** @type {!RegExp} */ var re = new RegExp('(?:^|\\s)' + className + '(?!\\S)');
+  /** @type {!Array.<!Node>} */ var result = [];
+  /** @type {?NodeList} */ var nodes = dom.getElementsByTagName(element, '*');
+  /** @type {number} */ var i = 0;
+
+  for (; i < nodes.length; ++i) {
     if (re.test(nodes[i].className)) {
       result.push(nodes[i]);
     }
   }
+
   return result;
 };
 
@@ -148,9 +149,9 @@ dom.getElementsByClassName = function(element, className) {
 /**
  * Alias of W3C <code>element.querySelectorAll</code>.
  * Used to reduce size after compilation.
- * @param {Element|DocumentFragment} element Element to start searching.
+ * @param {!Element|!DocumentFragment} element Element to start searching.
  * @param {string} selectors One or more CSS selectors separated by commas.
- * @return {NodeList} Returns a list of the elements within the document that
+ * @return {?NodeList} Returns a list of the elements within the document that
  *     match the specified group of selectors.
  * @see https://www.w3.org/TR/selectors-api/#queryselectorall
  * @static
@@ -163,9 +164,9 @@ dom.querySelectorAll = function(element, selectors) {
 /**
  * Alias of W3C <code>element.querySelector</code>.
  * Used to reduce size after compilation.
- * @param {Element|DocumentFragment} element Element to start searching.
+ * @param {!Element|!DocumentFragment} element Element to start searching.
  * @param {string} selectors One or more CSS selectors separated by commas.
- * @return {Element} Returns the first element that is a descendant of the
+ * @return {?Element} Returns the first element that is a descendant of the
  *     element on which it is invoked that matches the specified group of
  *     selectors.
  * @see https://www.w3.org/TR/selectors-api/#queryselector
@@ -179,12 +180,12 @@ dom.querySelector = function(element, selectors) {
 /**
  * Alias of W3C <code>element.getBoundingClientRect</code>.
  * Used to reduce size after compilation.
- * @param {Element} element Element for calculating bounding rect.
- * @return {Object} Returns dict {top, left, width, height, right, bottom}.
+ * @param {?Element} element Element for calculating bounding rect.
+ * @return {!Object} Returns dict {top, left, width, height, right, bottom}.
  * @static
  */
 dom.getBoundingClientRect = function(element) {
-  /** @type {Object|ClientRect} */ var rect;
+  /** @type {!Object|?ClientRect} */ var rect;
 
   if (element) {
     rect = element.getBoundingClientRect && element.getBoundingClientRect();
@@ -202,14 +203,14 @@ dom.getBoundingClientRect = function(element) {
     }
   }
 
-  return rect;
+  return /** @type {!Object.<string, number>} */ (rect);
 };
 
 
 /**
  * Alias of W3C <code>document.defaultView.getComputedStyle</code>.
  * Used to reduce size after compilation.
- * @param {!Element|Node} element Element for getting style.
+ * @param {!Element|!Node} element Element for getting style.
  * @param {string} prop Style property name.
  * @return {string|number} Returns element style value.
  * @static
@@ -224,13 +225,14 @@ dom.getComputedStyle = function(element, prop) {
   prop = prop.replace(/\-\w/g, function(match) {
     return match.toUpperCase().slice(1);
   });
+
   return (element.currentStyle || element.style)[prop];
 };
 
 
 /**
  * Clears element content.
- * @param {Element} element The element to clear.
+ * @param {?Element} element The element to clear.
  * @static
  */
 dom.clearElement = function(element) {
@@ -255,7 +257,7 @@ dom.clearElement = function(element) {
 
 /**
  * Removes the object from the document hierarchy.
- * @param {Node} element The element to remove.
+ * @param {?Node} element The element to remove.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
  * @see https://msdn.microsoft.com/en-us/library/ms536708%28v=vs.85%29.aspx
@@ -269,9 +271,9 @@ dom.removeNode = function(element) {
 /**
  * Alias of W3C <code>element.appendChild</code>.
  * Used to reduce size after compilation.
- * @param {Node} parent The parent element.
- * @param {Node} child The child element.
- * @return {Node} Returns a reference to the <code>child</code> that
+ * @param {?Node|?Element} parent The parent element.
+ * @param {?Node|?Element} child The child element.
+ * @return {!Node} Returns a reference to the <code>child</code> that
  *     is appended to the parent.
  * @static
  */
@@ -282,7 +284,7 @@ dom.appendChild = function(parent, child) {
 
 /**
  * Returns true if an element has a class.
- * @param {Node} element The element to test.
+ * @param {?Node} element The element to test.
  * @param {string} className The class name to test for.
  * @return {boolean} Whether element has the class.
  */
@@ -290,20 +292,23 @@ dom.css.hasClass = function(element, className) {
   // Note: `element.classList.contains` throws 'TypeError: Illegal invocation'
   // if element is not appended into the DOM.
   if (element) {
-    /** @type {Array.<string>} */ var classes = element.className.split(' ');
-    for (/** @type {number} */ var i = 0; i < classes.length;) {
+    /** @type {!Array.<string>} */ var classes = element.className.split(' ');
+    /** @type {number} */ var i = 0;
+
+    for (; i < classes.length;) {
       if (className == classes[i++]) {
         return true;
       }
     }
   }
+
   return false;
 };
 
 
 /**
  * Sets the entire class name of an element.
- * @param {Node} element The element to set class of.
+ * @param {?Node} element The element to set class of.
  * @param {...string} var_args The class name(s) to apply to element.
  */
 dom.css.setClass = function(element, var_args) {
@@ -315,7 +320,7 @@ dom.css.setClass = function(element, var_args) {
 
 /**
  * Adds a class or classes to an element. Does not add multiples of class names.
- * @param {Node} element The element to add class to.
+ * @param {?Node} element The element to add class to.
  * @param {...string} var_args The class name(s) to add.
  */
 dom.css.addClass = function(element, var_args) {
@@ -330,7 +335,7 @@ dom.css.addClass = function(element, var_args) {
 
 /**
  * Removes a class or classes from an element.
- * @param {Node} element The element to remove class from.
+ * @param {?Node} element The element to remove class from.
  * @param {...string} var_args The class name(s) to remove.
  */
 dom.css.removeClass = function(element, var_args) {
@@ -347,7 +352,7 @@ dom.css.removeClass = function(element, var_args) {
 
 /**
  * Toggles element class name.
- * @param {Node} element The element to add or remove the class on.
+ * @param {?Node} element The element to add or remove the class on.
  * @param {string} className The class name to toggle.
  */
 dom.css.toggleClass = function(element, className) {
@@ -416,9 +421,9 @@ dom.events.TYPE = {
 /**
  * Alias of W3C <code>element.addEventListener</code>.
  * Used to reduce size after compilation.
- * @param {Element|Node|Window} element Element to which attach event.
+ * @param {!Element|!Node|!Window} element Element to which attach event.
  * @param {string} type Type of event.
- * @param {function(Event,...)} listener Event listener.
+ * @param {function(!Event, ...)} listener Event listener.
  * @static
  */
 dom.events.addEventListener = function(element, type, listener) {
@@ -433,9 +438,9 @@ dom.events.addEventListener = function(element, type, listener) {
 /**
  * Alias of W3C <code>element.removeEventListener</code>.
  * Used to reduce size after compilation.
- * @param {Element|Node|Window} element Element to which attach event.
+ * @param {!Element|!Node|!Window} element Element to which attach event.
  * @param {string} type Type of event.
- * @param {function(Event,...)} listener Event listener.
+ * @param {function(!Event, ...)} listener Event listener.
  * @static
  */
 dom.events.removeEventListener = function(element, type, listener) {
@@ -450,20 +455,20 @@ dom.events.removeEventListener = function(element, type, listener) {
 /**
  * Alias of W3C <code>element.dispatchEvent</code>.
  * Used to reduce size after compilation.
- * @param {Element|Node|Window} element Element to dispatch event.
+ * @param {!Element|!Node|!Window} element Element to dispatch event.
  * @param {string} type Type of event.
  * @return {boolean} Returns <code>true</code> if event dispatched successfully.
  * @static
  */
 dom.events.dispatchEvent = function(element, type) {
-  /** @type {Event} */ var evt = dom.NULL;
+  /** @type {?Event} */ var evt = dom.NULL;
   /** @type {boolean} */ var result = false;
 
   if (dom.document.createEvent) {
     evt = dom.document.createEvent('HTMLEvents');
     // initEvent(type, bubbling, cancelable)
     evt.initEvent(type, true, true);
-    result = !element.dispatchEvent(evt);
+    result = element.dispatchEvent(evt);
   } else if (dom.document.createEventObject) {
     evt = dom.document.createEventObject();
     try {
@@ -471,6 +476,7 @@ dom.events.dispatchEvent = function(element, type) {
       result = element.fireEvent('on' + type, evt);
     } catch (e) {}
   }
+
   return result;
 };
 
@@ -478,7 +484,7 @@ dom.events.dispatchEvent = function(element, type) {
 /**
  * Alias of W3C <code>event.preventDefault</code>.
  * Used to reduce size after compilation.
- * @param {Event} e The event to stop.
+ * @param {?Event} e The event to stop.
  * @static
  */
 dom.events.preventDefault = function(e) {
@@ -493,8 +499,8 @@ dom.events.preventDefault = function(e) {
 /**
  * Gets event object.
  * Used to reduce size after compilation.
- * @param {Event} e The event to stop.
- * @return {Event} Returns event object.
+ * @param {?Event} e The event to stop.
+ * @return {!Event} Returns event object.
  * @static
  */
 dom.events.getEvent = function(e) {
@@ -505,8 +511,8 @@ dom.events.getEvent = function(e) {
 /**
  * Gets event target object.
  * Used to reduce size after compilation.
- * @param {Event} e The event to stop.
- * @return {EventTarget} Returns event target object.
+ * @param {?Event} e The event to stop.
+ * @return {?EventTarget} Returns event target object.
  * @static
  */
 dom.events.getEventTarget = function(e) {
@@ -517,7 +523,7 @@ dom.events.getEventTarget = function(e) {
 
 /**
  * Gets reference to script element is currently being processed.
- * @return {Element} Reference to script element is currently being processed.
+ * @return {?Element} Reference to script element is currently being processed.
  * @link https://developer.mozilla.org/en/DOM/document.currentScript
  */
 dom.scripts.getCurrent = function() {
@@ -527,12 +533,12 @@ dom.scripts.getCurrent = function() {
 
 /**
  * Gets reference to last script element.
- * @return {Element} Reference to last script element.
+ * @return {?Element} Reference to last script element.
  */
 dom.scripts.getLast = function() {
-  /** @type {NodeList} */
+  /** @type {?NodeList} */
   var scripts = dom.getElementsByTagName(dom.document, 'SCRIPT');
-  return scripts[scripts.length - 1];
+  return scripts && scripts[scripts.length - 1];
 };
 
 
@@ -542,7 +548,7 @@ dom.scripts.getLast = function() {
  * @param {!Function=} opt_callback The optional callback function.
  */
 dom.scripts.load = function(src, opt_callback) {
-  /** @type {Element} */ var script = dom.createElement('SCRIPT');
+  /** @type {?Element} */ var script = dom.createElement('SCRIPT');
   /** @type {boolean} */ var loaded = false;
   /** @type {string} */ var state;
 
@@ -563,7 +569,7 @@ dom.scripts.load = function(src, opt_callback) {
 
 /**
  * The reference to last script element.
- * @type {Node}
+ * @type {?Node}
  * @private
  */
 dom.scripts.last_ = dom.scripts.getLast();

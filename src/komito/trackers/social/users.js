@@ -38,7 +38,7 @@ komito.trackers.social.Users = function() {
     }
 
     /**
-     * @param {HTMLImageElement|Image} image The image object.
+     * @param {!HTMLImageElement|!Image} image The image object.
      * @param {string} network The social network name.
      */
     function subscribe(image, network) {
@@ -49,7 +49,7 @@ komito.trackers.social.Users = function() {
     }
 
     /**
-     * @param {function(function(Object), boolean=)} fn getLoginStatus function.
+     * @param {function(function(?Object), boolean=)} fn getLoginStatus function.
      * @see https://developers.facebook.com/docs/reference/javascript/FB.getLoginStatus/
      */
     function getStatus(fn) {
@@ -60,7 +60,7 @@ komito.trackers.social.Users = function() {
     }
 
     function status() {
-      /** @type {function(function(Object), boolean=)} */
+      /** @type {function(function(?Object), boolean=)} */
       var fn = dom.context['FB'] && dom.context['FB']['getLoginStatus'];
       if (fn) {
         getStatus(fn);
@@ -81,7 +81,7 @@ komito.trackers.social.Users = function() {
     }
 
     for (network in USERS) {
-      /** @type {HTMLImageElement|Image} */ var image = new Image(1, 1);
+      /** @type {!Image} */ var image = new Image(1, 1);
       subscribe(image, network);
     }
 

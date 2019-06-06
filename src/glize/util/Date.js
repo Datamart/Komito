@@ -1,4 +1,3 @@
-
 /**
  * @fileoverview Date utility methods.
  *
@@ -92,6 +91,7 @@ util.Date = {
     opt_date = opt_date || util.Date.getDate();
     /** @type {number} */ var number = util.Date.getWeekNumber(opt_date);
     /** @type {string} */ var week = ('0' + number).slice(-2);
+
     return opt_date.getFullYear() + '-W' + week;
   },
 
@@ -108,6 +108,7 @@ util.Date = {
     opt_date.setDate(opt_date.getDate() + 3 - (opt_date.getDay() + 6) % 7);
     /** @type {!Date} */ var jan4 = new Date(opt_date.getFullYear(), 0, 4);
     /** @type {number} */ var diff = opt_date - jan4;
+
     return 1 + Math.round((diff / 864e5 - 3 + (jan4.getDay() + 6) % 7) / 7);
   },
 
@@ -115,7 +116,7 @@ util.Date = {
    * Converts value to Date object.
    * NOTE: Currently supported only ISO 8601 week date format.
    * @param {string} value The value to convert.
-   * @return {Date} Returns converted value to Date object.
+   * @return {!Date} Returns converted value to Date object.
    * @see util.Date.getWeekDate
    * @example
    * var date = util.Date.toDate('2015-W44');
@@ -123,11 +124,11 @@ util.Date = {
    * date.toString() == str;
    */
   toDate: function(value) {
-    /** @type {Array.<string>} */
+    /** @type {?Array.<string>} */
     var weekDate = value.match(/^([12]\d{3})\-w([012345]\d)(\-\d+)*$/i);
     /** @type {number} */ var year;
     /** @type {number} */ var week;
-    /** @type {Date} */ var date;
+    /** @type {!Date} */ var date;
     /** @type {number} */ var offset;
 
     if (weekDate) {
@@ -138,6 +139,7 @@ util.Date = {
       offset = date.getDay() <= 4 ? 1 : 8;
       date.setDate(date.getDate() - date.getDay() + offset);
     }
+
     return date;
   }
 };

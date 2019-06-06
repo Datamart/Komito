@@ -75,6 +75,7 @@ function run() {
           --warning_level VERBOSE \
           --charset UTF-8 \
           --use_types_for_optimization \
+          --jscomp_warning=lintChecks \
           --js_output_file "${JS_COMPILED}"
 
     echo "${LICENSE}${NEW_LINE}(function(){" | cat - $JS_COMPILED > /tmp/out && mv /tmp/out $JS_COMPILED

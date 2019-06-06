@@ -8,7 +8,7 @@ komito.trackers.social = {
    * Initializes social events tracking.
    */
   init: function() {
-    /** @type {!Object.<string, Function>} */ var map = {
+    /** @type {!Object.<string, !Function>} */ var map = {
       'trackFacebook': komito.trackers.social.Facebook,
       'trackLinkedIn': komito.trackers.social.LinkedIn,
       'trackTwitter': komito.trackers.social.Twitter,
