@@ -21,10 +21,27 @@ komito.trackers.media = {
    * @see komito.trackers.media.YouTube
    */
   init: function() {
-    if (komito.config['trackMedia']) {
-      komito.trackers.media.HTML5 && new komito.trackers.media.HTML5;
-      komito.trackers.media.Vimeo && new komito.trackers.media.Vimeo;
-      komito.trackers.media.YouTube && new komito.trackers.media.YouTube;
+    /** @type {number|string|!Array} */
+    var trackMedia = komito.config['trackMedia'];
+    /** @type {!Array.<string>} */ var types = ['html5', 'vimeo', 'youtube'];
+    /** @type {string} */ var type;
+    /** @type {number} */ var length;
+
+    if (trackMedia) {
+      if (util.Array.isArray(trackMedia)) {
+        types = /** @type {!Array.<string>} */ (trackMedia);
+      }
+
+      length = types.length;
+      for (; length--;) {
+        type = types[length].toLowerCase();
+        if ('html5' == type)
+          komito.trackers.media.HTML5 && new komito.trackers.media.HTML5;
+        else if ('vimeo' == type)
+          komito.trackers.media.Vimeo && new komito.trackers.media.Vimeo;
+        else if ('youtube' == type)
+          komito.trackers.media.YouTube && new komito.trackers.media.YouTube;
+      }
     }
   }
 };
