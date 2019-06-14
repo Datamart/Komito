@@ -45,8 +45,8 @@ var komito = {
     'sendHeartbeat': 0, // Experimental feature.
     // 'trackingIds': ['List of tracking Ids'],
     'nonInteraction': [
-      'form', 'print', 'scroll', 'video', 'orientation',
-      'adblock', 'heartbeat'],
+      'adblock', 'audio', 'form', 'heartbeat', 'orientation', 'print',
+      'scroll', 'video'],
     'debugMode': /[?&]debug=1/.test(location.search)
   },
 
