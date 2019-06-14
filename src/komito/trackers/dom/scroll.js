@@ -12,11 +12,19 @@ komito.trackers.dom.Scroll = function() {
    * @private
    */
   function init_() {
-    if (komito.config['trackScroll']) {
-      /** @type {!Object} */ var map = {25: 0, 50: 0, 75: 0, 100: 0};
+    /** @type {number|string|!Array} */
+    var trackScroll = komito.config['trackScroll'];
+    if (trackScroll) {
+      /** @type {!Array.<number>} */ var percentages = [25, 50, 75, 100];
+      if (util.Array.isArray(trackScroll)) {
+        percentages = /** @type {!Array.<number>} */ (trackScroll);
+      }
+
       /** @type {?Element} */ var root = dom.document.documentElement;
       /** @type {?Element} */ var body = dom.document.body;
-      /** @type {number} */ var depth;
+      /** @type {!Object} */ var map = {};
+      /** @type {number} */ var depth = percentages.length;
+      for (; depth--;) { map[percentages[depth]] = 0; }
 
       dom.events.addEventListener(
           dom.context, dom.events.TYPE.SCROLL, function() {
