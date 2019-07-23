@@ -1,0 +1,29 @@
+{
+  "author": {
+    "name": "Valentin Podkamennyi",
+    "email": "valentin@dtm.io"
+  },
+  "bugs": {
+    "url": "https://github.com/Datamart/Komito/issues"
+  },
+  "description": "Komito Analytics is an enhancement for the most popular analytics software.",
+  "homepage": "https://komito.net/",
+  "keywords": [
+    "adobe-analytics",
+    "analytics",
+    "baidu-analytics",
+    "event-tracking",
+    "google-analytics",
+    "komito",
+    "komito-analytics",
+    "media-tracking"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "name": "komito-analytics",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Datamart/Komito.git"
+  },
+  "version": "1.0.3"
+}
