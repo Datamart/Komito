@@ -3,4 +3,6 @@
 language: python
 python: 2.7
 sudo: required
-script: ./build/build.sh
+script:
+  - ./build/build.sh
+  - ./build/npmjs.sh
