@@ -12,7 +12,7 @@ komito.trackers.dom.Scroll = function() {
    * @private
    */
   function init_() {
-    /** @type {number|string|!Array} */
+    /** @type {!Array|!Function|number|string} */
     var trackScroll = komito.config['trackScroll'];
     if (trackScroll) {
       /** @type {!Array.<number>} */ var percentages = [25, 50, 75, 100];

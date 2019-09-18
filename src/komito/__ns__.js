@@ -24,7 +24,7 @@
 var komito = {
   /**
    * Default tracking options.
-   * @type {!Object.<string, number|string|!Array>}
+   * @type {!Object.<string, !Array|!Function|number|string>}
    * @see komito.config
    */
   DEFAULTS: {
@@ -48,6 +48,7 @@ var komito = {
       'adblock', 'audio', 'form', 'heartbeat', 'orientation', 'print',
       'scroll', 'video'],
     'debugMode': /[?&]debug=1/.test(location.search)
+    // 'onBeforeTrack': function(event) {}
   },
 
   /**
@@ -99,19 +100,21 @@ var komito = {
    * _hmt.push(['_trackEvent', 'social:action', network, target]);
    */
   track: function(var_args) {
-    /** @type {!Array} */ var args = util.Array.toArray(arguments);
+    /** @type {?Array} */ var args = komito.getTrackingData_(
+        util.Array.toArray(arguments));
     /** @type {!Array} */ var argv;
-    args[0] = args[0] ? 'social' : 'event'; // Action type: 1 or 0;
 
-    komito.sendGa_(args);
-    komito.sendTagLoader_(args);
-    argv = komito.convert_(args);
-    komito.send_([dom.context], 'ClickTaleEvent', [argv.join(':')]);
-    komito.send_([dom.context], '__utmTrackEvent', argv);
-    dom.context['_hmt'] && komito.send_(
-        [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
-    komito.sendClassicGa_(args);
-    komito.sendYm_(args);
+    if (args) {
+      komito.sendGa_(args);
+      komito.sendTagLoader_(args);
+      argv = komito.convert_(args);
+      komito.send_([dom.context], 'ClickTaleEvent', [argv.join(':')]);
+      komito.send_([dom.context], '__utmTrackEvent', argv);
+      dom.context['_hmt'] && komito.send_(
+          [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
+      komito.sendClassicGa_(args);
+      komito.sendYm_(args);
+    }
   },
 
   /**
@@ -325,8 +328,36 @@ var komito = {
   },
 
   /**
+   * Prepares data to send to the trackers.
+   * @param {!Array} args The arguments to prepare.
+   * @return {?Array} Returns prepared arguments.
+   * @private
+   */
+  getTrackingData_: function(args) {
+    args[0] = args[0] ? 'social' : 'event'; // Action type: 1 or 0;
+
+    /** @type {boolean} */ var hasData = true;
+    /** @type {!Object.<string, *>} */ var data = {
+      'type': args[0],
+      'category': args[1],
+      'action': args[2],
+      'label': args[3],
+      'preventDefault': function() {
+        hasData = false;
+      }
+    };
+
+    komito.config['onBeforeTrack'] &&
+        /** @type {!Function}*/ (komito.config['onBeforeTrack'])(data);
+
+    return hasData ?
+        [data['type'], data['category'], data['action'], data['label']] :
+        dom.NULL;
+  },
+
+  /**
    * The configuration options.
-   * @type {!Object.<string, number|string|!Array>}
+   * @type {!Object.<string, !Array|!Function|number|string>}
    * @see komito.DEFAULTS
    * @see komito.init_
    */

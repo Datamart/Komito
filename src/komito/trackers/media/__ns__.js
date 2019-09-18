@@ -21,7 +21,7 @@ komito.trackers.media = {
    * @see komito.trackers.media.YouTube
    */
   init: function() {
-    /** @type {number|string|!Array} */
+    /** @type {!Array|!Function|number|string} */
     var trackMedia = komito.config['trackMedia'];
     /** @type {!Array.<string>} */ var types = ['html5', 'vimeo', 'youtube'];
     /** @type {string} */ var type;
