@@ -40,15 +40,17 @@ var komito = {
     'trackMedia': 1,
     'trackScroll': 1,
     'trackOrientation': 1,
+    'trackColorScheme': 1,
     'trackAdblock': 0, // Experimental feature.
     'trackErrorPages': 0, // Experimental feature.
     'sendHeartbeat': 0, // Experimental feature.
     // 'trackingIds': ['List of tracking Ids'],
     'nonInteraction': [
-      'adblock', 'audio', 'form', 'heartbeat', 'orientation', 'print',
-      'scroll', 'video'],
+      'adblock', 'audio', 'color-scheme', 'form', 'heartbeat', 'orientation',
+      'print', 'scroll', 'video'],
     'debugMode': /[?&]debug=1/.test(location.search)
-    // 'onBeforeTrack': function(event) {}
+    // 'onBeforeTrack': function(event) {},
+    // 'propIndex': 0
   },
 
   /**
@@ -105,7 +107,7 @@ var komito = {
     /** @type {!Array} */ var argv;
 
     if (args) {
-      komito.sendGa_(args);
+      komito.config['gtag'] ? komito.sendGtag_(args) : komito.sendGa_(args);
       komito.sendTagLoader_(args);
       argv = komito.convert_(args);
       komito.send_([dom.context], 'ClickTaleEvent', [argv.join(':')]);
@@ -152,6 +154,7 @@ var komito = {
    * @private
    */
   sendTagLoader_: function(args) {
+    /** @type {number} */ var index = +komito.config['propIndex'] || 0;
     /** @type {?Function} */ var loader = dom.context['TagLoader'] ||
                                           dom.context['AppMeasurement'];
     /** @type {?Object} */ var tracker = dom.context['s'];
@@ -161,7 +164,7 @@ var komito = {
 
     if (loader && tracker && (tracker instanceof loader)) {
       for (; i < args.length; i++) {
-        key = 'prop' + i;
+        key = 'prop' + (i + index);
         vars.push(key);
         tracker[key] = args[i];
       }
@@ -214,6 +217,41 @@ var komito = {
       var data = komito.isNonInteraction_(args) ?
           args.concat([{'nonInteraction': 1}]) : args;
       trackers && komito.send_(trackers, 'send', data);
+    }
+  },
+
+  /**
+   * Sends Google Analytics Events using gtag.js
+   * @param {!Array} args The arguments to send.
+   * @private
+   * @see https://developers.google.com/analytics/devguides/collection/gtagjs/events
+   * @see https://developers.google.com/gtagjs/reference/event
+   */
+  sendGtag_: function(args) {
+    /** @type {?Array} */ var dataLayer = dom.context['dataLayer'];
+
+    if (util.Array.isArray(dataLayer) && dataLayer.length > 0) {
+      /** @type {string} */ var type = args[0];
+      /** @type {string} */ var action = args[2];
+      /** @type {!Function} */ var gtag = function() {dataLayer.push(arguments);};
+
+      // Social: ['social', 'network', 'action', 'target']
+      // Event: ['event', 'category', 'action', 'label']
+      if ('social' === type && action === 'share') {
+        gtag('event', action, {
+          'method' : args[1],
+          'target': args[3],
+          'social_target': args[3]
+        });
+      } else {
+        gtag('event', action, {
+          'event_category': args[1],
+          'event_label': args[3],
+          'non_interaction': komito.isNonInteraction_(args)
+        });
+      }
+    } else {
+      komito.sendGa_(args);
     }
   },
 

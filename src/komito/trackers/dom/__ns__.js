@@ -13,6 +13,8 @@ komito.trackers.dom = {
 
     komito.trackers.dom.trackHeartBeat_(+komito.config['sendHeartbeat']);
     komito.trackers.dom.trackErrorPages_();
+    komito.trackers.dom.trackColorScheme_();
+    komito.trackers.dom.trackRuntimeErrors_();
   },
 
   /**
@@ -51,6 +53,32 @@ komito.trackers.dom = {
           komito.track(komito.EVENT_ACTION_TYPE, 'errors', req.status, page);
         }
       });
+    }
+  },
+
+  /**
+   * Tracks javascript runtime errors.
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/ErrorEvent
+   * @private
+   */
+  trackRuntimeErrors_: function() {
+    if (komito.config['trackErrors']) {
+      dom.events.addEventListener(dom.context, 'error', function(e) {
+        komito.track(komito.EVENT_ACTION_TYPE, 'errors', e.message, e.filename);
+      });
+    }
+  },
+
+  /**
+   * Tracks user preferred color scheme.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
+   * @private
+   */
+  trackColorScheme_: function() {
+    if (komito.config['trackColorScheme'] && dom.context.matchMedia) {
+      var query = '(prefers-color-scheme: dark)';
+      var scheme = dom.context.matchMedia(query).matches ? 'dark' : 'light';
+      komito.track(komito.EVENT_ACTION_TYPE, 'color-scheme', scheme);
     }
   }
 };
