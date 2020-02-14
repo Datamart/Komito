@@ -16,7 +16,8 @@
     "google-analytics",
     "komito",
     "komito-analytics",
-    "media-tracking"
+    "media-tracking",
+    "particles-analytics"
   ],
   "license": "Apache-2.0",
   "main": "index.js",

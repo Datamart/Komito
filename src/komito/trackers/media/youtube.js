@@ -46,10 +46,14 @@ komito.trackers.media.YouTube = function() {
       element = elements[length];
       source = element.src;
       if (PATTERN.test(source)) {
-        if (0 > source.indexOf('enablejsapi')) {
-          element.src += (~source.indexOf('?') ? '&' : '?') + 'enablejsapi=1';
+        if (!komito.DynamicContentTracker.isRegistered(element)) {
+          komito.DynamicContentTracker.register(element);
+
+          if (0 > source.indexOf('enablejsapi')) {
+            element.src += (~source.indexOf('?') ? '&' : '?') + 'enablejsapi=1';
+          }
+          iframes.push(element);
         }
-        iframes.push(element);
       }
     }
 
@@ -69,6 +73,8 @@ komito.trackers.media.YouTube = function() {
 
       dom.context['YT'] || dom.scripts.load(PLAYERJS);
     }
+
+    komito.DynamicContentTracker.track(init_);
   }
 
   /**

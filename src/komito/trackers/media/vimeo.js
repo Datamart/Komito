@@ -40,8 +40,12 @@ komito.trackers.media.Vimeo = function() {
 
     for (; length;) {
       element = elements[--length];
-      if (PATTERN.test(element.src))
-        iframes.push(element);
+      if (PATTERN.test(element.src)) {
+        if (!komito.DynamicContentTracker.isRegistered(element)) {
+          komito.DynamicContentTracker.register(element);
+          iframes.push(element);
+        }
+      }
     }
 
     if (iframes.length) {
@@ -53,6 +57,8 @@ komito.trackers.media.Vimeo = function() {
         });
       }
     }
+
+    komito.DynamicContentTracker.track(init_);
   }
 
   /**

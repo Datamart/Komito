@@ -15,12 +15,20 @@ komito.trackers.dom.Forms = function() {
     if (komito.config['trackForms']) {
       /** @type {?HTMLCollection} */ var forms = dom.document.forms;
       /** @type {number} */ var length = forms.length;
+      /** @type {!Element} */ var element;
 
       for (; length;) {
-        dom.events.addEventListener(
-            forms[--length], dom.events.TYPE.SUBMIT, listener_);
+        element = forms[--length];
+        if (!komito.DynamicContentTracker.isRegistered(element)) {
+          komito.DynamicContentTracker.register(element);
+
+          dom.events.addEventListener(
+              element, dom.events.TYPE.SUBMIT, listener_);
+        }
       }
     }
+
+    komito.DynamicContentTracker.track(init_);
   }
 
   /**

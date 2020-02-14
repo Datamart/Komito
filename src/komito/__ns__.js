@@ -12,7 +12,7 @@
  *
  * Include script before closing <code>&lt;/body&gt;</code> tag.
  * <code>
- *   &lt;script src="//datamart.github.io/Komito/komito.js"&gt;&lt;/script&gt;
+ *   &lt;script src="//komito.net/komito.js"&gt;&lt;/script&gt;
  * </code>
  */
 
@@ -41,16 +41,17 @@ var komito = {
     'trackScroll': 1,
     'trackOrientation': 1,
     'trackColorScheme': 1,
-    'trackAdblock': 0, // Experimental feature.
-    'trackErrorPages': 0, // Experimental feature.
-    'sendHeartbeat': 0, // Experimental feature.
-    // 'trackingIds': ['List of tracking Ids'],
     'nonInteraction': [
       'adblock', 'audio', 'color-scheme', 'form', 'heartbeat', 'orientation',
       'print', 'scroll', 'video'],
     'debugMode': /[?&]debug=1/.test(location.search)
+    // 'trackAdblock': 0, // Experimental feature.
+    // 'trackErrorPages': 0, // Experimental feature.
+    // 'sendHeartbeat': 0, // Experimental feature.
+    // 'trackingIds': ['List of tracking Ids'],
     // 'onBeforeTrack': function(event) {},
-    // 'propIndex': 0
+    // 'propIndex': 0,
+    // 'trackDynamicContent': 0
   },
 
   /**
@@ -86,6 +87,13 @@ var komito = {
   SOCIAL_ACTION_TYPE: 1,
 
   /**
+   * Sign of registered HTML element.
+   * Used to track dynamic content to avoid adding event listeners twice.
+   * @const {string}
+   */
+  REGISTERED_ELEMENT_KEY: 'data-kmt',
+
+  /**
    * Performs trackers function execution.
    * @param {...*} var_args
    *
@@ -116,6 +124,51 @@ var komito = {
           [dom.context['_hmt']], 'push', [['_trackEvent'].concat(argv)]);
       komito.sendClassicGa_(args);
       komito.sendYm_(args);
+    }
+  },
+
+  /**
+   *
+   */
+  DynamicContentTracker: {
+    /**
+     * @param {!Function} listener The dynamic content listener.
+     */
+    track: function(listener) {
+      if (komito.config['trackDynamicContent']) {
+        /** @type {number} */ var timer = setTimeout(function() {
+          timer && clearTimeout(timer);
+          listener();
+        }, 1E3);
+      }
+    },
+
+    /**
+     * @param {!Element} element An HTML element.
+     */
+    register: function(element) {
+      element.setAttribute(komito.REGISTERED_ELEMENT_KEY, 1);
+    },
+
+    /**
+     * @param {!Element} element An HTML element.
+     * @return {boolean} Returns 'true' if the element is registered.
+     */
+    isRegistered: function(element) {
+      return element.hasAttribute(komito.REGISTERED_ELEMENT_KEY);
+    }
+  },
+
+  /**
+   * Marks event as a non-interaction event.
+   * @param {string} event The event name to mark as non-interaction event.
+   * @see https://support.google.com/analytics/answer/1033068#NonInteractionEvents
+   * @see https://github.com/Datamart/Komito/issues/38
+   */
+  markAsNonInteractionEvent: function(event) {
+    var events = /** @type {?Array} */ (komito.config['nonInteraction']);
+    if (events && util.Array.isArray(events) && !util.Array.contains(events, event)) {
+      events.push(event);
     }
   },
 
@@ -360,9 +413,10 @@ var komito = {
    * @private
    */
   isNonInteraction_: function(args) {
-    var type = args[1].split(/\W/)[0]; // video:html5, cta:mailto, scroll.
-    var list = komito.config['nonInteraction'];
-    return util.Array.contains(/** @type {!Array} */ (list), type);
+    var type = args[1]; // video:html5, cta:mailto, color-scheme, scroll.
+    var list = /** @type {!Array} */ (komito.config['nonInteraction']);
+    return util.Array.contains(list, type) ||
+           util.Array.contains(list, type.split(/\W/)[0]);
   },
 
   /**

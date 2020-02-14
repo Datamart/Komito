@@ -53,10 +53,15 @@ komito.trackers.media.HTML5 = function() {
 
     for (; length--;) {
       element = elements[length];
-      for (i = 0; i < 6;) { // 6 == events.length
-        dom.events.addEventListener(element, events[i++], listener);
+      if (!komito.DynamicContentTracker.isRegistered(element)) {
+        komito.DynamicContentTracker.register(element);
+        for (i = 0; i < 6;) { // 6 == events.length
+          dom.events.addEventListener(element, events[i++], listener);
+        }
       }
     }
+
+    komito.DynamicContentTracker.track(init_);
   }
 
   /**

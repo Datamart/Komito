@@ -48,6 +48,7 @@ komito.trackers.dom = {
     var page = komito.config['trackErrorPages'] && location.href;
 
     if (page) {
+      komito.markAsNonInteractionEvent('errors');
       (new net.HttpRequest).doHead(/** @type {string} */(page), function(req) {
         if (399 < req.status) {
           komito.track(komito.EVENT_ACTION_TYPE, 'errors', req.status, page);
@@ -63,6 +64,7 @@ komito.trackers.dom = {
    */
   trackRuntimeErrors_: function() {
     if (komito.config['trackErrors']) {
+      komito.markAsNonInteractionEvent('errors');
       dom.events.addEventListener(dom.context, 'error', function(e) {
         komito.track(komito.EVENT_ACTION_TYPE, 'errors', e.message, e.filename);
       });
@@ -76,6 +78,9 @@ komito.trackers.dom = {
    */
   trackColorScheme_: function() {
     if (komito.config['trackColorScheme'] && dom.context.matchMedia) {
+      // https://github.com/Datamart/Komito/issues/38
+      komito.markAsNonInteractionEvent('color-scheme');
+
       var query = '(prefers-color-scheme: dark)';
       var scheme = dom.context.matchMedia(query).matches ? 'dark' : 'light';
       komito.track(komito.EVENT_ACTION_TYPE, 'color-scheme', scheme);

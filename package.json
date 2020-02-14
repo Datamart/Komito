@@ -1,8 +1,8 @@
 {
   "name": "komito-analytics",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Komito Analytics is a free, open-source enhancement for the most popular web analytics software.",
-  "keywords": ["analytics", "google-analytics", "event-tracking", "adobe-analytics", "clicktale", "baidu-analytics", "media-tracking", "komito-analytics"],
+  "keywords": ["analytics", "google-analytics", "event-tracking", "adobe-analytics", "clicktale", "baidu-analytics", "media-tracking", "komito-analytics", "particles-analytics"],
   "homepage": "https://komito.net",
   "bugs": {
     "url": "https://github.com/Datamart/Komito/issues",

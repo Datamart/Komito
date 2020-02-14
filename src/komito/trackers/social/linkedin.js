@@ -25,6 +25,8 @@ komito.trackers.social.LinkedIn = function() {
       // type: IN/Share+init, IN/FollowCompany+init
       type.indexOf('in/') || subscribe_(element, type.substr(3).split('+')[0]);
     }
+
+    komito.DynamicContentTracker.track(init_);
   }
 
   /**
@@ -33,32 +35,35 @@ komito.trackers.social.LinkedIn = function() {
    * @private
    */
   function subscribe_(element, action) {
-    /** @type {string} */ var type = 'onsuccess';
-    /** @type {string} */ var cb = ['cb', type, action, +new Date].join('_');
-    /** @type {?Node} */ var widget;
+    if (!komito.DynamicContentTracker.isRegistered(element)) {
+      komito.DynamicContentTracker.register(element);
 
-    function handler() {
-      if (!fired_[action]) {
-        fired_[action] = 1;
-        komito.track(
-            komito.SOCIAL_ACTION_TYPE, 'LinkedIn', action, location.href);
-        widget && dom.events.removeEventListener(
-            widget, dom.events.TYPE.CLICK, handler);
+      /** @type {string} */ var type = 'onsuccess';
+      /** @type {string} */ var cb = ['cb', type, action, +new Date].join('_');
+      /** @type {?Node} */ var widget;
+
+      function handler() {
+        if (!fired_[action]) {
+          fired_[action] = 1;
+          komito.track(
+              komito.SOCIAL_ACTION_TYPE, 'LinkedIn', action, location.href);
+          widget && dom.events.removeEventListener(
+              widget, dom.events.TYPE.CLICK, handler);
+        }
       }
+
+      element[type] = (element[type] ? element[type] + ',' : '') + cb;
+      element.setAttribute('data-' + type, cb);
+
+      dom.context[cb] = handler;
+
+      setTimeout(function() {
+        widget = element.previousSibling;
+        if (widget && 'IN-widget' === widget.className) {
+          dom.events.addEventListener(widget, dom.events.TYPE.CLICK, handler);
+        }
+      }, 1E3);
     }
-
-    element[type] = (element[type] ? element[type] + ',' : '') + cb;
-    element.setAttribute('data-' + type, cb);
-
-    dom.context[cb] = handler;
-
-    setTimeout(function() {
-      widget = element.previousSibling;
-      if (widget && 'IN-widget' === widget.className) {
-        dom.events.addEventListener(widget, dom.events.TYPE.CLICK, handler);
-      }
-    }, 1E3);
-
   }
 
   /**

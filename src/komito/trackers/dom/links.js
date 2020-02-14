@@ -46,10 +46,17 @@ komito.trackers.dom.Links = function() {
   function init_() {
     /** @type {?NodeList} */ var links = dom.getElementsByTagName(dom.document, 'A');
     /** @type {number} */ var length = links.length;
+    /** @type {!Element} */ var element;
 
     for (; length;) {
-      addEventListeners_(/** @type {!HTMLAnchorElement} */ (links[--length]));
+      element = links[--length];
+      if (!komito.DynamicContentTracker.isRegistered(element)) {
+        komito.DynamicContentTracker.register(element);
+        addEventListeners_(/** @type {!HTMLAnchorElement} */ (element));
+      }
     }
+
+    komito.DynamicContentTracker.track(init_);
   }
 
   /**
