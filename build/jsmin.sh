@@ -13,8 +13,9 @@ readonly TMP="${CWD}/tmp"
 readonly JS_COMPILED="${CWD}/../min/komito.js"
 readonly JS_SOURCES="${CWD}/../src"
 
-readonly JS_COMPILER_ZIP="compiler-latest.zip"
-readonly JS_COMPILER_URL="http://dl.google.com/closure-compiler/${JS_COMPILER_ZIP}"
+# readonly JS_COMPILER_ZIP="compiler-latest.zip"
+readonly JS_COMPILER_ZIP="compiler-20200204.zip"
+readonly JS_COMPILER_URL="https://dl.google.com/closure-compiler/${JS_COMPILER_ZIP}"
 readonly JS_COMPILER_JAR="${LIB}/compiler.jar"
 
 readonly WGET="$(which wget)"
