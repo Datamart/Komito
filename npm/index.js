@@ -15,25 +15,25 @@ module.exports = {
    * Initializes Komito Analytics extension.
    * @param {!Object=} opt_options Optional tracking options.
    */
-  init: function(opt_options) {
-    var root = ('object' === typeof self && self.self === self && self) ||
-               ('object' === typeof global && global.global === global && global);
-    var doc = root.document;
+  init: (opt_options) => {
+    const root = ('object' === typeof self && self.self === self && self) ||
+                 ('object' === typeof global && global.global === global && global);
+    const doc = root.document;
 
     if (doc) {
       root['_komito'] = root['_komito'] || {};
 
       if (opt_options) {
-        for (var key in opt_options) {
+        for (let key in opt_options) {
           if (opt_options.hasOwnProperty(key)) {
             root['_komito'][key] = opt_options[key];
           }
         }
       }
 
-      var script = doc.createElement('SCRIPT');
-      var scripts = doc.getElementsByTagName('SCRIPT');
-      var parent = scripts[scripts.length - 1].parentNode;
+      const script = doc.createElement('SCRIPT');
+      const scripts = doc.getElementsByTagName('SCRIPT');
+      const parent = scripts[scripts.length - 1].parentNode;
 
       script.async = true;
       script.src = 'https://komito.net/komito.js';
