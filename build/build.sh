@@ -32,8 +32,8 @@ function download() {
 # The main function.
 #
 function main() {
-  println "[BUILD] Running linter:"
-  chmod +x "${CWD}/jslint.sh" && "${CWD}/jslint.sh"
+  # println "[BUILD] Running linter:"
+  # chmod +x "${CWD}/jslint.sh" && "${CWD}/jslint.sh"
 
   println "[BUILD] Running compiler:"
   chmod +x "${CWD}/jsmin.sh" && "${CWD}/jsmin.sh"

@@ -70,7 +70,7 @@ function run() {
     rm -rf "${JS_COMPILED}"
     touch "${JS_COMPILED}" && chmod 0666 "${JS_COMPILED}"
 
-    $PYTHON -c "import sys;sys.argv.pop(0);print(' --js ' + ' --js '.join(sorted(sys.argv, cmp=lambda x,y: cmp(x.lower(), y.lower()))))" `find "${JS_SOURCES}" -name "*.js" -print` \
+    $PYTHON -c "import sys;sys.argv.pop(0);print(' --js ' + ' --js '.join(sorted(sys.argv, key=str.lower)))" `find "${JS_SOURCES}" -name "*.js" -print` \
       | xargs "${JAVA_BIN}" -jar "${JS_COMPILER_JAR}" \
           --compilation_level ADVANCED_OPTIMIZATIONS \
           --warning_level VERBOSE \

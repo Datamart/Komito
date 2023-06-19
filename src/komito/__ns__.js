@@ -28,6 +28,7 @@ var komito = {
    * @see komito.config
    */
   DEFAULTS: {
+    'gtag': 1, // GA4 by default
     'trackTwitter': 1,
     'trackFacebook': 1,
     'trackLinkedIn': 1,

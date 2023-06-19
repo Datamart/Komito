@@ -1,13 +1,19 @@
 {
-  "author": {
-    "name": "Valentin Podkamennyi",
-    "email": "valentin@dtm.io"
-  },
-  "bugs": {
-    "url": "https://github.com/Datamart/Komito/issues"
-  },
+  "name": "komito-analytics",
+  "version": "1.0.6",
   "description": "Komito Analytics is an enhancement for the most popular analytics software.",
   "homepage": "https://komito.net/",
+  "repository": "github:Datamart/Komito",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Datamart/Komito/issues",
+    "email": "support@komito.net"
+  },
+  "author": {
+    "name": "Valentin Podkamennyi",
+    "email": "valentin@dtm.io",
+    "url": "https://vpodk.com/"
+  },
   "keywords": [
     "adobe-analytics",
     "analytics",
@@ -19,12 +25,5 @@
     "media-tracking",
     "particles-analytics"
   ],
-  "license": "Apache-2.0",
-  "main": "index.js",
-  "name": "komito-analytics",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Datamart/Komito.git"
-  },
-  "version": "1.0.5"
+  "main": "index.js"
 }
